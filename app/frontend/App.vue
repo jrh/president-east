@@ -1,6 +1,8 @@
 <template>
   <v-container fluid>
     <Header />
+    <div style="height: 70px;"></div>
+    <router-view></router-view>
     <Footer />
   </v-container>
 </template>

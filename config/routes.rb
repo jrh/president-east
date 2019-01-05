@@ -3,5 +3,8 @@ Rails.application.routes.draw do
   root to: 'main#home'
 
   resources :products, only: [:create, :update, :destroy]
+
+  # Vue fallback
+  get "/*path", to: "main#home", format: false
 end
 

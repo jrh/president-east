@@ -1,9 +1,9 @@
 import '../styles/application.scss';
 import Vue from 'vue/dist/vue.esm';
 import Vuetify from 'vuetify';
-import App from '../VueApp.vue';
-// import store from '../store';
-// import router from '../routes.js';
+import App from '../App.vue';
+import store from '../store';
+import router from '../routes.js';
 
 Vue.use(Vuetify)
 
@@ -12,8 +12,8 @@ document.addEventListener("DOMContentLoaded", () => {
   if (el != null) {
     new Vue({
       el,
-      // store,
-      // router,
+      store,
+      router,
       template: "<App />",
       components: { App },
       created() {

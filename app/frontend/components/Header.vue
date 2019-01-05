@@ -4,7 +4,7 @@
     <v-spacer></v-spacer>
     <v-toolbar-items class="hidden-sm-and-down">
       <v-btn flat>About Us</v-btn>
-      <v-btn flat>Inventory</v-btn>
+      <v-btn flat to="/products">Products</v-btn>
       <v-btn flat>Contact</v-btn>
     </v-toolbar-items>
   </v-toolbar>
