@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  item_no: 1
+  name_en: MyString
+  name_ch: MyString
+  brand_en: MyString
+  brand_ch: MyString
+  box_quantity: MyString
+  image_data: MyText
+
+two:
+  item_no: 1
+  name_en: MyString
+  name_ch: MyString
+  brand_en: MyString
+  brand_ch: MyString
+  box_quantity: MyString
+  image_data: MyText
