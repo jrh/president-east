@@ -12,8 +12,21 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 export default {
-  name: 'ProductIndex'
+  name: 'ProductIndex',
+  data() {
+    return {
+      loading: false
+    }
+  },
+  created() {
+    this.fetchProducts();
+  },
+  methods: {
+
+  }
 }
 </script>
 
