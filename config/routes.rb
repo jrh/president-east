@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root to: 'main#home'
-
-  resources :products, only: [:create, :update, :destroy]
+  
+  namespace :api, defaults: { format: :json } do
+    resources :products, only: [:index, :create, :update, :destroy]
+  end
 
   # Vue fallback
   get "/*path", to: "main#home", format: false

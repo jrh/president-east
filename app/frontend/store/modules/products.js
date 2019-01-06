@@ -9,10 +9,10 @@ const getters = {
 };
 
 const actions = {
-  // async fetchProducts({ rootState, commit }) {
-    // const response = await axios.get();
-    // commit('setProducts', response.data);
-  // }
+  async fetchProducts({ rootState, commit }) {
+    const response = await axios.get('/api/products');
+    commit('setProducts', response.data);
+  }
 };
 
 const mutations = {
