@@ -1,23 +1,32 @@
 import axios from 'axios';
 
 const state = {
-  products: [],
-  searchResults: []
+  productData: {},
+  productList: [],
+  searchResults: [],
+  loading: false
 };
 
 const getters = {
+  products(state) {
+    return state.productData;
+  }
 };
 
 const actions = {
-  async fetchProducts({ rootState, commit }) {
-    const response = await axios.get('/api/products');
-    commit('setProducts', response.data);
+  fetchProducts({ commit }) {
+    axios.get('/api/products')
+      .then(response => {
+        console.log(response);
+        commit('setProducts', response.data);
+      })
+      .catch(error => console.log(error))
   }
 };
 
 const mutations = {
-  setProducts: (state, products) => {
-    state.products = products;
+  setProducts(state, data) {
+    state.productData = data;
   }
 };
 

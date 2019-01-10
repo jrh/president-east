@@ -1,7 +1,7 @@
 module Api
   class ProductsController < ApiController
     def index
-      render json: Product.all
+      render status: :ok, json: Product.all
     end
 
     def create

@@ -1,31 +1,41 @@
 <template>
   <div>
-    <v-toolbar dense id="search-bar">
-      <v-text-field
-        hide-details
-        prepend-icon="search"
-        single-line
-      ></v-text-field>
-    </v-toolbar>
-    <h5>Product Inventory</h5>
+    <v-layout row justify-center>
+      <p>Product Inventory</p>
+    </v-layout>
+    <v-layout row>
+      <v-toolbar dense id="search-bar">
+        <v-text-field
+          hide-details
+          prepend-icon="search"
+          single-line
+        ></v-text-field>
+      </v-toolbar>
+    </v-layout>
+
+    <v-layout row justify-space-around class="mt-5">
+      <div v-for="product in products">
+        <ProductIndexCard :product="product" />         
+      </div>
+    </v-layout>
   </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
+import ProductIndexCard from './ProductIndexCard.vue';
 
 export default {
   name: 'ProductIndex',
-  data() {
-    return {
-      loading: false
-    }
-  },
+  components: { ProductIndexCard },
   created() {
     this.fetchProducts();
   },
+  computed: {
+    ...mapGetters(['products'])
+  },
   methods: {
-
+    ...mapActions(['fetchProducts'])
   }
 }
 </script>
@@ -33,6 +43,9 @@ export default {
 <style scoped>
 #search-bar {
   width: 300px;
+}
+p {
+  font-size: 24px;
 }
 </style>
 
