@@ -1,14 +1,6 @@
 <template>
-  <v-footer
-    fixed
-    height="auto"
-    color="primary lighten-1"
-  >
-    <v-layout
-      justify-center
-      row
-      wrap
-    >
+  <v-footer app height="auto">
+    <v-layout row justify-center wrap>
       <!-- <v-btn
         v-for="link in links"
         :key="link"
