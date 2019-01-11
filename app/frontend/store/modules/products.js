@@ -1,7 +1,8 @@
 import axios from 'axios';
+import { normalize, schema } from 'normalizr';
 
 const state = {
-  productData: [],
+  productData: {},
   productList: [],
   searchResults: [],
   loading: false
@@ -9,7 +10,7 @@ const state = {
 
 const getters = {
   products(state) {
-    return state.productData;
+    return state.productList.map(id => state.productData[id]);
   }
 };
 
@@ -17,8 +18,11 @@ const actions = {
   fetchProducts({ commit }) {
     axios.get('/api/products')
       .then(response => {
-        console.log(response);
-        commit('setProducts', response.data);
+        const myData = { products: response.data };
+        const product = new schema.Entity('products');
+        const mySchema = { products: [ product ] }
+        const normalizedData = normalize(myData, mySchema);
+        commit('setProducts', normalizedData);
       })
       .catch(error => console.log(error))
   }
@@ -26,7 +30,8 @@ const actions = {
 
 const mutations = {
   setProducts(state, data) {
-    state.productData = data;
+    state.productData = data.entities.products;
+    state.productList = data.result.products;
   }
 };
 

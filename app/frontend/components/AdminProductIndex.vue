@@ -108,13 +108,13 @@ export default {
   methods: {
     ...mapActions(['fetchProducts']),
     editItem (item) {
-      this.editedIndex = this.products.indexOf(item)
-      this.editedItem = Object.assign({}, item)
+      //this.editedIndex = this.products.indexOf(item)
+      //this.editedItem = Object.assign({}, item)
       this.dialog = true
     },
     deleteItem (item) {
-      const index = this.products.indexOf(item)
-      confirm('Are you sure you want to delete this item?') && this.products.splice(index, 1)
+      //const index = this.products.indexOf(item)
+      //confirm('Are you sure you want to delete this item?') && this.products.splice(index, 1)
     },
 
     close () {
