@@ -1,23 +1,7 @@
 <template>
   <v-footer app height="auto">
     <v-layout row justify-center wrap>
-      <!-- <v-btn
-        v-for="link in links"
-        :key="link"
-        color="white"
-        flat
-        round
-      >
-        {{ link }}
-      </v-btn> -->
-      <v-flex
-        primary
-        lighten-2
-        py-3
-        text-xs-center
-        black--text
-        xs12
-      >
+      <v-flex style="background-color: #f5f5f5" black--text py-3 text-xs-center xs12>
         &copy; {{ new Date().getFullYear() }} — <strong>PEC</strong>
       </v-flex>
     </v-layout>
