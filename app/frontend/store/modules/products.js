@@ -25,6 +25,25 @@ const actions = {
         commit('setProducts', normalizedData);
       })
       .catch(error => console.log(error))
+  },
+  createProduct({ commit }) {
+    axios.post('/api/products', {
+
+    })
+    .then(response => console.log(response))
+    .catch(error => console.log(error))
+  },
+  updateProduct({ commit }, product) {
+    axios({
+      method: 'put',
+      url: `/api/products/${product.id}`,
+      data: { product }
+    })
+    .then(response => {
+      console.log(response)
+      commit('editProduct', response.data)
+    })
+    .catch(error => console.log(error))
   }
 };
 
@@ -32,6 +51,17 @@ const mutations = {
   setProducts(state, data) {
     state.productData = data.entities.products;
     state.productList = data.result.products;
+  },
+  editProduct(state, payload) {
+    const product = state.productData[payload.id]
+    product.name_en = payload.name_en
+    product.name_zh = payload.name_zh
+    product.brand_en = payload.brand_en
+    product.box_quantity = payload.box_quantity
+    product.storage_temp = payload.storage_temp
+  },
+  newProduct(state, payload) {
+
   }
 };
 

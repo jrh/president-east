@@ -36,7 +36,7 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="blue darken-1" flat @click="close">Cancel</v-btn>
-              <v-btn color="blue darken-1" flat @click="save">Save</v-btn>
+              <v-btn color="blue darken-1" flat @click="save(editedItem)">Save</v-btn>
             </v-card-actions>
           </v-card>
       </v-dialog>
@@ -79,6 +79,7 @@ export default {
       ],
       editedIndex: -1,
       editedItem: {
+        id: null,
         name_en: '',
         name_zh: '',
         brand_en: '',
@@ -86,6 +87,7 @@ export default {
         storage_temp: null
       },
       defaultItem: {
+        id: null,
         name_en: '',
         name_zh: '',
         brand_en: '',
@@ -106,10 +108,10 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['fetchProducts']),
-    editItem (item) {
-      //this.editedIndex = this.products.indexOf(item)
-      //this.editedItem = Object.assign({}, item)
+    ...mapActions(['fetchProducts', 'createProduct', 'updateProduct']),
+    editItem(product) {
+      this.editedIndex = 2
+      this.editedItem = Object.assign({}, product)
       this.dialog = true
     },
     deleteItem (item) {
@@ -125,9 +127,10 @@ export default {
       }, 300)
     },
 
-    save () {
+    save(product) {
       if (this.editedIndex > -1) {
-        Object.assign(this.products[this.editedIndex], this.editedItem)
+        // Object.assign(this.products[this.editedIndex], this.editedItem)
+        this.updateProduct(product);
       } else {
         this.products.push(this.editedItem)
       }
