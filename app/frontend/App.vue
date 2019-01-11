@@ -9,6 +9,7 @@
         <v-btn flat to="/about">About Us</v-btn>
         <v-btn flat to="/products">Products</v-btn>
         <v-btn flat to="/contact">Contact</v-btn>
+        <v-btn flat to="/admin_products">Admin</v-btn>
       </v-toolbar-items>
       <v-toolbar-side-icon @click="drawer = !drawer" class="hidden-md-and-up"></v-toolbar-side-icon>
     </v-toolbar>

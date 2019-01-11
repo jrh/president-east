@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const state = {
-  productData: {},
+  productData: [],
   productList: [],
   searchResults: [],
   loading: false
