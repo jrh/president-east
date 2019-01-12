@@ -27,7 +27,11 @@
                     <v-text-field v-model="editedItem.box_quantity" label="Box Quantity"></v-text-field>
                   </v-flex>
                   <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="editedItem.storage_temp" label="Storage Temp"></v-text-field>
+                    <v-radio-group v-model="editedItem.storage_temp" number>
+                      <v-radio label="Room" value="room"></v-radio>
+                      <v-radio label="Cooler" value="cooler"></v-radio>
+                      <v-radio label="Freezer" value="freezer"></v-radio>
+                    </v-radio-group>
                   </v-flex>
                 </v-layout>
               </v-container>
