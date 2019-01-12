@@ -1,7 +1,7 @@
 <template>
-  <v-footer app height="auto">
+  <v-footer app height="auto" color="light-green lighten-4">
     <v-layout row justify-center wrap>
-      <v-flex style="background-color: #f5f5f5" black--text py-3 text-xs-center xs12>
+      <v-flex black--text py-3 text-xs-center xs12>
         &copy; {{ new Date().getFullYear() }} — <strong>PEC</strong>
       </v-flex>
     </v-layout>

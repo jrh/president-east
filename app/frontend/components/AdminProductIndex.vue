@@ -5,7 +5,7 @@
     </v-layout>
     <v-layout row justify-end>
       <v-dialog v-model="dialog" max-width="500px">
-        <v-btn slot="activator">Add Product</v-btn>
+        <v-btn slot="activator" color="success">Add Product</v-btn>
           <v-card>
             <v-card-title>
               <span class="headline">{{ formTitle }}</span>

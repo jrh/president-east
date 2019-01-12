@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-navigation-drawer app right stateless v-model="drawer"></v-navigation-drawer>
-    <v-toolbar app>
+    <v-toolbar app color="light-green lighten-4">
       <v-toolbar-title>豐玉公司</v-toolbar-title>
       <v-toolbar-title>President East Co.</v-toolbar-title>
       <v-spacer></v-spacer>
