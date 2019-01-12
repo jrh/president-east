@@ -11,6 +11,9 @@ const state = {
 const getters = {
   products(state) {
     return state.productList.map(id => state.productData[id]);
+  },
+  searchResults(state) {
+    return state.searchResults;
   }
 };
 
@@ -45,6 +48,16 @@ const actions = {
       commit('editProduct', response.data);
     })
     .catch(error => console.log(error))
+  },
+  searchProducts({ commit }, term) {
+    axios.get('/api/products/search', {
+      params: { search: term }
+    })
+    .then(response => {
+      console.log(response);
+      commit('setSearchResults', response.data);
+    })
+    .catch(error => console.log(error))
   }
 };
 
@@ -74,6 +87,9 @@ const mutations = {
     product.brand_zh = payload.brand_zh;
     product.box_quantity = payload.box_quantity;
     product.storage_temp = payload.storage_temp;
+  },
+  setSearchResults(state, data) {
+    state.searchResults = data;
   }
 };
 
