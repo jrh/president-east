@@ -91,7 +91,7 @@ export default {
         { text: 'Storage Temp', align: 'center', value: 'storage_temp' },
         { text: 'Actions', align: 'center', value: 'name', sortable: false }
       ],
-      editedIndex: -1,
+      mode: 'new',
       editedItem: {
         id: null,
         item_no: '',
@@ -100,24 +100,14 @@ export default {
         brand_en: '',
         brand_zh: '',
         box_quantity: '',
-        storage_temp: null
-      },
-      defaultItem: {
-        id: null,
-        item_no: '',
-        name_en: '',
-        name_zh: '',
-        brand_en: '',
-        brand_zh: '',
-        box_quantity: '',
-        storage_temp: null
+        storage_temp: 'room'
       }
     }
   },
   computed: {
     ...mapGetters(['products']),
     formTitle() {
-      return this.editedIndex === -1 ? 'New Product' : 'Edit Product'
+      return this.mode === 'new' ? 'New Product' : 'Edit Product'
     }
   },
   watch: {
@@ -128,29 +118,27 @@ export default {
   methods: {
     ...mapActions(['fetchProducts', 'createProduct', 'updateProduct']),
     editItem(product) {
-      this.editedIndex = 2
+      this.mode = 'edit'
       this.editedItem = Object.assign({}, product)
       this.dialog = true
     },
-    deleteItem (item) {
+    deleteItem(product) {
       //const index = this.products.indexOf(item)
       //confirm('Are you sure you want to delete this item?') && this.products.splice(index, 1)
     },
-
-    close () {
+    close() {
+      this.mode = 'new'
       this.dialog = false
       setTimeout(() => {
         this.editedItem = Object.assign({}, this.defaultItem)
-        this.editedIndex = -1
       }, 300)
     },
-
     save(product) {
-      if (this.editedIndex > -1) {
+      if (this.mode === 'edit') {
         // Object.assign(this.products[this.editedIndex], this.editedItem)
         this.updateProduct(product);
       } else {
-        this.products.push(this.editedItem)
+        this.createProduct(product)
       }
       this.close()
     }
