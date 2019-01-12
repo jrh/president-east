@@ -4,6 +4,7 @@ import Vuetify from 'vuetify';
 import App from '../App.vue';
 import store from '../store';
 import router from '../routes.js';
+import '../filters/capitalize.js';
 
 Vue.use(Vuetify)
 

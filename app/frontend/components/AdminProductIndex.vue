@@ -52,7 +52,7 @@
           <td>{{ props.item.name_zh }}</td>
           <td>{{ props.item.brand_en }}</td>
           <td>{{ props.item.box_quantity }}</td>
-          <td>{{ props.item.storage_temp }}</td>
+          <td>{{ props.item.storage_temp | capitalize }}</td>
           <td>
             <v-icon small @click="editItem(props.item)">edit</v-icon>
           </td>
