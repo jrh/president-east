@@ -13,11 +13,13 @@
       </v-toolbar>
     </v-layout>
 
-    <v-layout row justify-space-around class="mt-5">
-      <div v-for="product in products">
-        <ProductIndexCard :product="product" />         
-      </div>
-    </v-layout>
+    <v-container fluid grid-list-sm class="mt-5">
+      <v-layout row wrap>
+        <v-flex v-for="product in products" :key="product.id">
+          <ProductIndexCard :product="product" class="mb-5" />         
+        </v-flex>
+      </v-layout>
+    </v-container>
   </div>
 </template>
 
