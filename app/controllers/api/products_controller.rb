@@ -12,6 +12,8 @@ module Api
       @product = Product.find(params[:id])
       if @product.update(product_params)
         render status: :ok, json: @product
+      else
+        render status: :internal_service_error
       end
     end
 
@@ -22,7 +24,7 @@ module Api
     private
       
       def product_params
-        params.require(:product).permit(:name_en, :name_zh, :brand_en, :brand_zh, :box_quantity, :storage_temp)
+        params.require(:product).permit(:item_no, :name_en, :name_zh, :brand_en, :brand_zh, :box_quantity, :storage_temp)
       end
   end
 end

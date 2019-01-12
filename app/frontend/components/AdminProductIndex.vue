@@ -15,6 +15,9 @@
               <v-container grid-list-md>
                 <v-layout wrap>
                   <v-flex xs12 sm6 md4>
+                    <v-text-field v-model="editedItem.item_no" label="Item No." number></v-text-field>
+                  </v-flex> 
+                  <v-flex xs12 sm6 md4>
                     <v-text-field v-model="editedItem.name_en" label="Name (En)"></v-text-field>
                   </v-flex>
                   <v-flex xs12 sm6 md4>
@@ -22,6 +25,9 @@
                   </v-flex>
                   <v-flex xs12 sm6 md4>
                     <v-text-field v-model="editedItem.brand_en" label="Brand (En)"></v-text-field>
+                  </v-flex>
+                    <v-flex xs12 sm6 md4>
+                    <v-text-field v-model="editedItem.brand_zh" label="Brand (Ch)"></v-text-field>
                   </v-flex>
                   <v-flex xs12 sm6 md4>
                     <v-text-field v-model="editedItem.box_quantity" label="Box Quantity"></v-text-field>
@@ -48,12 +54,14 @@
     <v-layout row justify-center class='mt-5'>
       <v-data-table :headers="headers" :items="products">
         <template slot="items" slot-scope="props">
+          <td>{{ props.item.item_no }}</td>
           <td>{{ props.item.name_en }}</td>
           <td>{{ props.item.name_zh }}</td>
-          <td>{{ props.item.brand_en }}</td>
-          <td>{{ props.item.box_quantity }}</td>
-          <td>{{ props.item.storage_temp | capitalize }}</td>
-          <td>
+          <td class="text-xs-center">{{ props.item.brand_en }}</td>
+          <td class="text-xs-center">{{ props.item.brand_zh }}</td>
+          <td class="text-xs-center">{{ props.item.box_quantity }}</td>
+          <td class="text-xs-center">{{ props.item.storage_temp | capitalize }}</td>
+          <td class="text-xs-center">
             <v-icon small @click="editItem(props.item)">edit</v-icon>
           </td>
         </template>
@@ -74,27 +82,33 @@ export default {
     return {
       dialog: false,
       headers: [
+        { text: 'Item No.', align: 'left', value: 'item_no' },
         { text: 'Name (en)', align: 'left', value: 'name_en' },
         { text: 'Name (ch)', align: 'left', value: 'name_zh' },
-        { text: 'Brand', value: 'brand_en' },
-        { text: 'Package Sizing', value: 'box_quantity' },
-        { text: 'Storage Temp', value: 'storage_temp' },
-        { text: 'Actions', value: 'name', sortable: false }
+        { text: 'Brand (en)', align: 'center', value: 'brand_en' },
+        { text: 'Brand (ch)', align: 'center', value: 'brand_zh' },
+        { text: 'Box Quantity', align: 'center', value: 'box_quantity' },
+        { text: 'Storage Temp', align: 'center', value: 'storage_temp' },
+        { text: 'Actions', align: 'center', value: 'name', sortable: false }
       ],
       editedIndex: -1,
       editedItem: {
         id: null,
+        item_no: '',
         name_en: '',
         name_zh: '',
         brand_en: '',
+        brand_zh: '',
         box_quantity: '',
         storage_temp: null
       },
       defaultItem: {
         id: null,
+        item_no: '',
         name_en: '',
         name_zh: '',
         brand_en: '',
+        brand_zh: '',
         box_quantity: '',
         storage_temp: null
       }
