@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  # AWS s3 presign
+  mount Shrine.presign_endpoint(:cache) => "/presign"
+
   root to: 'main#home'
   
   namespace :api, defaults: { format: :json } do

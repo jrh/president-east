@@ -44,9 +44,9 @@
                   </v-flex>
                 </v-layout>
                 <v-layout row>
+                  <v-input value="editedItem.cached_image_data" class="file-input"></v-input>
                   <div id="uppy-target">
                   </div>
-                  <!-- <v-text-field v-model="editedItem.image_data" label="Image File" id="file-input"></v-text-field> -->
                 </v-layout>
               </v-container>
             </v-card-text>
@@ -82,6 +82,7 @@
 import { mapGetters, mapActions } from 'vuex';
 import Uppy from '@uppy/core';
 import FileInput from '@uppy/file-input';
+import AwsS3 from '@uppy/aws-s3';
 
 export default {
   name: 'AdminProductIndex',
@@ -89,11 +90,24 @@ export default {
     this.fetchProducts();
   },
   mounted() {
-    const uppy = new Uppy({ debug: true, autoProceed: true })
-    uppy.use(FileInput, {
+    const uppy = new Uppy({
+      debug: true,
+      autoProceed: true
+    })
+    .use(FileInput, {
       target: '#uppy-target',
       pretty: true,
       replaceTargetContent: false
+    })
+    .use(AwsS3, {
+      getUploadParameters: function (file) {
+        var filename = encodeURIComponent(file.name)
+        var type     = encodeURIComponent(file.type)
+
+        return fetch('/presign?filename=' + filename + '&type=' + type, { // Shrine's presign endpoint
+          credentials: 'same-origin', // send cookies
+        }).then(function (response) { return response.json() })
+      }
     })
   },
   data() {
@@ -171,6 +185,9 @@ export default {
 }
 .v-input--radio-group {
   margin-top: 0;
+}
+.file-input {
+  border: 1px dashed #aaa;
 }
 </style>
 
