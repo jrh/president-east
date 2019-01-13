@@ -43,6 +43,11 @@
                     </v-radio-group>
                   </v-flex>
                 </v-layout>
+                <v-layout row>
+                  <div id="uppy-target">
+                  </div>
+                  <!-- <v-text-field v-model="editedItem.image_data" label="Image File" id="file-input"></v-text-field> -->
+                </v-layout>
               </v-container>
             </v-card-text>
   
@@ -75,11 +80,21 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
+import Uppy from '@uppy/core';
+import FileInput from '@uppy/file-input';
 
 export default {
   name: 'AdminProductIndex',
   created() {
     this.fetchProducts();
+  },
+  mounted() {
+    const uppy = new Uppy({ debug: true, autoProceed: true })
+    uppy.use(FileInput, {
+      target: '#uppy-target',
+      pretty: true,
+      replaceTargetContent: false
+    })
   },
   data() {
     return {

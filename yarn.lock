@@ -33,6 +33,66 @@
     webpack "^3.12.0"
     webpack-manifest-plugin "^1.3.2"
 
+"@uppy/aws-s3@^0.29.0":
+  version "0.29.0"
+  resolved "https://registry.yarnpkg.com/@uppy/aws-s3/-/aws-s3-0.29.0.tgz#64b44649bcac567f82dda49878a0dd7cf3ee1460"
+  integrity sha512-p9NZsIi5Usz60IUO6OUNb/wGiPoY872TTJw9AWsE9J34ptoge7je6ikhyNTjKrzed3Pn8IfqVyqVJiB6RyR7Qw==
+  dependencies:
+    "@uppy/companion-client" "0.27.2"
+    "@uppy/utils" "0.29.0"
+    "@uppy/xhr-upload" "0.29.0"
+    resolve-url "^0.2.1"
+
+"@uppy/companion-client@0.27.2":
+  version "0.27.2"
+  resolved "https://registry.yarnpkg.com/@uppy/companion-client/-/companion-client-0.27.2.tgz#526572b5129d7786c06368e8def5bc46c5980048"
+  integrity sha512-AJ/9meDnu67cExtmb/73DuhOzNcK8S/AkKhwyC1ffvc4IZYPoMCllcydXFdVWbKR76V8Jc4XnVPiprWIqrPEPQ==
+  dependencies:
+    namespace-emitter "^2.0.1"
+
+"@uppy/core@^0.29.0":
+  version "0.29.0"
+  resolved "https://registry.yarnpkg.com/@uppy/core/-/core-0.29.0.tgz#3c067310b0fe32842bc808d65238002322b06e4f"
+  integrity sha512-VnJusXWQ60zw7hW85Up6rpXYclA0SBIXBj7wSlPuaAMJqx/aiGaIEHso7tWNu27pKqSfeqI/y6x4w+afI7FSxw==
+  dependencies:
+    "@uppy/store-default" "0.27.0"
+    "@uppy/utils" "0.29.0"
+    cuid "^2.1.1"
+    lodash.throttle "^4.1.1"
+    mime-match "^1.0.2"
+    namespace-emitter "^2.0.1"
+    preact "^8.2.9"
+    prettier-bytes "^1.0.4"
+
+"@uppy/file-input@^0.29.0":
+  version "0.29.0"
+  resolved "https://registry.yarnpkg.com/@uppy/file-input/-/file-input-0.29.0.tgz#c90179fe88491ef04d9b21d74aacc1dc918f95a7"
+  integrity sha512-V7ZTv3wiv+/e81WhLCJ2g/FcMhlzJv50m+Oj1rQgNUqVtjnoZy6C/tNa5+Wd87OgoN+BbANh2E/L6ROa4gy2YQ==
+  dependencies:
+    "@uppy/utils" "0.29.0"
+    preact "^8.2.9"
+
+"@uppy/store-default@0.27.0":
+  version "0.27.0"
+  resolved "https://registry.yarnpkg.com/@uppy/store-default/-/store-default-0.27.0.tgz#3afeb640352d142fe1b15d6e73b1034626ab4ced"
+  integrity sha512-zy0DYXYcO/JyQ4Xg6KKDFnzZY3YC/YOjlfYT21BsHdLfriGBndouWV36N12vIqbNSluxdTQIDNue5mZy5BjtTQ==
+
+"@uppy/utils@0.29.0":
+  version "0.29.0"
+  resolved "https://registry.yarnpkg.com/@uppy/utils/-/utils-0.29.0.tgz#e2e3b1eabca65acfdb0bcc644aaf425e86a354cd"
+  integrity sha512-t16HxahlBhqlPZ8ZMxb5Sn4b5jgVujG1x5cUvfkq40xgwDbr5tHZ4NJokAOaQQUIuCDWPBdPXEeTLIbZalX5DQ==
+  dependencies:
+    lodash.throttle "^4.1.1"
+
+"@uppy/xhr-upload@0.29.0":
+  version "0.29.0"
+  resolved "https://registry.yarnpkg.com/@uppy/xhr-upload/-/xhr-upload-0.29.0.tgz#cce6c5119c8781676baab15132b203c784ec78a0"
+  integrity sha512-aXKjdjHj6ptVkv8V62Yf8Ps7hPQicu5EjlVmzfHDMrTT4+QkSNnqV1IyiTSzDxiubuN0CRkrc/bY68d7vPiAJQ==
+  dependencies:
+    "@uppy/companion-client" "0.27.2"
+    "@uppy/utils" "0.29.0"
+    cuid "^2.1.1"
+
 abbrev@1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/abbrev/-/abbrev-1.1.1.tgz#f8f2c887ad10bf67f634f005b6987fed3179aac8"
@@ -1805,6 +1865,11 @@ csso@~2.3.1:
   dependencies:
     clap "^1.0.9"
     source-map "^0.5.3"
+
+cuid@^2.1.1:
+  version "2.1.4"
+  resolved "https://registry.yarnpkg.com/cuid/-/cuid-2.1.4.tgz#e1178eb92a05ef9364b29a9942feed36d3604cdd"
+  integrity sha512-l1vrCiWOwBpu85bfm939Hg3MQh2alxAMoGZnjcJOYkgN7wzy9yi3vQhRzwcTr9mdIlfTp8DP9G5ZgIIPyaQEvg==
 
 currently-unhandled@^0.4.1:
   version "0.4.1"
@@ -3678,6 +3743,11 @@ lodash.templatesettings@^4.0.0:
   dependencies:
     lodash._reinterpolate "~3.0.0"
 
+lodash.throttle@^4.1.1:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/lodash.throttle/-/lodash.throttle-4.1.1.tgz#c23e91b710242ac70c37f1e1cda9274cc39bf2f4"
+  integrity sha1-wj6RtxAkKscMN/HhzaknTMOb8vQ=
+
 lodash.uniq@^4.5.0:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/lodash.uniq/-/lodash.uniq-4.5.0.tgz#d0225373aeb652adc1bc82e4945339a842754773"
@@ -3861,6 +3931,13 @@ miller-rabin@^4.0.0:
   resolved "https://registry.yarnpkg.com/mime-db/-/mime-db-1.37.0.tgz#0b6a0ce6fdbe9576e25f1f2d2fde8830dc0ad0d8"
   integrity sha512-R3C4db6bgQhlIhPU48fUtdVmKnflq+hRdad7IyKhtFj06VPNVdk2RhiYL3UjQIlso8L+YxAtFkobT0VK+S/ybg==
 
+mime-match@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/mime-match/-/mime-match-1.0.2.tgz#3f87c31e9af1a5fd485fb9db134428b23bbb7ba8"
+  integrity sha1-P4fDHprxpf1IX7nbE0Qosju7e6g=
+  dependencies:
+    wildcard "^1.1.0"
+
 mime-types@^2.1.12, mime-types@~2.1.17, mime-types@~2.1.18, mime-types@~2.1.19:
   version "2.1.21"
   resolved "https://registry.yarnpkg.com/mime-types/-/mime-types-2.1.21.tgz#28995aa1ecb770742fe6ae7e58f9181c744b3f96"
@@ -3998,6 +4075,11 @@ multicast-dns@^6.0.1:
   dependencies:
     dns-packet "^1.3.1"
     thunky "^1.0.2"
+
+namespace-emitter@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/namespace-emitter/-/namespace-emitter-2.0.1.tgz#978d51361c61313b4e6b8cf6f3853d08dfa2b17c"
+  integrity sha512-N/sMKHniSDJBjfrkbS/tpkPj4RAbvW3mr8UAzvlMHyun93XEm83IAvhWtJVHo+RHn/oO8Job5YN4b+wRjSVp5g==
 
 nan@^2.10.0, nan@^2.9.2:
   version "2.12.1"
@@ -5197,6 +5279,11 @@ postcss@^7.0.2:
     source-map "^0.6.1"
     supports-color "^5.5.0"
 
+preact@^8.2.9:
+  version "8.4.2"
+  resolved "https://registry.yarnpkg.com/preact/-/preact-8.4.2.tgz#1263b974a17d1ea80b66590e41ef786ced5d6a23"
+  integrity sha512-TsINETWiisfB6RTk0wh3/mvxbGRvx+ljeBccZ4Z6MPFKgu/KFGyf2Bmw3Z/jlXhL5JlNKY6QAbA9PVyzIy9//A==
+
 prepend-http@^1.0.0:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/prepend-http/-/prepend-http-1.0.4.tgz#d4f4562b0ce3696e41ac52d0e002e57a635dc6dc"
@@ -5206,6 +5293,11 @@ preserve@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/preserve/-/preserve-0.2.0.tgz#815ed1f6ebc65926f865b310c0713bcb3315ce4b"
   integrity sha1-gV7R9uvGWSb4ZbMQwHE7yzMVzks=
+
+prettier-bytes@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/prettier-bytes/-/prettier-bytes-1.0.4.tgz#994b02aa46f699c50b6257b5faaa7fe2557e62d6"
+  integrity sha1-mUsCqkb2mcULYle1+qp/4lV+YtY=
 
 prettier@^1.7.0:
   version "1.15.3"
@@ -6831,6 +6923,11 @@ wide-align@^1.1.0:
   integrity sha512-QGkOQc8XL6Bt5PwnsExKBPuMKBxnGxWWW3fU55Xt4feHozMUhdUMaBCk290qpm/wG5u/RSKzwdAC4i51YigihA==
   dependencies:
     string-width "^1.0.2 || 2"
+
+wildcard@^1.1.0:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/wildcard/-/wildcard-1.1.2.tgz#a7020453084d8cd2efe70ba9d3696263de1710a5"
+  integrity sha1-pwIEUwhNjNLv5wup02liY94XEKU=
 
 window-size@0.1.0:
   version "0.1.0"
