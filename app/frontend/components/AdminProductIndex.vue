@@ -13,27 +13,30 @@
   
             <v-card-text>
               <v-container grid-list-md>
-                <v-layout wrap>
+                <v-layout row>
                   <v-flex xs12 sm6 md4>
                     <v-text-field v-model="editedItem.item_no" label="Item No." number></v-text-field>
-                  </v-flex> 
-                  <v-flex xs12 sm6 md4>
+                  </v-flex>
+                </v-layout>
+                <v-layout wrap>
+                  <v-flex xs12 sm8 md8>
                     <v-text-field v-model="editedItem.name_en" label="Name (En)"></v-text-field>
                   </v-flex>
-                  <v-flex xs12 sm6 md4>
+                  <v-flex xs12 sm4 md4>
                     <v-text-field v-model="editedItem.name_zh" label="Name (Ch)"></v-text-field>
                   </v-flex>
-                  <v-flex xs12 sm6 md4>
+                  <v-flex xs12 sm8 md8>
                     <v-text-field v-model="editedItem.brand_en" label="Brand (En)"></v-text-field>
                   </v-flex>
-                    <v-flex xs12 sm6 md4>
+                    <v-flex xs12 sm4 md4>
                     <v-text-field v-model="editedItem.brand_zh" label="Brand (Ch)"></v-text-field>
                   </v-flex>
-                  <v-flex xs12 sm6 md4>
+                  <v-flex xs12 sm6 md6>
                     <v-text-field v-model="editedItem.box_quantity" label="Box Quantity"></v-text-field>
                   </v-flex>
-                  <v-flex xs12 sm6 md4>
-                    <v-radio-group v-model="editedItem.storage_temp" number>
+                  <v-flex xs12 sm6 md6 class="pl-3">
+                    <v-radio-group v-model="editedItem.storage_temp" number class="mt-0">
+                      <span slot="label" class="radio-group-label">Storage Temp</span>
                       <v-radio label="Room" value="room"></v-radio>
                       <v-radio label="Cooler" value="cooler"></v-radio>
                       <v-radio label="Freezer" value="freezer"></v-radio>
@@ -147,6 +150,12 @@ export default {
 </script>
 
 <style scoped>
-
+.radio-group-label {
+  font-size: 12px;
+  text-align: center;
+}
+.v-input--radio-group {
+  margin-top: 0;
+}
 </style>
 

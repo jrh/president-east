@@ -1,25 +1,28 @@
 <template>
-  <v-card height="270" width="200" hover>
+  <v-card height="250" width="200" hover>
+    <v-layout row justify-end class="header pr-2">
+      <span>Item #{{ product.item_no }}</span>
+    </v-layout>
     <v-img
       src="https://cdn.vuetifyjs.com/images/cards/desert.jpg"
       height="100"
     ></v-img>
-    <v-card-text>
+    <v-card-text style="height: 90px;">
       <v-layout row>
-        <span>Item #{{ product.item_no }}</span>
+        <span><b>{{ product.name_zh }}</b></span>
       </v-layout>
       <v-layout row>
-        <span>{{ product.name_zh }}</span>
-      </v-layout>
-      <v-layout row>
-        <span>{{ product.name_en }}</span>
+        <span><b>{{ product.name_en }}</b></span>
       </v-layout>
       <v-layout row>
         <span>{{ product.box_quantity }}</span>
       </v-layout>
     </v-card-text>
+    <v-divider></v-divider>
     <v-card-actions>
-      <v-btn flat color="orange">Order</v-btn>
+      <v-layout row justify-center> 
+        <v-btn flat small color="orange">Order</v-btn>
+      </v-layout>
     </v-card-actions>
   </v-card>
 </template>
@@ -32,8 +35,9 @@ export default {
 </script>
 
 <style scoped>
-h5 {
-  font-size: 18px;
+span { font-size: 13px; }
+.header span {
+  font-size: 11px;
 }
 </style>
 
