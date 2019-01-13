@@ -44,17 +44,18 @@
                   </v-flex>
                 </v-layout>
                 <v-layout row>
-                  <v-input value="editedItem.cached_image_data" class="file-input"></v-input>
-                  <div id="uppy-target">
-                  </div>
+                  <div id="uppy-target"></div>
+                </v-layout>
+                <v-layout row>
+                  <v-input value="editedItem.cached_image_data" id="file-input"></v-input>
                 </v-layout>
               </v-container>
             </v-card-text>
   
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" flat @click="close">Cancel</v-btn>
-              <v-btn color="blue darken-1" flat @click="save(editedItem)">Save</v-btn>
+              <v-btn color="darken-1" flat @click="close">Cancel</v-btn>
+              <v-btn color="green darken-1" flat @click="save(editedItem)">Save</v-btn>
             </v-card-actions>
           </v-card>
       </v-dialog>
@@ -97,7 +98,13 @@ export default {
     .use(FileInput, {
       target: '#uppy-target',
       pretty: true,
-      replaceTargetContent: false
+      replaceTargetContent: false,
+      locale: {
+        strings: {
+          chooseFiles: 'Choose image file'
+        }
+      }
+      
     })
     .use(AwsS3, {
       getUploadParameters: function (file) {
@@ -108,6 +115,22 @@ export default {
           credentials: 'same-origin', // send cookies
         }).then(function (response) { return response.json() })
       }
+    })
+
+    uppy.on('upload-success', (file, resp, uploadURL) => {
+      // construct uploaded file data in the format that Shrine expects
+      let uploadedFileData = JSON.stringify({
+        id: file.meta['key'].match(/^cache\/(.+)/)[1], // object key without prefix
+        storage: 'cache',
+        metadata: {
+          size:      file.size,
+          filename:  file.name,
+          mime_type: file.type,
+        }
+      })
+
+      // set hidden field value to the uploaded file data so that it's submitted with the form as the attachment
+      document.getElementById('file-input').value = uploadedFileData;
     })
   },
   data() {
@@ -132,7 +155,8 @@ export default {
         brand_en: '',
         brand_zh: '',
         box_quantity: '',
-        storage_temp: 'room'
+        storage_temp: 'room',
+        image_data: null
       }
     }
   },
@@ -186,7 +210,7 @@ export default {
 .v-input--radio-group {
   margin-top: 0;
 }
-.file-input {
+#file-input {
   border: 1px dashed #aaa;
 }
 </style>
