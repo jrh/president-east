@@ -38,6 +38,7 @@ const actions = {
       .catch(error => console.log(error))
   },
   updateProduct({ commit }, product) {
+    //TODO: don't update created_at/ updated_at
     axios({
       method: 'put',
       url: `/api/products/${product.id}`,
@@ -75,7 +76,8 @@ const mutations = {
       brand_en: payload.brand_en,
       brand_zh: payload.brand_zh,
       box_quantity: payload.box_quantity,
-      storage_temp: payload.storage_temp
+      storage_temp: payload.storage_temp,
+      image_data: payload.image_data
     };
   },
   editProduct(state, payload) {
@@ -87,6 +89,8 @@ const mutations = {
     product.brand_zh = payload.brand_zh;
     product.box_quantity = payload.box_quantity;
     product.storage_temp = payload.storage_temp;
+    product.image_data = payload.image_data;
+    // add image_url
   },
   setSearchResults(state, data) {
     state.searchResults = data;

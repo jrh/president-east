@@ -1,7 +1,14 @@
 module Api
   class ProductsController < ApiController
     def index
-      render status: :ok, json: Product.all
+      @products = Product.all.map do |p|
+        if !p.image_data.nil?
+          p.attributes.merge!(image_url: p.image_url(:thumb))
+        else
+          p.attributes.merge!(image_url: nil)
+        end
+      end
+      render status: :ok, json: @products
     end
 
     def create
@@ -16,6 +23,7 @@ module Api
     def update
       @product = Product.find(params[:id])
       if @product.update(product_params)
+        # TODO: merge image_url
         render status: :ok, json: @product
       else
         render status: :unprocessable_entity

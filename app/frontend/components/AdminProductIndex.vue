@@ -46,9 +46,7 @@
                 <v-layout row>
                   <div id="uppy-target"></div>
                 </v-layout>
-                <v-layout row>
-                  <v-input value="editedItem.cached_image_data" id="file-input"></v-input>
-                </v-layout>
+                <input type="hidden" v-model="editedItem.image" />
               </v-container>
             </v-card-text>
   
@@ -70,6 +68,9 @@
           <td class="text-xs-center">{{ props.item.brand_zh }}</td>
           <td class="text-xs-center">{{ props.item.box_quantity }}</td>
           <td class="text-xs-center">{{ props.item.storage_temp | capitalize }}</td>
+          <td class="text-xs-center">
+            <v-icon v-if="props.item.image_data">photo</v-icon>
+          </td>
           <td class="text-xs-center">
             <v-icon small @click="editItem(props.item)">edit</v-icon>
           </td>
@@ -104,7 +105,6 @@ export default {
           chooseFiles: 'Choose image file'
         }
       }
-      
     })
     .use(AwsS3, {
       getUploadParameters: function (file) {
@@ -130,7 +130,7 @@ export default {
       })
 
       // set hidden field value to the uploaded file data so that it's submitted with the form as the attachment
-      document.getElementById('file-input').value = uploadedFileData;
+      this.editedItem.image = uploadedFileData;
     })
   },
   data() {
@@ -144,6 +144,7 @@ export default {
         { text: 'Brand (ch)', align: 'center', value: 'brand_zh' },
         { text: 'Box Quantity', align: 'center', value: 'box_quantity' },
         { text: 'Storage Temp', align: 'center', value: 'storage_temp' },
+        { text: 'Photo Attached?', align: 'center' },
         { text: 'Actions', align: 'center', value: 'name', sortable: false }
       ],
       mode: 'new',
@@ -156,6 +157,7 @@ export default {
         brand_zh: '',
         box_quantity: '',
         storage_temp: 'room',
+        image: null,
         image_data: null
       }
     }

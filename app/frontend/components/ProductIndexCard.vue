@@ -1,12 +1,12 @@
 <template>
   <v-card height="250" width="200" hover>
-    <v-layout row justify-end class="header pr-2">
+    <v-layout row class="header pl-3 pt-1">
       <span>Item #{{ product.item_no }}</span>
     </v-layout>
-    <v-img
-      src="https://cdn.vuetifyjs.com/images/cards/desert.jpg"
-      height="100"
-    ></v-img>
+    <v-img v-if="product.image_url" :src="product.image_url" height="100" contain></v-img>
+    <v-layout v-else style="height: 100px;" justify-center align-center>
+      <v-icon x-large>photo</v-icon>
+    </v-layout>
     <v-card-text style="height: 90px;">
       <v-layout row>
         <span><b>{{ product.name_zh }}</b></span>

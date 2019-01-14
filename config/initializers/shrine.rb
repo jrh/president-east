@@ -5,7 +5,7 @@ if Rails.env.production?
   s3_options = {
     access_key_id:     Rails.application.credentials.dig(:aws, :access_key_id),
     secret_access_key: Rails.application.credentials.dig(:aws, :secret_access_key),
-    region:            'us-west-2',
+    region:            'us-east-1',
     bucket:            'president-east'
   }
   
@@ -13,7 +13,7 @@ else
   s3_options = {
     access_key_id:     Rails.application.credentials.dig(:aws, :access_key_id),
     secret_access_key: Rails.application.credentials.dig(:aws, :secret_access_key),
-    region:            'us-west-2',
+    region:            'us-east-1',
     bucket:            'president-east-dev'
   }
 end
