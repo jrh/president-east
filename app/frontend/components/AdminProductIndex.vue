@@ -4,6 +4,7 @@
       <h3>Admin Product Index</h3>
     </v-layout>
     <v-layout row justify-end>
+      <!-- Modal -->
       <v-dialog v-model="dialog" max-width="500px">
         <v-btn slot="activator" color="success">Add Product</v-btn>
           <v-card>
@@ -14,8 +15,17 @@
             <v-card-text>
               <v-container grid-list-md>
                 <v-layout row>
-                  <v-flex xs12 sm6 md4>
+                  <v-flex xs12 sm6 md6>
                     <v-text-field v-model="editedItem.item_no" label="Item No." number></v-text-field>
+                  </v-flex>
+                  <v-flex xs12 sm6 md6>
+                    <v-layout row justify-center class="pb-3">
+                      <img height="60" :src="editedItem.image_url" />
+                    </v-layout>
+                    <v-layout row justify-center>
+                      <div id="uppy-target"></div>
+                    </v-layout>
+                    <input type="hidden" v-model="editedItem.image" />
                   </v-flex>
                 </v-layout>
                 <v-layout wrap>
@@ -34,26 +44,23 @@
                   <v-flex xs12 sm6 md6>
                     <v-text-field v-model="editedItem.box_quantity" label="Box Quantity"></v-text-field>
                   </v-flex>
-                  <v-flex xs12 sm6 md6 class="pl-3">
-                    <v-radio-group v-model="editedItem.storage_temp" number class="mt-0">
-                      <span slot="label" class="radio-group-label">Storage Temp</span>
-                      <v-radio label="Room" value="room"></v-radio>
-                      <v-radio label="Cooler" value="cooler"></v-radio>
-                      <v-radio label="Freezer" value="freezer"></v-radio>
-                    </v-radio-group>
+                  <v-flex xs12 sm6 md6>
+                    <v-select
+                      v-model="editedItem.storage_temp"
+                      :items="selectOptions"
+                      item-text="label"
+                      item-value="value"
+                      label="Storage Temp">
+                    </v-select>
                   </v-flex>
                 </v-layout>
-                <v-layout row>
-                  <div id="uppy-target"></div>
-                </v-layout>
-                <input type="hidden" v-model="editedItem.image" />
               </v-container>
             </v-card-text>
   
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="darken-1" flat @click="close">Cancel</v-btn>
-              <v-btn color="green darken-1" flat @click="save(editedItem)">Save</v-btn>
+              <v-btn color="success" @click="save(editedItem)">Save</v-btn>
             </v-card-actions>
           </v-card>
       </v-dialog>
@@ -88,6 +95,41 @@ import AwsS3 from '@uppy/aws-s3';
 
 export default {
   name: 'AdminProductIndex',
+  data() {
+    return {
+      dialog: false,
+      headers: [
+        { text: 'Item No.', align: 'left', value: 'item_no' },
+        { text: 'Name (en)', align: 'left', value: 'name_en' },
+        { text: 'Name (ch)', align: 'left', value: 'name_zh' },
+        { text: 'Brand (en)', align: 'center', value: 'brand_en' },
+        { text: 'Brand (ch)', align: 'center', value: 'brand_zh' },
+        { text: 'Box Quantity', align: 'center', value: 'box_quantity' },
+        { text: 'Storage Temp', align: 'center', value: 'storage_temp' },
+        { text: 'Photo Attached?', align: 'center' },
+        { text: 'Actions', align: 'center', value: 'name', sortable: false }
+      ],
+      mode: 'new',
+      editedItem: {
+        id: null,
+        item_no: '',
+        name_en: '',
+        name_zh: '',
+        brand_en: '',
+        brand_zh: '',
+        box_quantity: '',
+        storage_temp: 'room',
+        image: null,
+        image_data: null,
+        image_url: ''
+      },
+      selectOptions: [
+        { label: 'Room', value: 'room' },
+        { label: 'Cooler', value: 'cooler' },
+        { label: 'Freezer', value: 'freezer' }
+      ]
+    }
+  },
   created() {
     this.fetchProducts();
   },
@@ -132,35 +174,6 @@ export default {
       // set hidden field value to the uploaded file data so that it's submitted with the form as the attachment
       this.editedItem.image = uploadedFileData;
     })
-  },
-  data() {
-    return {
-      dialog: false,
-      headers: [
-        { text: 'Item No.', align: 'left', value: 'item_no' },
-        { text: 'Name (en)', align: 'left', value: 'name_en' },
-        { text: 'Name (ch)', align: 'left', value: 'name_zh' },
-        { text: 'Brand (en)', align: 'center', value: 'brand_en' },
-        { text: 'Brand (ch)', align: 'center', value: 'brand_zh' },
-        { text: 'Box Quantity', align: 'center', value: 'box_quantity' },
-        { text: 'Storage Temp', align: 'center', value: 'storage_temp' },
-        { text: 'Photo Attached?', align: 'center' },
-        { text: 'Actions', align: 'center', value: 'name', sortable: false }
-      ],
-      mode: 'new',
-      editedItem: {
-        id: null,
-        item_no: '',
-        name_en: '',
-        name_zh: '',
-        brand_en: '',
-        brand_zh: '',
-        box_quantity: '',
-        storage_temp: 'room',
-        image: null,
-        image_data: null
-      }
-    }
   },
   computed: {
     ...mapGetters(['products']),
