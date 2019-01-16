@@ -1,7 +1,7 @@
 <template>
   <v-card height="250" width="200" hover>
-    <v-layout row class="header pl-3 pt-1">
-      <span>Item #{{ product.item_no }}</span>
+    <v-layout row justify-center class="header pt-1">
+      <span>#{{ product.item_no }}</span>
     </v-layout>
     <v-img v-if="product.image_url" :src="product.image_url" height="100" contain></v-img>
     <v-layout v-else style="height: 100px;" justify-center align-center>
@@ -9,10 +9,10 @@
     </v-layout>
     <v-card-text style="height: 90px;">
       <v-layout row>
-        <span><b>{{ product.name_zh }}</b></span>
+        <span class="name"><b>{{ product.name_zh }}</b></span>
       </v-layout>
       <v-layout row>
-        <span><b>{{ product.name_en }}</b></span>
+        <span class="name"><b>{{ product.name_en }}</b></span>
       </v-layout>
       <v-layout row>
         <span>{{ product.box_quantity }}</span>
@@ -38,6 +38,9 @@ export default {
 span { font-size: 13px; }
 .header span {
   font-size: 11px;
+}
+.name {
+  font-size: 15px;
 }
 </style>
 

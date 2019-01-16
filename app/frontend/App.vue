@@ -2,14 +2,20 @@
   <v-app>
     <v-navigation-drawer app right stateless v-model="drawer"></v-navigation-drawer>
     <v-toolbar app color="white" height="100">
-      <v-img contain :src="require('./images/logo.png')" height="60"></v-img>
+      <v-img
+        contain
+        height="60"
+        min-width="120"
+        max-width="250"
+        :src="require('./images/logo.png')"
+      ></v-img>
       <v-toolbar-title>President East Co.</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-toolbar-items class="hidden-sm-and-down">
-        <v-btn flat to="/about">About Us</v-btn>
-        <v-btn flat to="/products">Products</v-btn>
-        <v-btn flat to="/contact">Contact</v-btn>
-        <v-btn flat to="/admin_products">Admin</v-btn>
+      <v-toolbar-items class="hidden-sm-and-down" style="height: 50px;">
+        <v-btn flat round to="/about">About Us</v-btn>
+        <v-btn flat round to="/products">Products</v-btn>
+        <v-btn flat round to="/contact">Contact</v-btn>
+        <v-btn flat round to="/admin_products">Admin</v-btn>
       </v-toolbar-items>
       <v-toolbar-side-icon @click="drawer = !drawer" class="hidden-md-and-up"></v-toolbar-side-icon>
     </v-toolbar>
@@ -37,5 +43,9 @@ export default {
 </script>
 
 <style scoped>
-
+.v-toolbar__title {
+  font-family: 'Roboto Slab', serif;
+  font-weight: 700;
+  font-size: 26px;
+}
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-layout row justify-center>
-      <p>Product Inventory</p>
+      <p>Product Catalog</p>
     </v-layout>
     <v-layout row>
       <v-toolbar dense id="search-bar">
