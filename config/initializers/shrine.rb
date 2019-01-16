@@ -19,8 +19,8 @@ else
 end
 
 Shrine.storages = {
-  cache: Shrine::Storage::S3.new(prefix: "cache", **s3_options),
-  store: Shrine::Storage::S3.new(**s3_options),
+  cache: Shrine::Storage::S3.new(prefix: "cache", upload_options: { acl: "public-read" }, **s3_options),
+  store: Shrine::Storage::S3.new(upload_options: { acl: "public-read" }, **s3_options)
 }
 
 Shrine.plugin :activerecord
@@ -43,6 +43,7 @@ Shrine.plugin :presign_endpoint, presign_options: -> (request) {
     success_action_status:  '201'
   }
 }
+Shrine.plugin :default_url_options, cache: { public: true }, store: { public: true }
 
 Shrine::Attacher.promote { |data| PromoteJob.perform_async(data) }
 Shrine::Attacher.delete { |data| DeleteJob.perform_async(data) }
