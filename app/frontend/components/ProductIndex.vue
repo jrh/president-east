@@ -9,7 +9,8 @@
           hide-details
           prepend-icon="search"
           single-line
-          @keyup.enter="onEnter"
+          placeholder="Search by name or item no."
+          @input="onInput"
         ></v-text-field>
       </v-toolbar>
     </v-layout>
@@ -39,14 +40,9 @@ export default {
   },
   methods: {
     ...mapActions(['searchProducts']),
-    onEnter(event) {
-      let term;
-      if (event.target.value == '') {
-        term = '*';
-      } else {
-        term = event.target.value;
-      }
-      this.searchProducts(term);
+    onInput(term){
+      let searchTerm = term == '' ? '*' : term;
+      this.searchProducts(searchTerm);
     }
   }
 }
@@ -55,6 +51,7 @@ export default {
 <style scoped>
 #search-bar {
   width: 300px;
+  background-color: #ffffff;
 }
 p {
   font-size: 24px;
