@@ -1,5 +1,5 @@
 <template>
-  <v-footer app height="auto" color="light-green lighten-4">
+  <v-footer app height="auto" color="white">
     <v-layout row justify-center wrap>
       <v-flex black--text py-3 text-xs-center xs12>
         &copy; {{ new Date().getFullYear() }} — <strong>PEC</strong>

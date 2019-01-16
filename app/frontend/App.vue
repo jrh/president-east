@@ -1,8 +1,8 @@
 <template>
   <v-app>
     <v-navigation-drawer app right stateless v-model="drawer"></v-navigation-drawer>
-    <v-toolbar app color="light-green lighten-4">
-      <v-toolbar-title>豐玉公司</v-toolbar-title>
+    <v-toolbar app color="white" height="100">
+      <v-img contain :src="require('./images/logo.png')" height="60"></v-img>
       <v-toolbar-title>President East Co.</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-sm-and-down">
