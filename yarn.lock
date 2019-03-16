@@ -33,30 +33,30 @@
     webpack "^3.12.0"
     webpack-manifest-plugin "^1.3.2"
 
-"@uppy/aws-s3@^0.29.0":
-  version "0.29.0"
-  resolved "https://registry.yarnpkg.com/@uppy/aws-s3/-/aws-s3-0.29.0.tgz#64b44649bcac567f82dda49878a0dd7cf3ee1460"
-  integrity sha512-p9NZsIi5Usz60IUO6OUNb/wGiPoY872TTJw9AWsE9J34ptoge7je6ikhyNTjKrzed3Pn8IfqVyqVJiB6RyR7Qw==
+"@uppy/aws-s3@^0.30.3":
+  version "0.30.3"
+  resolved "https://registry.yarnpkg.com/@uppy/aws-s3/-/aws-s3-0.30.3.tgz#f7a1cf3a7871f93e016f78c4aefe35d68a2f6fe5"
+  integrity sha512-LFMyqNtEjNrpRfr848Xfop+11cyeSA23n/K85k6wTrQgRiJY9PrB/+CK35Dfm9gI9iEWbihwecqraoBOYO477Q==
   dependencies:
-    "@uppy/companion-client" "0.27.2"
-    "@uppy/utils" "0.29.0"
-    "@uppy/xhr-upload" "0.29.0"
+    "@uppy/companion-client" "0.28.3"
+    "@uppy/utils" "0.30.3"
+    "@uppy/xhr-upload" "0.30.3"
     resolve-url "^0.2.1"
 
-"@uppy/companion-client@0.27.2":
-  version "0.27.2"
-  resolved "https://registry.yarnpkg.com/@uppy/companion-client/-/companion-client-0.27.2.tgz#526572b5129d7786c06368e8def5bc46c5980048"
-  integrity sha512-AJ/9meDnu67cExtmb/73DuhOzNcK8S/AkKhwyC1ffvc4IZYPoMCllcydXFdVWbKR76V8Jc4XnVPiprWIqrPEPQ==
+"@uppy/companion-client@0.28.3":
+  version "0.28.3"
+  resolved "https://registry.yarnpkg.com/@uppy/companion-client/-/companion-client-0.28.3.tgz#c41800f1f609b8e0e25a2266886e68df0485b121"
+  integrity sha512-+j9mFGpZi2H5MStQiGIOGZ1VYyPMH6i9kjcV01SF8fQPfwgXhssF65gNsa9HwmANtGeCFyvfgUd+PJN8vFT+Mg==
   dependencies:
     namespace-emitter "^2.0.1"
 
-"@uppy/core@^0.29.0":
-  version "0.29.0"
-  resolved "https://registry.yarnpkg.com/@uppy/core/-/core-0.29.0.tgz#3c067310b0fe32842bc808d65238002322b06e4f"
-  integrity sha512-VnJusXWQ60zw7hW85Up6rpXYclA0SBIXBj7wSlPuaAMJqx/aiGaIEHso7tWNu27pKqSfeqI/y6x4w+afI7FSxw==
+"@uppy/core@^0.30.3":
+  version "0.30.3"
+  resolved "https://registry.yarnpkg.com/@uppy/core/-/core-0.30.3.tgz#12694645697d8548d3ebfafaba6e42b88857fc8c"
+  integrity sha512-UDcFV9WnghOAZecg5oKnXEj97CTdqKxMuajkmhGC64rS5Ef3tcTB5JreKVEAvC/z8DgCAqrPex39+vkafns7cA==
   dependencies:
-    "@uppy/store-default" "0.27.0"
-    "@uppy/utils" "0.29.0"
+    "@uppy/store-default" "0.28.3"
+    "@uppy/utils" "0.30.3"
     cuid "^2.1.1"
     lodash.throttle "^4.1.1"
     mime-match "^1.0.2"
@@ -64,33 +64,33 @@
     preact "^8.2.9"
     prettier-bytes "^1.0.4"
 
-"@uppy/file-input@^0.29.0":
-  version "0.29.0"
-  resolved "https://registry.yarnpkg.com/@uppy/file-input/-/file-input-0.29.0.tgz#c90179fe88491ef04d9b21d74aacc1dc918f95a7"
-  integrity sha512-V7ZTv3wiv+/e81WhLCJ2g/FcMhlzJv50m+Oj1rQgNUqVtjnoZy6C/tNa5+Wd87OgoN+BbANh2E/L6ROa4gy2YQ==
+"@uppy/file-input@^0.30.3":
+  version "0.30.3"
+  resolved "https://registry.yarnpkg.com/@uppy/file-input/-/file-input-0.30.3.tgz#29f051e01532af38d41f708d3f4d0c4943cc145f"
+  integrity sha512-kXWONi2fIB2GKaDBFutYFMGp0O6VYzHW5rW0fqpV+F5x/+M+ptMIXUS6lqjob4hGP/Cw4zqvPqzTpccRtoEdPw==
   dependencies:
-    "@uppy/utils" "0.29.0"
+    "@uppy/utils" "0.30.3"
     preact "^8.2.9"
 
-"@uppy/store-default@0.27.0":
-  version "0.27.0"
-  resolved "https://registry.yarnpkg.com/@uppy/store-default/-/store-default-0.27.0.tgz#3afeb640352d142fe1b15d6e73b1034626ab4ced"
-  integrity sha512-zy0DYXYcO/JyQ4Xg6KKDFnzZY3YC/YOjlfYT21BsHdLfriGBndouWV36N12vIqbNSluxdTQIDNue5mZy5BjtTQ==
+"@uppy/store-default@0.28.3":
+  version "0.28.3"
+  resolved "https://registry.yarnpkg.com/@uppy/store-default/-/store-default-0.28.3.tgz#0dd37badf68f1ca4d16e23c3813626ed01127643"
+  integrity sha512-H3dHvYnna1D3qGMeEW2Mc4BDe2+73IsshqyqyNawZcOG4EF053D5ZeeoB0DQoXaL290vsHMhYilZbp6O0v6Z8g==
 
-"@uppy/utils@0.29.0":
-  version "0.29.0"
-  resolved "https://registry.yarnpkg.com/@uppy/utils/-/utils-0.29.0.tgz#e2e3b1eabca65acfdb0bcc644aaf425e86a354cd"
-  integrity sha512-t16HxahlBhqlPZ8ZMxb5Sn4b5jgVujG1x5cUvfkq40xgwDbr5tHZ4NJokAOaQQUIuCDWPBdPXEeTLIbZalX5DQ==
+"@uppy/utils@0.30.3":
+  version "0.30.3"
+  resolved "https://registry.yarnpkg.com/@uppy/utils/-/utils-0.30.3.tgz#b2f78db1974ae24290b572d0916e1f4eb1de61a8"
+  integrity sha512-v0+3+p70Rl4qMS5p5+n89Oa/Z61FAitcJ8HS06NHiGo2HArO8VseBBAbNncF/SdUqczWhz7dWQ3/uXUx8jli3Q==
   dependencies:
     lodash.throttle "^4.1.1"
 
-"@uppy/xhr-upload@0.29.0":
-  version "0.29.0"
-  resolved "https://registry.yarnpkg.com/@uppy/xhr-upload/-/xhr-upload-0.29.0.tgz#cce6c5119c8781676baab15132b203c784ec78a0"
-  integrity sha512-aXKjdjHj6ptVkv8V62Yf8Ps7hPQicu5EjlVmzfHDMrTT4+QkSNnqV1IyiTSzDxiubuN0CRkrc/bY68d7vPiAJQ==
+"@uppy/xhr-upload@0.30.3":
+  version "0.30.3"
+  resolved "https://registry.yarnpkg.com/@uppy/xhr-upload/-/xhr-upload-0.30.3.tgz#21340ef713ae7cb3930e3f778412a931817699c7"
+  integrity sha512-LBC5L8lWsm9KJ2/1AbB7khBc++vCkvUKi5BbBvRTIQ13g4vJ1Tp1oiQQY/sPubDTx5IKvh6w/lN30edzcNHFXA==
   dependencies:
-    "@uppy/companion-client" "0.27.2"
-    "@uppy/utils" "0.29.0"
+    "@uppy/companion-client" "0.28.3"
+    "@uppy/utils" "0.30.3"
     cuid "^2.1.1"
 
 abbrev@1:
@@ -6750,10 +6750,10 @@ vue-style-loader@^4.0.1:
     hash-sum "^1.0.2"
     loader-utils "^1.0.2"
 
-vue-template-compiler@^2.5.21:
-  version "2.5.21"
-  resolved "https://registry.yarnpkg.com/vue-template-compiler/-/vue-template-compiler-2.5.21.tgz#a57ceb903177e8f643560a8d639a0f8db647054a"
-  integrity sha512-Vmk5Cv7UcmI99B9nXJEkaK262IQNnHp5rJYo+EwYpe2epTAXqcVyExhV6pk8jTkxQK2vRc8v8KmZBAwdmUZvvw==
+vue-template-compiler@^2.6.9:
+  version "2.6.9"
+  resolved "https://registry.yarnpkg.com/vue-template-compiler/-/vue-template-compiler-2.6.9.tgz#26600415ff81a7a241aebc2d4e0abaa0f1a07915"
+  integrity sha512-QgO0LSCdeH6zUMSgtqel+yDWsZWQPXiWBdFg9qzOhWfQL8vZ+ywinAzE04rm1XrWc+3SU0YAdWISlEgs/i8WWA==
   dependencies:
     de-indent "^1.0.2"
     he "^1.1.0"
@@ -6763,20 +6763,20 @@ vue-template-es2015-compiler@^1.6.0:
   resolved "https://registry.yarnpkg.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.6.0.tgz#dc42697133302ce3017524356a6c61b7b69b4a18"
   integrity sha512-x3LV3wdmmERhVCYy3quqA57NJW7F3i6faas++pJQWtknWT+n7k30F4TVdHvCLn48peTJFRvCpxs3UuFPqgeELg==
 
-vue@^2.5.21:
-  version "2.5.21"
-  resolved "https://registry.yarnpkg.com/vue/-/vue-2.5.21.tgz#3d33dcd03bb813912ce894a8303ab553699c4a85"
-  integrity sha512-Aejvyyfhn0zjVeLvXd70h4hrE4zZDx1wfZqia6ekkobLmUZ+vNFQer53B4fu0EjWBSiqApxPejzkO1Znt3joxQ==
+vue@^2.6.9:
+  version "2.6.9"
+  resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.9.tgz#415c1cc1a5ed00c8f0acdd0a948139d12b7ea6b3"
+  integrity sha512-t1+tvH8hybPM86oNne3ZozCD02zj/VoZIiojOBPJLjwBn7hxYU5e1gBObFpq8ts1NEn1VhPf/hVXBDAJ3X5ljg==
 
 vuetify@^1.4.1:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-1.4.1.tgz#9dc99d59f93cd7f685864f10048c6606b8d38145"
   integrity sha512-rf86frKvK3c6fdzXkbLdChamifnyhLRwLEVvXKua8zfVSrFZ4HXFK4T8zN68Pg/4vxlp+5DFxF1IQ4rq4tJ03A==
 
-vuex@^3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/vuex/-/vuex-3.0.1.tgz#e761352ebe0af537d4bb755a9b9dc4be3df7efd2"
-  integrity sha512-wLoqz0B7DSZtgbWL1ShIBBCjv22GV5U+vcBFox658g6V0s4wZV9P4YjCNyoHSyIBpj1f29JBoNQIqD82cR4O3w==
+vuex@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/vuex/-/vuex-3.1.0.tgz#634b81515cf0cfe976bd1ffe9601755e51f843b9"
+  integrity sha512-mdHeHT/7u4BncpUZMlxNaIdcN/HIt1GsGG5LKByArvYG/v6DvHcOxvDCts+7SRdCoIRGllK8IMZvQtQXLppDYg==
 
 watchpack@^1.4.0:
   version "1.6.0"
