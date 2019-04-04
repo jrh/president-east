@@ -1,15 +1,21 @@
 <template>
   <v-app>
     <v-navigation-drawer app right stateless v-model="drawer"></v-navigation-drawer>
-    <v-toolbar app color="white" height="100">
-      <v-img
-        contain
-        height="60"
-        min-width="120"
-        max-width="250"
-        :src="require('./images/logo.png')"
-      ></v-img>
-      <v-toolbar-title>President East Co.</v-toolbar-title>
+    <v-toolbar app color="white" height="120">
+      <router-link to="/" tag="v-toolbar-title">
+        <router-link to="/">
+          <v-img
+            contain
+            height="60"
+            min-width="120"
+            max-width="250"
+            :src="require('./images/logo.png')"
+          ></v-img>
+        </router-link>
+        <router-link to="/">
+          <v-toolbar-title>President East Co.</v-toolbar-title>
+        </router-link>
+      </router-link>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-sm-and-down" style="height: 50px;">
         <v-btn flat round to="/about">About Us</v-btn>
@@ -47,5 +53,9 @@ export default {
   font-family: 'Roboto Slab', serif;
   font-weight: 700;
   font-size: 26px;
+}
+a.router-link-active {
+  text-decoration: none;
+  color: #000;
 }
 </style>
