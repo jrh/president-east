@@ -4,7 +4,6 @@ import { normalize, schema } from 'normalizr';
 const state = {
   productData: {},
   productList: [],
-  searchResults: [],
   loading: false
 };
 
@@ -50,16 +49,16 @@ const actions = {
     })
     .catch(error => console.log(error))
   },
-  searchProducts({ commit }, term) {
-    axios.get('/api/products/search', {
-      params: { search: term }
-    })
-    .then(response => {
-      console.log(response);
-      commit('setSearchResults', response.data);
-    })
-    .catch(error => console.log(error))
-  }
+  // searchProducts({ commit }, term) {
+  //   axios.get('/api/products/search', {
+  //     params: { search: term }
+  //   })
+  //   .then(response => {
+  //     console.log(response);
+  //     commit('setSearchResults', response.data);
+  //   })
+  //   .catch(error => console.log(error))
+  // }
 };
 
 const mutations = {

@@ -17,8 +17,8 @@
 
     <v-container fluid grid-list-sm class="mt-5">
       <v-layout row wrap>
-        <v-flex v-for="product in searchResults" :key="product.id">
-          <ProductIndexCard :product="product" class="mb-5" />         
+        <v-flex v-for="product in products" :key="product.id">
+          <ProductIndexCard :product="product" class="mb-5" />
         </v-flex>
       </v-layout>
     </v-container>
@@ -32,17 +32,15 @@ import ProductIndexCard from './ProductIndexCard.vue';
 export default {
   name: 'ProductIndex',
   components: { ProductIndexCard },
-  created() {
-    this.searchProducts('*');
-  },
   computed: {
-    ...mapGetters(['products', 'searchResults'])
+    ...mapGetters(['products'])
+  },
+  created() {
+    this.$store.dispatch('fetchProducts');
   },
   methods: {
-    ...mapActions(['searchProducts']),
     onInput(term){
       let searchTerm = term == '' ? '*' : term;
-      this.searchProducts(searchTerm);
     }
   }
 }
