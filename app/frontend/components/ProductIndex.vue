@@ -14,14 +14,17 @@
         ></v-text-field>
       </v-toolbar>
     </v-layout>
-
-    <v-container fluid grid-list-sm class="mt-5">
-      <v-layout row wrap>
-        <v-flex v-for="product in products" :key="product.id">
-          <ProductIndexCard :product="product" class="mb-5" />
-        </v-flex>
-      </v-layout>
-    </v-container>
+    <v-layout row justify-center>
+      <v-flex lg8>
+        <v-container fluid grid-list-sm class="mt-5">
+          <v-layout row wrap>
+            <v-flex v-for="product in products" :key="product.id">
+              <ProductIndexCard :product="product" class="mb-5" />
+            </v-flex>
+          </v-layout>
+        </v-container>
+      </v-flex>
+    </v-layout>
   </div>
 </template>
 
