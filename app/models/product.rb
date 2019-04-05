@@ -1,6 +1,6 @@
 class Product < ApplicationRecord
-  include ImageUploader::Attachment.new(:image) 
-  
+  include ImageUploader::Attachment.new(:image)
+
   searchkick word_start: [:item_no, :name_en],
             searchable: [:item_no, :name_en],
             callbacks: :async
@@ -11,7 +11,7 @@ class Product < ApplicationRecord
       name_en: name_en,
       name_zh: name_zh,
       brand_en: brand_en,
-      brand_zh: brand_zh,
+      # brand_zh: brand_zh,
       box_quantity: box_quantity,
       storage_temp: storage_temp,
       image_data: image_data,

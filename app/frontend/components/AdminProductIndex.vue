@@ -11,7 +11,7 @@
             <v-card-title>
               <span class="headline">{{ formTitle }}</span>
             </v-card-title>
-  
+
             <v-card-text>
               <v-container grid-list-md>
                 <v-layout row>
@@ -36,10 +36,11 @@
                     <v-text-field v-model="editedItem.name_zh" label="Name (Ch)"></v-text-field>
                   </v-flex>
                   <v-flex xs12 sm8 md8>
-                    <v-text-field v-model="editedItem.brand_en" label="Brand (En)"></v-text-field>
-                  </v-flex>
-                    <v-flex xs12 sm4 md4>
-                    <v-text-field v-model="editedItem.brand_zh" label="Brand (Ch)"></v-text-field>
+                    <v-select
+                      v-model="editedItem.brand_en"
+                      :items="brandOptions"
+                      label="Brand (En)">
+                    </v-select>
                   </v-flex>
                   <v-flex xs12 sm6 md6>
                     <v-text-field v-model="editedItem.box_quantity" label="Box Quantity"></v-text-field>
@@ -47,7 +48,7 @@
                   <v-flex xs12 sm6 md6>
                     <v-select
                       v-model="editedItem.storage_temp"
-                      :items="selectOptions"
+                      :items="storageOptions"
                       item-text="label"
                       item-value="value"
                       label="Storage Temp">
@@ -56,7 +57,7 @@
                 </v-layout>
               </v-container>
             </v-card-text>
-  
+
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="darken-1" flat @click="close">Cancel</v-btn>
@@ -72,7 +73,7 @@
           <td>{{ props.item.name_en }}</td>
           <td>{{ props.item.name_zh }}</td>
           <td class="text-xs-center">{{ props.item.brand_en }}</td>
-          <td class="text-xs-center">{{ props.item.brand_zh }}</td>
+<!--           <td class="text-xs-center">{{ props.item.brand_zh }}</td> -->
           <td class="text-xs-center">{{ props.item.box_quantity }}</td>
           <td class="text-xs-center">{{ props.item.storage_temp | capitalize }}</td>
           <td class="text-xs-center">
@@ -102,8 +103,7 @@ export default {
         { text: 'Item No.', align: 'left', value: 'item_no' },
         { text: 'Name (en)', align: 'left', value: 'name_en' },
         { text: 'Name (ch)', align: 'left', value: 'name_zh' },
-        { text: 'Brand (en)', align: 'center', value: 'brand_en' },
-        { text: 'Brand (ch)', align: 'center', value: 'brand_zh' },
+        { text: 'Brand', align: 'center', value: 'brand_en' },
         { text: 'Box Quantity', align: 'center', value: 'box_quantity' },
         { text: 'Storage Temp', align: 'center', value: 'storage_temp' },
         { text: 'Photo Attached?', align: 'center' },
@@ -116,14 +116,15 @@ export default {
         name_en: '',
         name_zh: '',
         brand_en: '',
-        brand_zh: '',
+        // brand_zh: '',
         box_quantity: '',
         storage_temp: 'room',
         image: null,
         image_data: null,
         image_url: ''
       },
-      selectOptions: [
+      brandOptions: ['Tung-I', 'Hsin Tung Yang', 'Chi-Sheng', 'KimLan', 'Little Cook Noodle', "King's Cook"],
+      storageOptions: [
         { label: 'Room', value: 'room' },
         { label: 'Cooler', value: 'cooler' },
         { label: 'Freezer', value: 'freezer' }
