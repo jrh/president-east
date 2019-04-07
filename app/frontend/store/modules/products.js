@@ -11,9 +11,9 @@ const getters = {
   products(state) {
     return state.productList.map(id => state.productData[id]);
   },
-  searchResults(state) {
-    return state.searchResults;
-  }
+  // searchResults(state) {
+  //   return state.searchResults;
+  // }
 };
 
 const actions = {
@@ -91,9 +91,9 @@ const mutations = {
     product.image_data = payload.image_data;
     // add image_url
   },
-  setSearchResults(state, data) {
-    state.searchResults = data;
-  }
+  // setSearchResults(state, data) {
+  //   state.searchResults = data;
+  // }
 };
 
 export default {

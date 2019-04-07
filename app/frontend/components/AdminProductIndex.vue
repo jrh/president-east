@@ -39,7 +39,7 @@
                     <v-select
                       v-model="editedItem.brand_en"
                       :items="brandOptions"
-                      label="Brand (En)">
+                      label="Brand">
                     </v-select>
                   </v-flex>
                   <v-flex xs12 sm6 md6>
@@ -116,7 +116,6 @@ export default {
         name_en: '',
         name_zh: '',
         brand_en: '',
-        // brand_zh: '',
         box_quantity: '',
         storage_temp: 'room',
         image: null,
