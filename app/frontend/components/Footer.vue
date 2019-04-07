@@ -5,9 +5,11 @@
         &copy; {{ new Date().getFullYear() }} — <strong>PEC</strong>
       </v-flex>
       <v-flex black--text py-3 text-xs-center xs12>
-        <span>3 Galasso Pl, Maspeth, NY, 11378</span>
-        <span class="px-2">|</span>
-        <span>(718) 821-5699</span>
+        <span>3 Galasso Place, Maspeth, NY, 11378</span>
+        <span class="px-2 font-weight-bold">|</span>
+        <span>Tel: (718) 821-5699</span>
+        <span class="px-2 font-weight-bold">|</span>
+        <span>Fax: (718) 821-6698</span>
       </v-flex>
     </v-layout>
   </v-footer>
