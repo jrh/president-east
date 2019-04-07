@@ -73,7 +73,6 @@ const mutations = {
       name_en: payload.name_en,
       name_zh: payload.name_zh,
       brand_en: payload.brand_en,
-      // brand_zh: payload.brand_zh,
       box_quantity: payload.box_quantity,
       storage_temp: payload.storage_temp,
       image_data: payload.image_data
@@ -85,7 +84,6 @@ const mutations = {
     product.name_en = payload.name_en;
     product.name_zh = payload.name_zh;
     product.brand_en = payload.brand_en;
-    // product.brand_zh = payload.brand_zh;
     product.box_quantity = payload.box_quantity;
     product.storage_temp = payload.storage_temp;
     product.image_data = payload.image_data;

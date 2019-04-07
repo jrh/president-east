@@ -75,7 +75,7 @@
           <td class="text-xs-center">{{ props.item.brand_en }}</td>
 <!--           <td class="text-xs-center">{{ props.item.brand_zh }}</td> -->
           <td class="text-xs-center">{{ props.item.box_quantity }}</td>
-          <td class="text-xs-center">{{ props.item.storage_temp | capitalize }}</td>
+          <td class="text-xs-center">{{ props.item.storage_temp }}</td>
           <td class="text-xs-center">
             <v-icon v-if="props.item.image_data">photo</v-icon>
           </td>
@@ -117,17 +117,13 @@ export default {
         name_zh: '',
         brand_en: '',
         box_quantity: '',
-        storage_temp: 'room',
+        storage_temp: 'Room',
         image: null,
         image_data: null,
         image_url: ''
       },
-      brandOptions: ['Tung-I', 'Hsin Tung Yang', 'Chi-Sheng', 'KimLan', 'Little Cook Noodle', "King's Cook"],
-      storageOptions: [
-        { label: 'Room', value: 'room' },
-        { label: 'Cooler', value: 'cooler' },
-        { label: 'Freezer', value: 'freezer' }
-      ]
+      brandOptions: [ 'Tung-I', 'Hsin Tung Yang', 'Chi-Sheng', 'KimLan', 'Little Cook Noodle', "King's Cook" ],
+      storageOptions: [ 'Room', 'Cooler', 'Frozen' ]
     }
   },
   created() {

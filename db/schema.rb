@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_07_044423) do
+ActiveRecord::Schema.define(version: 2019_04_07_223540) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 2019_04_07_044423) do
     t.string "brand_en"
     t.string "brand_zh"
     t.string "box_quantity"
-    t.integer "storage_temp", default: 0
+    t.string "storage_temp", default: "Room", null: false
     t.text "image_data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
