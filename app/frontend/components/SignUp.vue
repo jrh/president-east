@@ -46,23 +46,25 @@ export default {
   },
   methods: {
     submit() {
-      // axios
-      //   .post('/api/users', {
-      //     user: {
-      //       email: this.email,
-      //       password: this.password,
-      //       password_confirmation: this.passwordConfirmation
-      //     }
-      //   })
-      //   .then(response => {
-      //     console.log(response)
-      //   })
-      //   .catch(error => {
-      //     console.log(error)
-      //     if (error.response.data.errors) {
-      //       console.log(error.response.data.errors)
-      //     }
-      //   })
+      axios
+        .post('/api/users', {
+          user: {
+            email: this.email,
+            password: this.password,
+            password_confirmation: this.passwordConfirmation
+          }
+        })
+        .then(response => {
+          console.log(response)
+          // TODO: alert that user was created
+          // TODO: redirect to other page
+        })
+        .catch(error => {
+          console.log(error)
+          if (error.response.data.errors) {
+            console.log(error.response.data.errors)
+          }
+        })
     }
   }
 }

@@ -3,8 +3,10 @@ Rails.application.routes.draw do
   mount Shrine.presign_endpoint(:cache) => "/presign"
 
   root to: 'main#home'
-  
+
   namespace :api, defaults: { format: :json } do
+    post 'login', to: 'authentication#create'
+    resources :users, only: [:create]
     resources :products, only: [:index, :create, :update, :destroy] do
       get 'search', on: :collection
     end

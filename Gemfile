@@ -5,11 +5,11 @@ ruby '2.6.2'
 
 gem 'rails', '5.2.3'
 gem 'pg', '>= 0.18', '< 2.0'
-gem 'puma', '~> 3.11'
+gem 'puma'
 gem 'webpacker'
 gem 'kaminari'
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+gem 'bcrypt'
+gem 'jwt'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'sucker_punch'
 gem 'aws-sdk-s3'
