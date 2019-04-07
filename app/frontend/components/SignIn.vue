@@ -46,6 +46,8 @@ export default {
         })
         .then(response => {
           console.log(response)
+          this.$store.commit('setToken', response.data.auth_token);
+          this.$store.commit('setCurrentUser', response.data.current_user);
           // TODO: alert that user was logged in
         })
         .catch(error => {

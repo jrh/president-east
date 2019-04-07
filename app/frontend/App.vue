@@ -22,8 +22,9 @@
         <v-btn flat round to="/products">Products</v-btn>
         <v-btn flat round to="/contact">Contact</v-btn>
         <v-btn flat round to="/admin_products">Admin</v-btn>
-        <v-btn flat round to="/sign_up">Sign Up</v-btn>
-        <v-btn flat round to="/login">Login</v-btn>
+        <v-btn v-if="!isLoggedIn" flat round to="/sign_up">Sign Up</v-btn>
+        <v-btn v-if="isLoggedIn" flat round @click="$store.dispatch('logout')">Logout</v-btn>
+        <v-btn v-else flat round to="/login">Login</v-btn>
       </v-toolbar-items>
       <!-- <v-toolbar-side-icon @click="drawer = !drawer" class="hidden-md-and-up"></v-toolbar-side-icon> -->
     </v-toolbar>
@@ -45,6 +46,11 @@ export default {
   data() {
     return {
       drawer: false
+    }
+  },
+  computed: {
+    isLoggedIn() {
+      return this.$store.getters.isLoggedIn;
     }
   }
 }
