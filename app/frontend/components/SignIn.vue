@@ -2,7 +2,7 @@
   <div>
     <v-layout row justify-center class='mt-5'>
       <v-flex lg6>
-        <h5>Sign Up</h5>
+        <h5>Login</h5>
 
         <v-form>
           <v-text-field
@@ -16,14 +16,8 @@
             label="Password"
           >
           </v-text-field>
-          <v-text-field
-            v-model="passwordConfirmation"
-            type="password"
-            label="Password Confirmation"
-          >
-          </v-text-field>
           <v-btn @click="submit">
-            Submit
+            Login
           </v-btn>
         </v-form>
 
@@ -36,28 +30,23 @@
 import axios from 'axios';
 
 export default {
-  name: 'SignUp',
+  name: 'SignIn',
   data() {
     return {
       email: '',
-      password: '',
-      passwordConfirmation: ''
+      password: ''
     }
   },
   methods: {
     submit() {
       axios
-        .post('/api/users', {
-          user: {
-            email: this.email,
-            password: this.password,
-            password_confirmation: this.passwordConfirmation
-          }
+        .post('/api/login', {
+          email: this.email,
+          password: this.password
         })
         .then(response => {
           console.log(response)
-          // TODO: alert that user was created
-          // TODO: redirect to other page
+          // TODO: alert that user was logged in
         })
         .catch(error => {
           console.log(error)

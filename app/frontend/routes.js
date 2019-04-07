@@ -6,6 +6,7 @@ import ProductIndex from './components/ProductIndex';
 import Contact from './components/Contact';
 import AdminProductIndex from './components/AdminProductIndex';
 import SignUp from './components/SignUp';
+import SignIn from './components/SignIn';
 
 Vue.use(VueRouter);
 
@@ -17,7 +18,8 @@ export default new VueRouter({
     { path: '/products', component: ProductIndex },
     { path: '/contact', component: Contact },
     { path: '/admin_products', component: AdminProductIndex },
-    { path: '/sign_up', component: SignUp }
+    { path: '/sign_up', component: SignUp },
+    { path: '/login', component: SignIn }
   ]
 });
 
