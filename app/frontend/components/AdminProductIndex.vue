@@ -122,7 +122,14 @@ export default {
         image_data: null,
         image_url: ''
       },
-      brandOptions: [ 'Tung-I', 'Hsin Tung Yang', 'Chi-Sheng', 'KimLan', 'Little Cook Noodle', "King's Cook" ],
+      brandOptions: [
+        'Tung-I',
+        'Hsin Tung Yang',
+        'Chi-Sheng',
+        'Kimlan',
+        'Little Cook Noodle',
+        "King's Cook"
+      ],
       storageOptions: [ 'Room', 'Cooler', 'Frozen' ]
     }
   },
