@@ -6,6 +6,13 @@ const state = {
 const getters = {
   isLoggedIn(state) {
     return state.token ? true : false;
+  },
+  isAdmin(state) {
+    if (state.currentUser && state.currentUser.admin) {
+      return true;
+    } else {
+      return false;
+    }
   }
 };
 
@@ -13,6 +20,7 @@ const actions = {
   logout({ commit }) {
     commit('setCurrentUser', null);
     commit('setToken', null);
+    // TODO:  router:  if in admin area move to home
   }
 };
 

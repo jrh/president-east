@@ -21,16 +21,56 @@
         <v-btn flat round to="/about">About Us</v-btn>
         <v-btn flat round to="/products">Products</v-btn>
         <v-btn flat round to="/contact">Contact</v-btn>
-        <v-btn flat round to="/admin_products">Admin</v-btn>
+        <v-btn v-if="isLoggedIn && isAdmin" flat round to="/admin_products">Admin</v-btn>
         <v-btn v-if="!isLoggedIn" flat round to="/sign_up">Sign Up</v-btn>
         <v-btn v-if="isLoggedIn" flat round @click="$store.dispatch('logout')">Logout</v-btn>
-        <v-btn v-else flat round to="/login">Login</v-btn>
+        <!-- Login Dialog -->
+        <v-dialog
+          v-else
+          v-model="loginDialogShow"
+          width="500"
+        >
+          <template v-slot:activator="{ on }">
+            <v-btn flat round v-on="on">Login</v-btn>
+          </template>
+          <v-card>
+            <v-card-title primary-title class="headline grey lighten-2">
+              Login
+            </v-card-title>
+            <v-card-text>
+              <v-form>
+                <v-text-field
+                  v-model="email"
+                  label="Email"
+                >
+                </v-text-field>
+                <v-text-field
+                  v-model="password"
+                  type="password"
+                  label="Password"
+                >
+                </v-text-field>
+                <v-btn @click="submitLogin">
+                  Login
+                </v-btn>
+              </v-form>
+            </v-card-text>
+          </v-card>
+        </v-dialog>
       </v-toolbar-items>
       <!-- <v-toolbar-side-icon @click="drawer = !drawer" class="hidden-md-and-up"></v-toolbar-side-icon> -->
     </v-toolbar>
     <v-content>
       <v-container fluid>
         <router-view></router-view>
+
+        <v-snackbar
+          v-model="snackbarShow"
+          bottom
+          :color="snackbarVariant"
+        >
+          {{ snackbarMessage }}
+        </v-snackbar>
       </v-container>
     </v-content>
     <Footer />
@@ -38,6 +78,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import Footer from './components/Footer.vue';
 
 export default {
@@ -45,12 +86,50 @@ export default {
   components: { Footer },
   data() {
     return {
-      drawer: false
+      drawer: false,
+      loginDialogShow: false,
+      snackbarShow: false,
+      snackbarMessage: '',
+      snackbarVariant: '',
+      email: '',
+      password: ''
     }
   },
   computed: {
     isLoggedIn() {
       return this.$store.getters.isLoggedIn;
+    },
+    isAdmin() {
+      return this.$store.getters.isAdmin;
+    }
+  },
+  methods: {
+    submitLogin() {
+      axios
+        .post('/api/login', {
+          email: this.email,
+          password: this.password
+        })
+        .then(response => {
+          console.log(response)
+          this.$store.commit('setToken', response.data.auth_token);
+          this.$store.commit('setCurrentUser', response.data.current_user);
+          this.email = '',
+          this.password = ''
+          this.snackbarShow = true;
+          this.snackbarMessage = 'You have been logged in successfully';
+          this.snackbarVariant = 'success';
+        })
+        .catch(error => {
+          console.log(error)
+          if (error.response.data.errors) {
+            console.log(error.response.data.errors)
+          }
+          this.snackbarShow = true;
+          this.snackbarMessage = 'Incorrect email or password';
+          this.snackbarVariant = 'error';
+        })
+        .finally(() => this.loginDialogShow = false)
     }
   }
 }
