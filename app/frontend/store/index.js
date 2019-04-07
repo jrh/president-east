@@ -1,5 +1,6 @@
 import Vue from 'vue/dist/vue.esm';
 import Vuex from 'vuex';
+import createPersistedState from 'vuex-persistedstate';
 import auth from './modules/auth';
 import products from './modules/products';
 
@@ -9,6 +10,9 @@ export default new Vuex.Store({
   modules: {
     auth,
     products
-  }
+  },
+  plugins: [
+    createPersistedState()
+  ]
 });
 
