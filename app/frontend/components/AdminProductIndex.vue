@@ -67,13 +67,15 @@
       </v-dialog>
     </v-layout>
     <v-layout row justify-center class='mt-5'>
-      <v-data-table :headers="headers" :items="products">
+      <v-data-table
+        :headers="headers"
+        :items="products"
+        :rows-per-page-items="rowsPerPageItems">
         <template slot="items" slot-scope="props">
           <td>{{ props.item.item_no }}</td>
           <td>{{ props.item.name_en }}</td>
           <td>{{ props.item.name_zh }}</td>
           <td class="text-xs-center">{{ props.item.brand_en }}</td>
-<!--           <td class="text-xs-center">{{ props.item.brand_zh }}</td> -->
           <td class="text-xs-center">{{ props.item.box_quantity }}</td>
           <td class="text-xs-center">{{ props.item.storage_temp }}</td>
           <td class="text-xs-center">
@@ -130,7 +132,8 @@ export default {
         'Little Cook Noodle',
         "King's Cook"
       ],
-      storageOptions: [ 'Room', 'Cooler', 'Frozen' ]
+      storageOptions: [ 'Room', 'Cooler', 'Frozen' ],
+      rowsPerPageItems: [25]
     }
   },
   created() {
