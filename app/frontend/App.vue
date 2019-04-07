@@ -49,7 +49,7 @@
                   label="Password"
                 >
                 </v-text-field>
-                <v-btn @click="submitLogin">
+                <v-btn color="primary" @click="submitLogin">
                   Login
                 </v-btn>
               </v-form>
@@ -59,7 +59,7 @@
       </v-toolbar-items>
       <!-- <v-toolbar-side-icon @click="drawer = !drawer" class="hidden-md-and-up"></v-toolbar-side-icon> -->
     </v-toolbar>
-    <v-content>
+    <v-content style="padding-bottom: 100px;">
       <v-container fluid>
         <router-view></router-view>
 

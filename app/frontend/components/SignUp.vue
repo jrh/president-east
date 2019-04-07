@@ -6,23 +6,41 @@
 
         <v-form>
           <v-text-field
+            v-model="firstName"
+            label="First Name *"
+          >
+          </v-text-field>
+
+          <v-text-field
+            v-model="lastName"
+            label="Last Name *"
+          >
+          </v-text-field>
+
+          <v-text-field
+            v-model="company"
+            label="Company"
+          >
+          </v-text-field>
+
+          <v-text-field
             v-model="email"
-            label="Email"
+            label="Email *"
           >
           </v-text-field>
           <v-text-field
             v-model="password"
             type="password"
-            label="Password"
+            label="Password *"
           >
           </v-text-field>
           <v-text-field
             v-model="passwordConfirmation"
             type="password"
-            label="Password Confirmation"
+            label="Password Confirmation *"
           >
           </v-text-field>
-          <v-btn @click="submit">
+          <v-btn right color="primary" @click="submit">
             Submit
           </v-btn>
         </v-form>
@@ -39,6 +57,9 @@ export default {
   name: 'SignUp',
   data() {
     return {
+      firstName: '',
+      lastName: '',
+      company: '',
       email: '',
       password: '',
       passwordConfirmation: ''
@@ -49,6 +70,9 @@ export default {
       axios
         .post('/api/users', {
           user: {
+            first_name: this.firstName,
+            last_name: this.lastName,
+            company: this.company,
             email: this.email,
             password: this.password,
             password_confirmation: this.passwordConfirmation
@@ -56,6 +80,8 @@ export default {
         })
         .then(response => {
           console.log(response)
+          this.$store.commit('setToken', response.data.auth_token);
+          this.$store.commit('setCurrentUser', response.data.current_user);
           // TODO: alert that user was created
           // TODO: redirect to other page
         })
