@@ -2,11 +2,19 @@ class JsonWebToken
 
   def self.encode(payload)
     payload.reverse_merge!(meta)
-    JWT.encode(payload, Rails.application.credentials.jwt_secret)
+    if Rails.env.production?
+      JWT.encode(payload, ENV['JWT_SECRET'])
+    else
+      JWT.encode(payload, Rails.application.credentials.jwt_secret)
+    end
   end
 
   def self.decode(token)
-    JWT.decode(token, Rails.application.credentials.jwt_secret)
+    if Rails.env.production?
+      JWT.decode(token, ENV['JWT_SECRET'])
+    else
+      JWT.decode(token, Rails.application.credentials.jwt_secret)
+    end
   end
 
   def self.valid_payload(payload)
