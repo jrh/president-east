@@ -20,7 +20,6 @@
       <v-toolbar-items class="hidden-sm-and-down" style="height: 50px;">
         <v-btn flat round to="/about">About Us</v-btn>
         <v-btn flat round to="/products">Products</v-btn>
-        <v-btn flat round to="/contact">Contact</v-btn>
         <v-btn v-if="isLoggedIn && isAdmin" flat round to="/admin_products">Admin</v-btn>
         <v-btn v-if="!isLoggedIn" flat round to="/sign_up">Sign Up</v-btn>
         <v-btn v-if="isLoggedIn" flat round @click="$store.dispatch('logout')">Logout</v-btn>
