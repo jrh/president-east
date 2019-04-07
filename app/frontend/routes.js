@@ -1,10 +1,11 @@
 import Vue from 'vue/dist/vue.esm';
 import VueRouter from 'vue-router';
 import Home from './components';
-import About from './components/About.vue';
-import ProductIndex from './components/ProductIndex.vue';
-import Contact from './components/Contact.vue';
-import AdminProductIndex from './components/AdminProductIndex.vue';
+import About from './components/About';
+import ProductIndex from './components/ProductIndex';
+import Contact from './components/Contact';
+import AdminProductIndex from './components/AdminProductIndex';
+import SignUp from './components/SignUp';
 
 Vue.use(VueRouter);
 
@@ -15,7 +16,8 @@ export default new VueRouter({
     { path: '/about', component: About },
     { path: '/products', component: ProductIndex },
     { path: '/contact', component: Contact },
-    { path: '/admin_products', component: AdminProductIndex }
+    { path: '/admin_products', component: AdminProductIndex },
+    { path: '/sign_up', component: SignUp }
   ]
 });
 
