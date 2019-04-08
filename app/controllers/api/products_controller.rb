@@ -1,7 +1,7 @@
 module Api
   class ProductsController < ApiController
     def index
-      @products = Product.all.map do |p|
+      @products = Product.all.order(:item_no).map do |p|
         if !p.image_data.nil?
           p.attributes.merge!(image_url: p.image_url(:thumb))
         else
