@@ -47,6 +47,7 @@
                   v-model="password"
                   type="password"
                   label="Password"
+                  @keydown.enter="submitLogin"
                 >
                 </v-text-field>
                 <v-btn color="primary" @click="submitLogin">
