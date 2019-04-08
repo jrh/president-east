@@ -20,7 +20,8 @@
                   </v-flex>
                   <v-flex xs12 sm6 md6>
                     <v-layout row justify-center class="pb-3">
-                      <img height="60" :src="editedItem.image_url" />
+                      <img v-if="editedItem.image_url" height="60" ref="imagePreview" :src="editedItem.image_url" />
+                      <img v-else height="60" ref="imagePreview" />
                     </v-layout>
                     <v-layout row justify-center>
                       <div id="uppy-target"></div>
@@ -61,7 +62,7 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="darken-1" flat @click="close">Cancel</v-btn>
-              <v-btn color="success" @click="save(editedItem)">Save</v-btn>
+              <v-btn color="success" :disabled="uploadingImage" @click="save(editedItem)">Save</v-btn>
             </v-card-actions>
           </v-card>
       </v-dialog>
@@ -124,6 +125,18 @@ export default {
         image_data: null,
         image_url: ''
       },
+      defaultItem: {
+        id: null,
+        item_no: '',
+        name_en: '',
+        name_zh: '',
+        brand_en: '',
+        box_quantity: '',
+        storage_temp: 'Room',
+        image: null,
+        image_data: null,
+        image_url: ''
+      },
       brandOptions: [
         'Tung-I',
         'Hsin Tung Yang',
@@ -133,7 +146,8 @@ export default {
         "King's Cook"
       ],
       storageOptions: [ 'Room', 'Cooler', 'Frozen' ],
-      rowsPerPageItems: [25]
+      rowsPerPageItems: [25],
+      uploadingImage: false
     }
   },
   created() {
@@ -165,7 +179,11 @@ export default {
       }
     })
 
-    uppy.on('upload-success', (file, resp, uploadURL) => {
+    uppy.on('upload', (data) => {
+      this.uploadingImage = true;
+    })
+
+    uppy.on('upload-success', (file, response) => {
       // construct uploaded file data in the format that Shrine expects
       let uploadedFileData = JSON.stringify({
         id: file.meta['key'].match(/^cache\/(.+)/)[1], // object key without prefix
@@ -179,6 +197,11 @@ export default {
 
       // set hidden field value to the uploaded file data so that it's submitted with the form as the attachment
       this.editedItem.image = uploadedFileData;
+
+      // show image preview
+      this.$refs.imagePreview.src = URL.createObjectURL(file.data)
+
+      this.uploadingImage = false;
     })
   },
   computed: {
