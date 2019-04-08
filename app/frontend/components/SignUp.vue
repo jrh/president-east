@@ -1,19 +1,28 @@
 <template>
   <div>
+    <v-layout row justify-center>
+      <p>Register an Account</p>
+    </v-layout>
     <v-layout row justify-center class='mt-5'>
       <v-flex lg6>
-        <h5>Sign Up</h5>
-
         <v-form>
           <v-text-field
             v-model="firstName"
             label="First Name *"
+            name="firstName"
+            :error-messages="errors.collect('firstName')"
+            v-validate="{ required: true }"
+            data-vv-as="first name"
           >
           </v-text-field>
 
           <v-text-field
             v-model="lastName"
             label="Last Name *"
+            name="lastName"
+            :error-messages="errors.collect('lastName')"
+            v-validate="{ required: true }"
+            data-vv-as="last name"
           >
           </v-text-field>
 
@@ -25,22 +34,33 @@
 
           <v-text-field
             v-model="email"
+            type="email"
             label="Email *"
+            name="email"
+            :error-messages="errors.collect('email')"
+            v-validate="{ required: true, email: true }"
           >
           </v-text-field>
           <v-text-field
             v-model="password"
             type="password"
             label="Password *"
+            name="password"
+            :error-messages="errors.collect('password')"
+            v-validate="{ required: true }"
           >
           </v-text-field>
           <v-text-field
             v-model="passwordConfirmation"
             type="password"
             label="Password Confirmation *"
+            name="passwordConfirmation"
+            :error-messages="errors.collect('passwordConfirmation')"
+            v-validate="{ required: true }"
+            data-vv-as="password confirmation"
           >
           </v-text-field>
-          <v-btn right color="primary" @click="submit">
+          <v-btn right color="primary" :disabled="errors.any() || !formValid" @click="submit">
             Submit
           </v-btn>
         </v-form>
@@ -64,6 +84,13 @@ export default {
       password: '',
       passwordConfirmation: ''
     }
+  },
+  computed: {
+    formValid() {
+      return Object.keys(this.fields).every(field => {
+        return this.fields[field] && this.fields[field].valid;
+      });
+    },
   },
   methods: {
     submit() {
@@ -91,7 +118,19 @@ export default {
             console.log(error.response.data.errors)
           }
         })
-    }
+    },
+    validateState(ref) {
+      if (this.fields[ref] && (this.fields[ref].dirty || this.fields[ref].validated)) {
+        return this.fields[ref].valid;
+      }
+      return null;
+    },
   }
 }
 </script>
+
+<style scoped>
+p {
+  font-size: 24px;
+}
+</style>
