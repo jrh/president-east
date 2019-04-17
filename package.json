@@ -3,21 +3,21 @@
   "private": true,
   "dependencies": {
     "@rails/webpacker": "^4.0.2",
-    "@uppy/aws-s3": "^0.30.3",
-    "@uppy/core": "^0.30.3",
-    "@uppy/file-input": "^0.30.3",
+    "@uppy/aws-s3": "^0.30.4",
+    "@uppy/core": "^0.30.4",
+    "@uppy/file-input": "^0.30.4",
     "axios": "^0.18.0",
     "normalizr": "^3.3.0",
-    "vee-validate": "^2.2.0",
+    "vee-validate": "^2.2.3",
     "vue": "^2.6.10",
     "vue-loader": "^15.7.0",
-    "vue-router": "^3.0.2",
+    "vue-router": "^3.0.6",
     "vue-template-compiler": "^2.6.10",
-    "vuetify": "^1.5.9",
+    "vuetify": "^1.5.12",
     "vuex": "^3.1.0",
     "vuex-persistedstate": "^2.5.4"
   },
   "devDependencies": {
-    "webpack-dev-server": "^3.2.1"
+    "webpack-dev-server": "^3.3.1"
   }
 }
