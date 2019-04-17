@@ -1,95 +1,102 @@
 <template>
   <div>
     <v-layout row justify-center>
-      <h3>Admin Product Index</h3>
+      <h3>Admin Section</h3>
     </v-layout>
     <v-layout row justify-center>
       <v-flex xs12 md10 lg7 class="text-xs-right">
-      <!-- Modal -->
-      <v-dialog v-model="dialog" max-width="500px">
-        <v-btn slot="activator" color="success">Add Product</v-btn>
-        <v-card>
-          <v-card-title>
-            <span class="headline">{{ formTitle }}</span>
-          </v-card-title>
-
-          <v-card-text>
-            <v-container grid-list-md>
-              <v-layout row>
-                <v-flex xs12 sm6 md6>
-                  <v-text-field v-model="editedItem.item_no" label="Item No." number></v-text-field>
-                </v-flex>
-                <v-flex xs12 sm6 md6>
-                  <v-layout row justify-center class="pb-3">
-                    <img v-if="editedItem.image_url" height="60" ref="imagePreview" :src="editedItem.image_url" />
-                    <img v-else height="60" ref="imagePreview" />
-                    <v-progress-circular v-if="uploadingImage" indeterminate></v-progress-circular>
-                  </v-layout>
-                  <v-layout row justify-center>
-                    <div id="uppy-target"></div>
-                  </v-layout>
-                  <input type="hidden" v-model="editedItem.image" />
-                </v-flex>
-              </v-layout>
-              <v-layout wrap>
-                <v-flex xs12 sm8>
-                  <v-text-field v-model="editedItem.name_zh" label="Name (Chinese)"></v-text-field>
-                </v-flex>
-                <v-flex xs12 sm8>
-                  <v-text-field v-model="editedItem.name_en" label="Name (English)"></v-text-field>
-                </v-flex>
-                <v-flex xs12 sm8>
-                  <v-select
-                    v-model="editedItem.brand_en"
-                    :items="brandOptions"
-                    label="Brand">
-                  </v-select>
-                </v-flex>
-                <v-flex xs12 sm6>
-                  <v-text-field v-model="editedItem.box_quantity" label="Box Quantity"></v-text-field>
-                </v-flex>
-                <v-flex xs12 sm6>
-                  <v-select
-                    v-model="editedItem.storage_temp"
-                    :items="storageOptions"
-                    item-text="label"
-                    item-value="value"
-                    label="Storage Temp">
-                  </v-select>
-                </v-flex>
-              </v-layout>
-            </v-container>
-          </v-card-text>
-
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="darken-1" flat @click="close">Cancel</v-btn>
-            <v-btn color="success" :disabled="uploadingImage" @click="save(editedItem)">Save</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
+      <!--  -->
       </v-flex>
     </v-layout>
     <v-layout row justify-center class='mt-5'>
-      <v-data-table
-        :headers="headers"
-        :items="products"
-        :rows-per-page-items="rowsPerPageItems">
-        <template slot="items" slot-scope="props">
-          <td>{{ props.item.item_no }}</td>
-          <td>{{ props.item.name_en }}</td>
-          <td>{{ props.item.name_zh }}</td>
-          <td class="text-xs-center">{{ props.item.brand_en }}</td>
-          <td class="text-xs-center">{{ props.item.box_quantity }}</td>
-          <td class="text-xs-center">{{ props.item.storage_temp }}</td>
-          <td class="text-xs-center">
-            <v-icon v-if="props.item.image_data">photo</v-icon>
-          </td>
-          <td class="text-xs-center">
-            <v-icon small @click="editItem(props.item)">edit</v-icon>
-          </td>
-        </template>
-      </v-data-table>
+      <v-card>
+        <v-layout row class="pa-2">
+          <v-card-title>Products</v-card-title>
+          <v-spacer></v-spacer>
+          <!-- Modal -->
+          <v-dialog v-model="dialog" max-width="500px">
+            <v-btn slot="activator" color="success">Add Product</v-btn>
+            <v-card>
+              <v-card-title>
+                <span class="headline">{{ formTitle }}</span>
+              </v-card-title>
+
+              <v-card-text>
+                <v-container grid-list-md>
+                  <v-layout row>
+                    <v-flex xs12 sm6 md6>
+                      <v-text-field v-model="editedItem.item_no" label="Item No." number></v-text-field>
+                    </v-flex>
+                    <v-flex xs12 sm6 md6>
+                      <v-layout row justify-center class="pb-3">
+                        <img v-if="editedItem.image_url" height="60" ref="imagePreview" :src="editedItem.image_url" />
+                        <img v-else height="60" ref="imagePreview" />
+                        <v-progress-circular v-if="uploadingImage" indeterminate></v-progress-circular>
+                      </v-layout>
+                      <v-layout row justify-center>
+                        <div id="uppy-target"></div>
+                      </v-layout>
+                      <input type="hidden" v-model="editedItem.image" />
+                    </v-flex>
+                  </v-layout>
+                  <v-layout wrap>
+                    <v-flex xs12 sm8>
+                      <v-text-field v-model="editedItem.name_zh" label="Name (Chinese)"></v-text-field>
+                    </v-flex>
+                    <v-flex xs12 sm8>
+                      <v-text-field v-model="editedItem.name_en" label="Name (English)"></v-text-field>
+                    </v-flex>
+                    <v-flex xs12 sm8>
+                      <v-select
+                        v-model="editedItem.brand_en"
+                        :items="brandOptions"
+                        label="Brand">
+                      </v-select>
+                    </v-flex>
+                    <v-flex xs12 sm6>
+                      <v-text-field v-model="editedItem.box_quantity" label="Box Quantity"></v-text-field>
+                    </v-flex>
+                    <v-flex xs12 sm6>
+                      <v-select
+                        v-model="editedItem.storage_temp"
+                        :items="storageOptions"
+                        item-text="label"
+                        item-value="value"
+                        label="Storage Temp">
+                      </v-select>
+                    </v-flex>
+                  </v-layout>
+                </v-container>
+              </v-card-text>
+
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="darken-1" flat @click="close">Cancel</v-btn>
+                <v-btn color="success" :disabled="uploadingImage" @click="save(editedItem)">Save</v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+        </v-layout>
+        <v-data-table
+          :headers="headers"
+          :items="products"
+          :rows-per-page-items="rowsPerPageItems">
+          <template slot="items" slot-scope="props">
+            <td>{{ props.item.item_no }}</td>
+            <td>{{ props.item.name_en }}</td>
+            <td>{{ props.item.name_zh }}</td>
+            <td class="text-xs-center">{{ props.item.brand_en }}</td>
+            <td class="text-xs-center">{{ props.item.box_quantity }}</td>
+            <td class="text-xs-center">{{ props.item.storage_temp }}</td>
+            <td class="text-xs-center">
+              <v-icon v-if="props.item.image_data">photo</v-icon>
+            </td>
+            <td class="text-xs-center">
+              <v-icon small @click="editItem(props.item)">edit</v-icon>
+            </td>
+          </template>
+        </v-data-table>
+      </v-card>
     </v-layout>
   </div>
 </template>
