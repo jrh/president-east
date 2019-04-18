@@ -18,11 +18,23 @@
       </router-link>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-sm-and-down" style="height: 50px;">
-        <v-btn flat round to="/about">About Us</v-btn>
-        <v-btn flat round to="/products">Products</v-btn>
-        <v-btn v-if="isLoggedIn && isAdmin" flat round to="/admin_products">Admin</v-btn>
-        <v-btn v-if="!isLoggedIn" flat round to="/sign_up">Sign Up</v-btn>
-        <v-btn v-if="isLoggedIn" flat round @click="$store.dispatch('logout')">Logout</v-btn>
+        <v-btn flat to="/about">About Us</v-btn>
+        <v-btn flat to="/products">Products</v-btn>
+        <v-menu v-if="isLoggedIn && isAdmin" open-on-hover offset-y>
+          <template v-slot:activator="{ on }">
+            <v-btn flat v-on="on">Admin</v-btn>
+          </template>
+          <v-list>
+            <v-list-tile to="/admin_products">
+              <v-list-tile-title>Products</v-list-tile-title>
+            </v-list-tile>
+            <v-list-tile to="">
+              <v-list-tile-title>User Accounts</v-list-tile-title>
+            </v-list-tile>
+          </v-list>
+        </v-menu>
+        <v-btn v-if="!isLoggedIn" flat to="/sign_up">Sign Up</v-btn>
+        <v-btn v-if="isLoggedIn" flat @click="$store.dispatch('logout')">Logout</v-btn>
         <!-- Login Dialog -->
         <v-dialog
           v-else

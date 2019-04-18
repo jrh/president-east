@@ -3,15 +3,15 @@
     <v-layout row justify-center>
       <h3>Admin Section</h3>
     </v-layout>
-    <v-layout row justify-center>
-      <v-flex xs12 md10 lg7 class="text-xs-right">
-      <!--  -->
+<!--     <v-layout row justify-center>
+      <v-flex xs12 lg10 class="text-xs-right">
+        <v-btn>User Accounts</v-btn>
       </v-flex>
-    </v-layout>
+    </v-layout> -->
     <v-layout row justify-center class='mt-5'>
       <v-card>
         <v-layout row class="pa-2">
-          <v-card-title>Products</v-card-title>
+          <v-card-title style="font-size: 20px;">Products</v-card-title>
           <v-spacer></v-spacer>
           <!-- Modal -->
           <v-dialog v-model="dialog" max-width="500px">
