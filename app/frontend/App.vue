@@ -25,10 +25,10 @@
             <v-btn flat v-on="on">Admin</v-btn>
           </template>
           <v-list>
-            <v-list-tile to="/admin_products">
+            <v-list-tile to="/admin/products">
               <v-list-tile-title>Products</v-list-tile-title>
             </v-list-tile>
-            <v-list-tile to="">
+            <v-list-tile to="/admin/users">
               <v-list-tile-title>User Accounts</v-list-tile-title>
             </v-list-tile>
           </v-list>

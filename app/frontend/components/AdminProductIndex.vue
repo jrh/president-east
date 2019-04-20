@@ -3,11 +3,6 @@
     <v-layout row justify-center>
       <h3>Admin Section</h3>
     </v-layout>
-<!--     <v-layout row justify-center>
-      <v-flex xs12 lg10 class="text-xs-right">
-        <v-btn>User Accounts</v-btn>
-      </v-flex>
-    </v-layout> -->
     <v-layout row justify-center class='mt-5'>
       <v-card>
         <v-layout row class="pa-2">

@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: :json } do
     post 'login', to: 'authentication#create'
-    resources :users, only: [:create]
+    resources :users, only: [:index, :create]
     resources :products, only: [:index, :create, :update, :destroy] do
       get 'search', on: :collection
     end
