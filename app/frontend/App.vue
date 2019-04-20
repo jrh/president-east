@@ -90,7 +90,6 @@
 </template>
 
 <script>
-import axios from 'axios';
 import Footer from './components/Footer.vue';
 
 export default {
@@ -117,8 +116,7 @@ export default {
   },
   methods: {
     submitLogin() {
-      axios
-        .post('/api/login', {
+      this.$http.post('/api/login', {
           email: this.email,
           password: this.password
         })

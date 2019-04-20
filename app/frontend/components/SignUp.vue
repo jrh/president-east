@@ -71,8 +71,6 @@
 </template>
 
 <script>
-import axios from 'axios';
-
 export default {
   name: 'SignUp',
   data() {
@@ -94,8 +92,7 @@ export default {
   },
   methods: {
     submit() {
-      axios
-        .post('/api/users', {
+      this.$http.post('/api/users', {
           user: {
             first_name: this.firstName,
             last_name: this.lastName,

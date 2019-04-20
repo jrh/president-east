@@ -7,6 +7,29 @@ import store from '../store';
 import router from '../routes.js';
 import '../filters/capitalize.js';
 
+// Axios config
+import axios from 'axios';
+Vue.use({
+  install (Vue) {
+    const instance = axios.create();
+    instance.interceptors.response.use(response => {
+      return response;
+    }, error => {
+      // if (error.response.status === 401) {
+      //   console.log('401 error intercepted!!!')
+      //   Rails.ajax({
+      //     url: '/timeout',
+      //     type: 'GET',
+      //     dataType: 'script',
+      //     success: function() { window.location.href = '/accounts/sign_in' }
+      //   });
+      // }
+      return error;
+    });
+    Vue.prototype.$http = instance;
+  }
+});
+
 Vue.use(Vuetify);
 Vue.use(VeeValidate);
 
