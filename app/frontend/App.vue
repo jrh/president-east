@@ -16,10 +16,12 @@
           <v-toolbar-title>President East Co.</v-toolbar-title>
         </router-link>
       </router-link>
-      <v-spacer></v-spacer>
-      <v-toolbar-items class="hidden-sm-and-down" style="height: 50px;">
+      <v-toolbar-items class="hidden-sm-and-down pl-5" style="height: 50px;">
         <v-btn flat to="/about">About Us</v-btn>
         <v-btn flat to="/products">Products</v-btn>
+      </v-toolbar-items>
+      <v-spacer></v-spacer>
+      <v-toolbar-items class="hidden-sm-and-down" style="height: 50px;">
         <v-menu v-if="isLoggedIn && isAdmin" open-on-hover offset-y>
           <template v-slot:activator="{ on }">
             <v-btn flat v-on="on">Admin</v-btn>
@@ -116,7 +118,7 @@ export default {
   },
   methods: {
     submitLogin() {
-      this.$http.post('/api/login', {
+      this.$http.post('/login', {
           email: this.email,
           password: this.password
         })

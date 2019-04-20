@@ -11,7 +11,9 @@ import '../filters/capitalize.js';
 import axios from 'axios';
 Vue.use({
   install (Vue) {
-    const instance = axios.create();
+    const instance = axios.create({
+      baseURL: '/api'
+    });
     instance.interceptors.response.use(response => {
       return response;
     }, error => {

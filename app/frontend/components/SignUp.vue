@@ -92,7 +92,7 @@ export default {
   },
   methods: {
     submit() {
-      this.$http.post('/api/users', {
+      this.$http.post('/users', {
           user: {
             first_name: this.firstName,
             last_name: this.lastName,

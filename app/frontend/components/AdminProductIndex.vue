@@ -1,8 +1,5 @@
 <template>
   <div>
-    <v-layout row justify-center>
-      <h3>Admin Section</h3>
-    </v-layout>
     <v-layout row justify-center class='mt-5'>
       <v-card>
         <v-layout row class="pa-2">
