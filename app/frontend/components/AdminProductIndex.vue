@@ -14,7 +14,7 @@
               </v-card-title>
 
               <v-card-text>
-                <v-container grid-list-md>
+                <v-container grid-list-md class="pt-0">
                   <v-layout row>
                     <v-flex xs12 sm6 md6>
                       <v-text-field v-model="editedItem.item_no" label="Item No." number></v-text-field>
@@ -73,16 +73,13 @@
           :headers="headers"
           :items="products"
           :rows-per-page-items="rowsPerPageItems">
-          <template slot="items" slot-scope="props">
+          <template v-slot:items="props">
             <td>{{ props.item.item_no }}</td>
-            <td>{{ props.item.name_en }}</td>
+            <td>{{ props.item.name_en }}<v-icon v-if="!props.item.image_data" small class="pl-1 red--text">error</v-icon></td>
             <td>{{ props.item.name_zh }}</td>
             <td class="text-xs-center">{{ props.item.brand_en }}</td>
             <td class="text-xs-center">{{ props.item.box_quantity }}</td>
             <td class="text-xs-center">{{ props.item.storage_temp }}</td>
-            <td class="text-xs-center">
-              <v-icon v-if="props.item.image_data">photo</v-icon>
-            </td>
             <td class="text-xs-center">
               <v-icon small @click="editItem(props.item)">edit</v-icon>
             </td>
@@ -111,10 +108,10 @@ export default {
         { text: 'Brand', align: 'center', value: 'brand_en' },
         { text: 'Box Quantity', align: 'center', value: 'box_quantity' },
         { text: 'Storage Temp', align: 'center', value: 'storage_temp' },
-        { text: 'Photo Attached?', align: 'center' },
         { text: 'Actions', align: 'center', value: 'name', sortable: false }
       ],
       mode: 'new',
+      newProductImageUrl: '',
       editedItem: {
         id: null,
         item_no: '',
@@ -196,12 +193,16 @@ export default {
           mime_type: file.type,
         }
       })
-
+      console.log(file)
+      console.log(response)
       // set hidden field value to the uploaded file data so that it's submitted with the form as the attachment
       this.editedItem.image = uploadedFileData;
 
       // show image preview
-      this.$refs.imagePreview.src = URL.createObjectURL(file.data)
+      this.$refs.imagePreview.src = URL.createObjectURL(file.data);
+
+      // use cached version of AWS image URL for form submital
+      this.newProductImageUrl = response.uploadURL;
 
       this.uploadingImage = false;
     })
@@ -218,22 +219,11 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['fetchProducts', 'createProduct', 'updateProduct']),
+    ...mapActions(['fetchProducts', 'updateProduct']),
     editItem(product) {
-      this.mode = 'edit'
-      this.editedItem = Object.assign({}, product)
-      this.dialog = true
-    },
-    deleteItem(product) {
-      //const index = this.products.indexOf(item)
-      //confirm('Are you sure you want to delete this item?') && this.products.splice(index, 1)
-    },
-    close() {
-      this.mode = 'new'
-      this.dialog = false
-      setTimeout(() => {
-        this.editedItem = Object.assign({}, this.defaultItem)
-      }, 300)
+      this.mode = 'edit';
+      this.editedItem = Object.assign({}, product);
+      this.dialog = true;
     },
     save(product) {
       if (this.mode === 'edit') {
@@ -243,6 +233,30 @@ export default {
         this.createProduct(product)
       }
       this.close()
+    },
+    close() {
+      this.mode = 'new'
+      this.dialog = false
+      setTimeout(() => {
+        this.editedItem = Object.assign({}, this.defaultItem);
+        this.$refs.imagePreview.src = '';
+      }, 300)
+    },
+    createProduct(product) {
+      this.$http.post('/products', { product })
+        .then(response => {
+          console.log(response);
+          let createdProduct = response.data;
+          createdProduct['image_url'] = this.newProductImageUrl;
+
+          this.$store.commit('addProduct', createdProduct);
+          this.newProductImageUrl = '';
+        })
+        .catch(error => console.log(error))
+    },
+    deleteItem(product) {
+      //const index = this.products.indexOf(item)
+      //confirm('Are you sure you want to delete this item?') && this.products.splice(index, 1)
     }
   }
 }

@@ -28,14 +28,6 @@ const actions = {
       })
       .catch(error => console.log(error))
   },
-  createProduct({ commit }, product) {
-    axios.post('/api/products', { product })
-      .then(response => {
-        console.log(response);
-        commit('addProduct', response.data);
-      })
-      .catch(error => console.log(error))
-  },
   updateProduct({ commit }, product) {
     //TODO: don't update created_at/ updated_at
     axios({
@@ -75,7 +67,8 @@ const mutations = {
       brand_en: payload.brand_en,
       box_quantity: payload.box_quantity,
       storage_temp: payload.storage_temp,
-      image_data: payload.image_data
+      image_data: payload.image_data,
+      image_url: payload.image_url
     };
   },
   editProduct(state, payload) {
@@ -89,6 +82,10 @@ const mutations = {
     product.image_data = payload.image_data;
     // add image_url
   },
+  setImageUrl(state, payload) {
+    let product = state.productData[payload.id];
+    product.image_url = payload.image_url;
+  }
   // setSearchResults(state, data) {
   //   state.searchResults = data;
   // }
