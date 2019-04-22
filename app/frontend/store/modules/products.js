@@ -24,23 +24,10 @@ const actions = {
         const product = new schema.Entity('products');
         const mySchema = { products: [ product ] }
         const normalizedData = normalize(myData, mySchema);
-        commit('setProducts', normalizedData);
+        commit('loadProducts', normalizedData);
       })
       .catch(error => console.log(error))
-  },
-  updateProduct({ commit }, product) {
-    //TODO: don't update created_at/ updated_at
-    axios({
-      method: 'put',
-      url: `/api/products/${product.id}`,
-      data: { product }
-    })
-    .then(response => {
-      console.log(response);
-      commit('editProduct', response.data);
-    })
-    .catch(error => console.log(error))
-  },
+  }
   // searchProducts({ commit }, term) {
   //   axios.get('/api/products/search', {
   //     params: { search: term }
@@ -54,7 +41,7 @@ const actions = {
 };
 
 const mutations = {
-  setProducts(state, data) {
+  loadProducts(state, data) {
     state.productData = data.entities.products;
     state.productList = data.result.products;
   },
@@ -71,7 +58,7 @@ const mutations = {
       image_url: payload.image_url
     };
   },
-  editProduct(state, payload) {
+  setProduct(state, payload) {
     const product = state.productData[payload.id]
     product.item_no = payload.item_no;
     product.name_en = payload.name_en;
@@ -80,10 +67,6 @@ const mutations = {
     product.box_quantity = payload.box_quantity;
     product.storage_temp = payload.storage_temp;
     product.image_data = payload.image_data;
-    // add image_url
-  },
-  setImageUrl(state, payload) {
-    let product = state.productData[payload.id];
     product.image_url = payload.image_url;
   }
   // setSearchResults(state, data) {

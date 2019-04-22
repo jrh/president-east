@@ -14,6 +14,12 @@ module Api
     def create
       @product = Product.new(product_params)
       if @product.save
+        # check for image_url with binding.pry...
+        # if product.image_data.present?
+        #   @product = product.attributes.merge!(image_url: product.image_url(:thumb))
+        # else
+        #   @product = product.attributes.merge!(image_url: nil)
+        # end
         render status: :created, json: @product
       else
         render status: :unprocessable_entity
@@ -21,9 +27,13 @@ module Api
     end
 
     def update
-      @product = Product.find(params[:id])
-      if @product.update(product_params)
-        # TODO: merge image_url
+      product = Product.find(params[:id])
+      if product.update(product_params)
+        if product.image_data.present?
+          @product = product.attributes.merge!(image_url: product.image_url(:thumb))
+        else
+          @product = product.attributes.merge!(image_url: nil)
+        end
         render status: :ok, json: @product
       else
         render status: :unprocessable_entity

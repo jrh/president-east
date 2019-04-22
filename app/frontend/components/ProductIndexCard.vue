@@ -1,10 +1,10 @@
 <template>
-  <v-card height="250" width="200" hover>
+  <v-card height="320" width="220" hover>
     <v-layout row justify-center class="header pt-1">
       <span>#{{ product.item_no }}</span>
     </v-layout>
-    <v-img v-if="product.image_url" :src="product.image_url" height="90" contain></v-img>
-    <v-layout v-else style="height: 100px;" justify-center align-center>
+    <v-img v-if="product.image_url" :src="product.image_url" height="160" contain></v-img>
+    <v-layout v-else style="height: 160px;" justify-center align-center>
       <v-icon x-large>photo</v-icon>
     </v-layout>
     <v-card-text style="height: 100px;">

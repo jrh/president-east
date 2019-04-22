@@ -17,8 +17,8 @@
         </router-link>
       </router-link>
       <v-toolbar-items class="hidden-sm-and-down pl-5" style="height: 50px;">
-        <v-btn flat to="/about">About Us</v-btn>
-        <v-btn flat to="/products">Products</v-btn>
+        <v-btn flat round to="/about">About Us</v-btn>
+        <v-btn flat round to="/products">Products</v-btn>
       </v-toolbar-items>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-sm-and-down" style="height: 50px;">

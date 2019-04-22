@@ -254,6 +254,24 @@ export default {
         })
         .catch(error => console.log(error))
     },
+    updateProduct(product) {
+      this.$http.put(`/products/${product.id}`, {
+        product: {
+          item_no: product.item_no,
+          name_en: product.name_en,
+          name_zh: product.name_zh,
+          brand_en: product.brand_en,
+          box_quantity: product.box_quantity,
+          storage_temp: product.storage_temp,
+          image: product.image
+        }
+      })
+      .then(response => {
+        console.log(response);
+        this.$store.commit('setProduct', response.data);
+      })
+      .catch(error => console.log(error))
+    },
     deleteItem(product) {
       //const index = this.products.indexOf(item)
       //confirm('Are you sure you want to delete this item?') && this.products.splice(index, 1)
