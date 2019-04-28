@@ -3,9 +3,9 @@
   "private": true,
   "dependencies": {
     "@rails/webpacker": "^4.0.2",
-    "@uppy/aws-s3": "^0.30.4",
-    "@uppy/core": "^0.30.4",
-    "@uppy/file-input": "^0.30.4",
+    "@uppy/aws-s3": "^1.0.0",
+    "@uppy/core": "^1.0.0",
+    "@uppy/file-input": "^1.0.0",
     "axios": "^0.18.0",
     "normalizr": "^3.3.0",
     "vee-validate": "^2.2.3",

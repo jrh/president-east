@@ -697,30 +697,30 @@
   resolved "https://registry.yarnpkg.com/@types/q/-/q-1.5.2.tgz#690a1475b84f2a884fd07cd797c00f5f31356ea8"
   integrity sha512-ce5d3q03Ex0sy4R14722Rmt6MT07Ua+k4FwDfdcToYJcMKNtRVQvJ6JCAPdAmAnbRb6CsX6aYb9m96NGod9uTw==
 
-"@uppy/aws-s3@^0.30.4":
-  version "0.30.4"
-  resolved "https://registry.yarnpkg.com/@uppy/aws-s3/-/aws-s3-0.30.4.tgz#593000d3229fb4ccb9f0c30db42805047dc85bca"
-  integrity sha512-QY6F2YpOjJ3WNNChuCFp8Zol7/DEe6NCZJsK2bnKIwBhWiOL0CrznhInuQSGP3xxNWadJwOhsjtyqlgXb6Nm0w==
+"@uppy/aws-s3@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@uppy/aws-s3/-/aws-s3-1.0.0.tgz#84504f4244abee52f66607e1ab04651f7b3ab6ff"
+  integrity sha512-+0cSNxn14R1VMSRXjmor8N/oEf1tVtnvsxP88sF9OLY9v6s6iL0P3HMsRfh6ju0MyXJNxXUK4//9K6PsKXwJaA==
   dependencies:
-    "@uppy/companion-client" "0.28.4"
-    "@uppy/utils" "0.30.4"
-    "@uppy/xhr-upload" "0.30.4"
+    "@uppy/companion-client" "1.0.0"
+    "@uppy/utils" "0.30.5"
+    "@uppy/xhr-upload" "1.0.0"
     resolve-url "^0.2.1"
 
-"@uppy/companion-client@0.28.4":
-  version "0.28.4"
-  resolved "https://registry.yarnpkg.com/@uppy/companion-client/-/companion-client-0.28.4.tgz#b912f3ab5a618e28f2ca6534ced0fe88dc2b0ceb"
-  integrity sha512-Mp6eAQVKLwyoy4AEsfyWEbmH/np7dXklnmR0mcx80g8owM7DC9R6MYa0mPTJhF5nBxfUiCkfYE4b3gJr079t1A==
+"@uppy/companion-client@1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@uppy/companion-client/-/companion-client-1.0.0.tgz#dd8d7b44efc85618e3a8ef7583d65b81f49fe2ba"
+  integrity sha512-NPqEcgZu0W1t8baYm5hLd2do+t8A++hFhf7e/1ErT5yrIDfEgRTf7KuVQZXDEq/3C022S/+VAwzT6lkUZO1fcQ==
   dependencies:
     namespace-emitter "^2.0.1"
 
-"@uppy/core@^0.30.4":
-  version "0.30.4"
-  resolved "https://registry.yarnpkg.com/@uppy/core/-/core-0.30.4.tgz#0de6c965609a68c539ff26c8d0e549edd142dfa6"
-  integrity sha512-CAnjjvlytnV2P223wsin49H3DQ2pq7VJKiHVYce0NvrUgu10uCglUHJ4QkTYdrxjsjwp+AdYI4l55PMg+dumDw==
+"@uppy/core@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@uppy/core/-/core-1.0.0.tgz#2ef1e079c337e6ecc604dd419709a83383f16528"
+  integrity sha512-fupFkCbAdVApRrLgYQ/5va26eNXSiFzSCIAmuG5QMy3Z6X+iYt8mtkY+nny4j044S6we0fx0uzbmCLg5127/nA==
   dependencies:
     "@uppy/store-default" "0.28.3"
-    "@uppy/utils" "0.30.4"
+    "@uppy/utils" "0.30.5"
     cuid "^2.1.1"
     lodash.throttle "^4.1.1"
     mime-match "^1.0.2"
@@ -728,12 +728,12 @@
     preact "^8.2.9"
     prettier-bytes "^1.0.4"
 
-"@uppy/file-input@^0.30.4":
-  version "0.30.4"
-  resolved "https://registry.yarnpkg.com/@uppy/file-input/-/file-input-0.30.4.tgz#d307cfffb35dec84711b5f5b575d303e1ebf2503"
-  integrity sha512-jQgmby9Jo1X7SsTzNUd7ON1WFUm2wguEuklcNPVjOOBMEevp3Lo81jjwr0XoBLXjRoF3QZKuMuKS96wggZryog==
+"@uppy/file-input@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@uppy/file-input/-/file-input-1.0.0.tgz#16a2d4afe3e377b43867f69ad076a61f25d7d42c"
+  integrity sha512-mkYxiHp6bYMXGu4LfCSNldVW4Ue/DcAgUXQ0qZORakE2pbWLdE689aziGlrOi0u3uLGoQNcsngRtl92nmlPuhQ==
   dependencies:
-    "@uppy/utils" "0.30.4"
+    "@uppy/utils" "0.30.5"
     preact "^8.2.9"
 
 "@uppy/store-default@0.28.3":
@@ -741,20 +741,20 @@
   resolved "https://registry.yarnpkg.com/@uppy/store-default/-/store-default-0.28.3.tgz#0dd37badf68f1ca4d16e23c3813626ed01127643"
   integrity sha512-H3dHvYnna1D3qGMeEW2Mc4BDe2+73IsshqyqyNawZcOG4EF053D5ZeeoB0DQoXaL290vsHMhYilZbp6O0v6Z8g==
 
-"@uppy/utils@0.30.4":
-  version "0.30.4"
-  resolved "https://registry.yarnpkg.com/@uppy/utils/-/utils-0.30.4.tgz#1f01b46238f5cac5f175cbf237544a81719c14a2"
-  integrity sha512-rDoridOYdKjVvJsvxNSKN28pa2hB3jAysghFllXfQxsaRD8w97slPG/bMhZtUoivq9pkGKX8x06YojOR+SFZtA==
+"@uppy/utils@0.30.5":
+  version "0.30.5"
+  resolved "https://registry.yarnpkg.com/@uppy/utils/-/utils-0.30.5.tgz#249b8dc7bb525b19b8599121edb0b25aec9d0076"
+  integrity sha512-kdZK9qqbzduCIRsTUzEtQEv/Q4iTaEuwm75VlFAs+8mTMd0bFMRf/gYyGCAnANkfD2Ad/7cdjxy3FlwLO9gUBg==
   dependencies:
     lodash.throttle "^4.1.1"
 
-"@uppy/xhr-upload@0.30.4":
-  version "0.30.4"
-  resolved "https://registry.yarnpkg.com/@uppy/xhr-upload/-/xhr-upload-0.30.4.tgz#9a38aab68eaca5ceee032ea60d538af380955add"
-  integrity sha512-oCbppueKp07LjrgS09Ggui10nFwpUpMJjTWP5/tjX1MNQShMIlvs+R1BoH9soNC+fe33L6PfSa5mTlQ5JHQJdg==
+"@uppy/xhr-upload@1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@uppy/xhr-upload/-/xhr-upload-1.0.0.tgz#a15182f84b727147aada20b2217796de055ae289"
+  integrity sha512-RoFq6jVKtKjBpdmVDwiBwwa3WGy2al9906WYDCneLGFnLDCgCLooXB4zMJfsGkB5Hh8MYSPSe8owxhub8ExB1A==
   dependencies:
-    "@uppy/companion-client" "0.28.4"
-    "@uppy/utils" "0.30.4"
+    "@uppy/companion-client" "1.0.0"
+    "@uppy/utils" "0.30.5"
     cuid "^2.1.1"
 
 "@vue/component-compiler-utils@^2.5.1":
