@@ -6,7 +6,7 @@
           <v-card-title style="font-size: 20px;">Products</v-card-title>
           <v-spacer></v-spacer>
           <!-- Modal -->
-          <v-dialog v-model="dialog" max-width="500px">
+          <v-dialog v-model="dialog" max-width="500px" persistent>
             <v-btn slot="activator" color="success">Add Product</v-btn>
             <v-card>
               <v-card-title>
