@@ -4,15 +4,27 @@
       <p>Product Catalog</p>
     </v-layout>
     <v-layout row>
-      <v-toolbar dense id="search-bar">
-        <v-text-field
-          v-model="term"
-          hide-details
-          prepend-icon="search"
-          single-line
-          placeholder="Search by name or item no."
-        ></v-text-field>
-      </v-toolbar>
+      <v-flex lg6>
+        <v-toolbar dense id="search-bar">
+          <v-text-field
+            v-model="term"
+            hide-details
+            prepend-icon="search"
+            single-line
+            placeholder="Search by name or item no."
+          ></v-text-field>
+        </v-toolbar>
+      </v-flex>
+      <v-flex lg6 class="text-sm-right">
+        <v-select
+          v-model="brand"
+          :items="brandOptions"
+          label="Filter by brand"
+          class="ml-auto"
+          style="width: 320px;"
+        >
+        </v-select>
+      </v-flex>
     </v-layout>
     <v-layout row justify-center>
       <v-flex lg8>
@@ -37,19 +49,40 @@ export default {
   components: { ProductIndexCard },
   data() {
     return {
-      term: ''
+      term: '',
+      brand: null,
+      brandOptions: [
+        { text: 'All Brands', value: null },
+        'Tung-I',
+        'Hsin Tung Yang',
+        // 'Chi-Sheng',
+        // 'Kimlan',
+        // 'Little Cook Noodle',
+        // "King's Cook"
+      ],
     }
   },
   computed: {
     ...mapGetters(['products']),
     filteredProducts() {
-      let term = this.term.toLowerCase();
-      if (term && this.products.length > 0) {
-        return this.products.filter(product => {
-          return product.name_en.trim().toLowerCase().includes(term) || JSON.stringify(product.item_no).includes(term);
-        })
-      } else {
-        return this.products;
+      if (this.products.length > 0) {
+        let products;
+        if (this.brand) {
+          products = this.products.filter(p => {
+            return p.brand_en === this.brand;
+          })
+        } else {
+          products = this.products;
+        }
+
+        if (this.term) {
+          let term = this.term.toLowerCase();
+          return products.filter(product => {
+            return product.name_en.trim().toLowerCase().includes(term) || JSON.stringify(product.item_no).includes(term);
+          })
+        } else {
+          return products;
+        }
       }
     }
   },
@@ -61,7 +94,7 @@ export default {
 
 <style scoped>
 #search-bar {
-  width: 300px;
+  width: 350px;
   background-color: #ffffff;
 }
 p {
