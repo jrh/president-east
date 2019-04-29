@@ -11,6 +11,7 @@
             hide-details
             prepend-icon="search"
             single-line
+            clearable
             placeholder="Search by name or item no."
           ></v-text-field>
         </v-toolbar>
