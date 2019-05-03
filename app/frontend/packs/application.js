@@ -1,5 +1,5 @@
 import '../styles/application.scss';
-import Vue from 'vue/dist/vue.esm';
+import Vue from 'vue';
 import Vuetify from 'vuetify';
 import VeeValidate from 'vee-validate';
 import App from '../App.vue';
