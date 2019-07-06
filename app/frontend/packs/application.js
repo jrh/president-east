@@ -1,6 +1,5 @@
 import '../styles/application.scss';
 import Vue from 'vue';
-import VeeValidate from 'vee-validate';
 import App from '../App.vue';
 import store from '../store';
 import router from '../routes.js';
@@ -35,7 +34,17 @@ Vue.use({
 import BootstrapVue from 'bootstrap-vue';
 Vue.use(BootstrapVue);
 
-Vue.use(VeeValidate);
+// Vee Validate
+import { Validator, install as VeeValidate } from 'vee-validate/dist/vee-validate.minimal.esm.js';
+import { required, email } from 'vee-validate/dist/rules.esm.js';
+
+Validator.extend('required', required);
+Validator.extend('email', email);
+Vue.use(VeeValidate, {
+  inject: true,
+  errorBagName: 'veeErrors',
+  fieldsBagName: 'veeFields'
+});
 
 document.addEventListener("DOMContentLoaded", () => {
   const el = document.getElementById("vue-app");
