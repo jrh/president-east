@@ -1,6 +1,5 @@
 import '../styles/application.scss';
 import Vue from 'vue';
-import Vuetify from 'vuetify';
 import VeeValidate from 'vee-validate';
 import App from '../App.vue';
 import store from '../store';
@@ -32,7 +31,10 @@ Vue.use({
   }
 });
 
-Vue.use(Vuetify);
+// Bootstrap Vue
+import BootstrapVue from 'bootstrap-vue';
+Vue.use(BootstrapVue);
+
 Vue.use(VeeValidate);
 
 document.addEventListener("DOMContentLoaded", () => {

@@ -1,7 +1,7 @@
 <template>
-  <v-layout row justify-center>
+  <b-row align-h="center">
     <h3>About Us</h3>
-  </v-layout>
+  </b-row>
 </template>
 
 <script>

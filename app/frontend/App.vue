@@ -1,44 +1,45 @@
 <template>
-  <v-app>
-    <v-navigation-drawer app right stateless v-model="drawer"></v-navigation-drawer>
-    <v-toolbar app color="white" height="120">
-      <router-link to="/" tag="v-toolbar-title">
-        <router-link to="/">
-          <v-img
-            contain
-            height="60"
-            min-width="120"
-            max-width="250"
-            :src="require('./images/logo.png')"
-          ></v-img>
-        </router-link>
-        <router-link to="/">
-          <v-toolbar-title>President East Co.</v-toolbar-title>
-        </router-link>
-      </router-link>
-      <v-toolbar-items class="hidden-sm-and-down pl-5" style="height: 50px;">
-        <v-btn flat round to="/about">About Us</v-btn>
-        <v-btn flat round to="/products">Products</v-btn>
-      </v-toolbar-items>
-      <v-spacer></v-spacer>
-      <v-toolbar-items class="hidden-sm-and-down" style="height: 50px;">
+  <div>
+    <b-navbar toggleable="lg" type="light" variant="white">
+      <b-navbar-brand to="/">
+        <div class="text-center">
+        <img :src="require('./images/logo.png')" style="height: 60px; min-width: 120px;, max-width: 250px" />
+        <p class="mb-0">President East Co.</p>
+        </div>
+      </b-navbar-brand>
+
+      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+
+      <b-collapse id="nav-collapse" is-nav>
+        <b-navbar-nav class="ml-auto">
+          <b-nav-item to="/about">About Us</b-nav-item>
+      <!--     <b-nav-item to="/products">Products</b-nav-item> -->
+        </b-navbar-nav>
+
+        <!-- Right aligned nav items -->
+  <!--       <b-navbar-nav class="ml-auto">
+          <b-nav-item-dropdown text="Admin" right>
+            <b-dropdown-item to="/admin/products">Products</b-dropdown-item>
+            <b-dropdown-item to="/admin/users">User Accounts</b-dropdown-item>
+          </b-nav-item-dropdown>
+          <b-nav-item>Logout</b-nav-item>
+        </b-navbar-nav> -->
+      </b-collapse>
+    </b-navbar>
+
+    <b-container fluid>
+      <router-view></router-view>
+    </b-container>
+<!--       <v-toolbar-items class="hidden-sm-and-down" style="height: 50px;">
         <v-menu v-if="isLoggedIn && isAdmin" open-on-hover offset-y>
           <template v-slot:activator="{ on }">
             <v-btn flat v-on="on">Admin</v-btn>
           </template>
-          <v-list>
-            <v-list-tile to="/admin/products">
-              <v-list-tile-title>Products</v-list-tile-title>
-            </v-list-tile>
-            <v-list-tile to="/admin/users">
-              <v-list-tile-title>User Accounts</v-list-tile-title>
-            </v-list-tile>
-          </v-list>
         </v-menu>
         <v-btn v-if="!isLoggedIn" flat to="/sign_up">Sign Up</v-btn>
-        <v-btn v-if="isLoggedIn" flat @click="$store.dispatch('logout')">Logout</v-btn>
+        <v-btn v-if="isLoggedIn" flat @click="$store.dispatch('logout')">Logout</v-btn> -->
         <!-- Login Dialog -->
-        <v-dialog
+     <!--    <v-dialog
           v-else
           v-model="loginDialogShow"
           width="500"
@@ -70,25 +71,9 @@
               </v-form>
             </v-card-text>
           </v-card>
-        </v-dialog>
-      </v-toolbar-items>
-      <!-- <v-toolbar-side-icon @click="drawer = !drawer" class="hidden-md-and-up"></v-toolbar-side-icon> -->
-    </v-toolbar>
-    <v-content style="padding-bottom: 100px;">
-      <v-container fluid>
-        <router-view></router-view>
-
-        <v-snackbar
-          v-model="snackbarShow"
-          bottom
-          :color="snackbarVariant"
-        >
-          {{ snackbarMessage }}
-        </v-snackbar>
-      </v-container>
-    </v-content>
+        </v-dialog>-->
     <Footer />
-  </v-app>
+  </div>
 </template>
 
 <script>
@@ -116,6 +101,14 @@ export default {
       return this.$store.getters.isAdmin;
     }
   },
+  watch: {
+    '$route'() {
+      this.handleBgColor();
+    }
+  },
+  mounted() {
+    this.handleBgColor();
+  },
   methods: {
     submitLogin() {
       this.$http.post('/login', {
@@ -142,13 +135,22 @@ export default {
           this.snackbarVariant = 'error';
         })
         .finally(() => this.loginDialogShow = false)
+    },
+    handleBgColor() {
+      if (this.$route.path == "/") {
+        document.body.classList.add('body-bg-yellow');
+        document.body.classList.remove('body-bg-white');
+      } else {
+        document.body.classList.add('body-bg-white');
+        document.body.classList.remove('body-bg-yellow');
+      }
     }
   }
 }
 </script>
 
 <style scoped>
-.v-toolbar__title {
+.navbar-brand {
   font-family: 'Roboto Slab', serif;
   font-weight: 700;
   font-size: 26px;

@@ -1,18 +1,18 @@
 <template>
-  <v-footer app height="auto" color="gray">
-    <v-layout row justify-center wrap>
-      <v-flex black--text pt-3 text-xs-center xs12>
-        &copy; {{ new Date().getFullYear() }} — <strong>PEC</strong>
-      </v-flex>
-      <v-flex black--text py-3 text-xs-center xs12>
+  <div id="app-footer" class="fixed-bottom">
+    <b-row align-h="center" class="pt-3">
+      <span>&copy; {{ new Date().getFullYear() }} — <strong>PEC</strong></span>
+    </b-row>
+    <b-row style="font-size: 13px">
+      <b-col class="p-3 text-center">
         <span>3 Galasso Place, Maspeth, NY, 11378</span>
         <span class="px-2 font-weight-bold">|</span>
         <span>Tel: (718) 821-5699</span>
         <span class="px-2 font-weight-bold">|</span>
         <span>Fax: (718) 821-6698</span>
-      </v-flex>
-    </v-layout>
-  </v-footer>
+      </b-col>
+    </b-row>
+  </div>
 </template>
 
 <script>
@@ -20,3 +20,10 @@ export default {
   name: 'Footer'
 }
 </script>
+
+<style scoped>
+#app-footer {
+  background-color: #f5f5f5;
+  color: rgba(0,0,0,.87);
+}
+</style>
