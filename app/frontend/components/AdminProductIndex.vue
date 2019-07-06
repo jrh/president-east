@@ -1,92 +1,89 @@
 <template>
   <div>
-    <v-layout row justify-center class='mt-5'>
-      <v-card>
-        <v-layout row class="pa-2">
-          <v-card-title style="font-size: 20px;">Products</v-card-title>
-          <v-spacer></v-spacer>
-          <!-- Modal -->
-          <v-dialog v-model="dialog" max-width="500px" persistent>
-            <v-btn slot="activator" color="success">Add Product</v-btn>
-            <v-card>
-              <v-card-title>
-                <span class="headline">{{ formTitle }}</span>
-              </v-card-title>
+    <b-row align-h="between" class="p-2">
+      <span style="font-size: 20px">Product Catalog</span>
+      <b-btn variant="success" @click="openNewModal">Add Product</b-btn>
+    </b-row>
+    <b-table
+      :fields="tableFields"
+      :items="products"
+      head-variant="dark"
+      bordered
+      style="font-size: 14px"
+    >
+      <!-- Table data -->
+      <template #actions="data">
+        <font-awesome-icon :icon="['far', 'edit']" fixed-width />
+      </template>
+    </b-table>
 
-              <v-card-text>
-                <v-container grid-list-md class="pt-0">
-                  <v-layout row>
-                    <v-flex xs12 sm6 md6>
-                      <v-text-field v-model="editedItem.item_no" label="Item No." number></v-text-field>
-                    </v-flex>
-                    <v-flex xs12 sm6 md6>
-                      <v-layout row justify-center class="pb-3">
-                        <img v-if="editedItem.image_url" height="60" ref="imagePreview" :src="editedItem.image_url" />
-                        <img v-else height="60" ref="imagePreview" />
-                        <v-progress-circular v-if="uploadingImage" indeterminate></v-progress-circular>
-                      </v-layout>
-                      <v-layout row justify-center>
-                        <div id="uppy-target"></div>
-                      </v-layout>
-                      <input type="hidden" v-model="editedItem.image" />
-                    </v-flex>
-                  </v-layout>
-                  <v-layout wrap>
-                    <v-flex xs12 sm8>
-                      <v-text-field v-model="editedItem.name_zh" label="Name (Chinese)"></v-text-field>
-                    </v-flex>
-                    <v-flex xs12 sm8>
-                      <v-text-field v-model="editedItem.name_en" label="Name (English)"></v-text-field>
-                    </v-flex>
-                    <v-flex xs12 sm8>
-                      <v-select
-                        v-model="editedItem.brand_en"
-                        :items="brandOptions"
-                        label="Brand">
-                      </v-select>
-                    </v-flex>
-                    <v-flex xs12 sm6>
-                      <v-text-field v-model="editedItem.box_quantity" label="Box Quantity"></v-text-field>
-                    </v-flex>
-                    <v-flex xs12 sm6>
-                      <v-select
-                        v-model="editedItem.storage_temp"
-                        :items="storageOptions"
-                        item-text="label"
-                        item-value="value"
-                        label="Storage Temp">
-                      </v-select>
-                    </v-flex>
-                  </v-layout>
-                </v-container>
-              </v-card-text>
-
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn color="darken-1" flat @click="close">Cancel</v-btn>
-                <v-btn color="success" :disabled="uploadingImage" @click="save(editedItem)">Save</v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-dialog>
-        </v-layout>
-        <v-data-table
-          :headers="headers"
-          :items="products"
-          :rows-per-page-items="rowsPerPageItems">
-          <template v-slot:items="props">
-            <td>{{ props.item.item_no }}</td>
-            <td>{{ props.item.name_en }}<v-icon v-if="!props.item.image_data" small class="pl-1 red--text">error</v-icon></td>
-            <td>{{ props.item.name_zh }}</td>
-            <td class="text-xs-center">{{ props.item.brand_en }}</td>
-            <td class="text-xs-center">{{ props.item.box_quantity }}</td>
-            <td class="text-xs-center">{{ props.item.storage_temp }}</td>
-            <td class="text-xs-center">
-              <v-icon small @click="editItem(props.item)">edit</v-icon>
-            </td>
-          </template>
-        </v-data-table>
-      </v-card>
-    </v-layout>
+    <!--  Modal -->
+    <b-modal v-model="modalShow" centered>
+      <template #modal-title>
+        <h5>{{ formTitle }}</h5>
+      </template>
+      <b-container>
+        <b-form-row>
+          <b-col>
+            <b-form-group label="Item No." label-size="sm">
+              <b-input v-model="form.item_no" type="number" size="sm" />
+            </b-form-group>
+          </b-col>
+          <b-col>
+            <b-row align-h="center" class="pb-3">
+              <img v-if="form.image_url" :src="form.image_url" ref="imagePreview" style="height: 60px" />
+              <img v-else ref="imagePreview" style="height: 60px" />
+              <b-spinner v-if="uploadingImage" small type="grow"></b-spinner>
+            </b-row>
+            <b-row align-h="center">
+              <div id="uppy-target"></div>
+            </b-row>
+            <input type="hidden" v-model="form.image" />
+          </b-col>
+        </b-form-row>
+        <b-form-row>
+          <b-form-group label="Name (Chinese)" label-size="sm">
+            <b-input v-model="form.name_zh" size="sm" />
+          </b-form-group>
+        </b-form-row>
+        <b-form-row>
+          <b-form-group label="Name (English)" label-size="sm">
+            <b-input v-model="form.name_en" size="sm" />
+          </b-form-group>
+        </b-form-row>
+        <b-form-row>
+          <b-form-group label="Brand" label-size="sm">
+            <b-select
+              v-model="form.brand_en"
+              :items="brandOptions"
+              size="sm">
+            </b-select>
+          </b-form-group>
+        </b-form-row>
+        <b-form-row>
+          <b-col>
+            <b-form-group label="Box Quantity" label-size="sm">
+              <b-input v-model="form.box_quantity" size="sm" />
+            </b-form-group>
+          </b-col>
+          <b-col>
+            <b-form-group label="Storage Temp" label-size="sm">
+              <b-select
+                v-model="form.storage_temp"
+                :items="storageOptions"
+                size="sm">
+              </b-select>
+            </b-form-group>
+          </b-col>
+        </b-form-row>
+      </b-container>
+      <template #modal-footer>
+        <b-row align-h="between">
+          <b-btn @click="close">Cancel</b-btn>
+          <b-btn variant="success" :disabled="uploadingImage" @click="save(editedItem)">Save</b-btn>
+        </b-row>
+      </template>
+    </b-modal>
   </div>
 </template>
 
@@ -100,31 +97,19 @@ export default {
   name: 'AdminProductIndex',
   data() {
     return {
-      dialog: false,
-      headers: [
-        { text: 'Item No.', align: 'left', value: 'item_no' },
-        { text: 'Name (en)', align: 'left', value: 'name_en' },
-        { text: 'Name (ch)', align: 'left', value: 'name_zh' },
-        { text: 'Brand', align: 'center', value: 'brand_en' },
-        { text: 'Box Quantity', align: 'center', value: 'box_quantity' },
-        { text: 'Storage Temp', align: 'center', value: 'storage_temp' },
-        { text: 'Actions', align: 'center', value: 'name', sortable: false }
+      tableFields: [
+        { key: 'item_no', label: 'Item No.' },
+        { key: 'name_en', label: 'Name (en)' },
+        { key: 'name_zh', label: 'Name (ch)' },
+        { key: 'brand_en', label: 'Brand', thClass: 'text-center', tdClass: 'text-center' },
+        { key: 'box_quantity', label: 'Box Quantity', thClass: 'text-center', tdClass: 'text-center' },
+        { key: 'storage_temp', label: 'Storage Temp', thClass: 'text-center', tdClass: 'text-center' },
+        { key: 'actions', sortable: false, label: 'Actions', thClass: 'text-center', tdClass: 'text-center' }
       ],
       mode: 'new',
+      modalShow: false,
       newProductImageUrl: '',
-      editedItem: {
-        id: null,
-        item_no: '',
-        name_en: '',
-        name_zh: '',
-        brand_en: '',
-        box_quantity: '',
-        storage_temp: 'Room',
-        image: null,
-        image_data: null,
-        image_url: ''
-      },
-      defaultItem: {
+      form: {
         id: null,
         item_no: '',
         name_en: '',
@@ -145,8 +130,9 @@ export default {
         "King's Cook"
       ],
       storageOptions: [ 'Room', 'Cooler', 'Frozen' ],
-      rowsPerPageItems: [25],
-      uploadingImage: false
+      uploadingImage: false,
+      loading: false,
+      processing: false
     }
   },
   created() {
@@ -224,6 +210,10 @@ export default {
       this.mode = 'edit';
       this.editedItem = Object.assign({}, product);
       this.dialog = true;
+    },
+    openNewModal() {
+      this.mode = 'new'
+      this.modalShow = true;
     },
     save(product) {
       if (this.mode === 'edit') {

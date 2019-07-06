@@ -14,6 +14,10 @@
         <b-navbar-nav class="ml-auto">
           <b-nav-item to="/about">About Us</b-nav-item>
           <b-nav-item to="/products">Products</b-nav-item>
+          <b-nav-item-dropdown text="Admin" right>
+            <b-dropdown-item to="/admin/products">Products</b-dropdown-item>
+            <b-dropdown-item to="/admin/users">User Accounts</b-dropdown-item>
+          </b-nav-item-dropdown>
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->

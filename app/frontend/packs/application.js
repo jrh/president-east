@@ -61,10 +61,12 @@ import {
 } from '@fortawesome/pro-solid-svg-icons';
 
 import {
+  faEdit,
   faImage
 } from '@fortawesome/pro-regular-svg-icons';
 
 library.add(
+  faEdit,
   faImage,
   faSearch
 );
