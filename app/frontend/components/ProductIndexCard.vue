@@ -5,7 +5,7 @@
     </b-row>
     <b-row align-h="center" align-v="center" style="height: 120px">
       <img v-if="product.image_url" :src="product.image_url" style="max-height: 120px; max-width: 150px" />
-      <v-icon v-else>photo</v-icon>
+      <font-awesome-icon v-else :icon="['far', 'image']" size="3x" fixed-width class="text-muted" />
     </b-row>
     <b-card-body style="height: 80px">
       <b-row>

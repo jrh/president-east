@@ -16,7 +16,7 @@
               />
               <b-input-group-append>
                 <b-button variant="outline-secondary" size="sm" @click="search">
-                  <!-- <font-awesome-icon :icon="['fas', 'search']" fixed-width /> -->
+                  <font-awesome-icon :icon="['fas', 'search']" fixed-width />
                 </b-button>
               </b-input-group-append>
             </b-input-group>
@@ -97,11 +97,16 @@ export default {
       }
     }
   },
-  created() {
+  mounted() {
     this.$store.dispatch('fetchProducts');
   },
-  search() {
+  methods: {
+    search() {
 
+    },
+    resetSearch() {
+
+    }
   }
 }
 </script>

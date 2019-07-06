@@ -52,3 +52,20 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+
+// Font Awesome SVG
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import {
+  faSearch
+} from '@fortawesome/pro-solid-svg-icons';
+
+import {
+  faImage
+} from '@fortawesome/pro-regular-svg-icons';
+
+library.add(
+  faImage,
+  faSearch
+);
+Vue.component('font-awesome-icon', FontAwesomeIcon);
