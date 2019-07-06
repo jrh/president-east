@@ -1,43 +1,53 @@
 <template>
   <div>
-    <v-layout row justify-center>
+    <b-row align-h="center">
       <p>Product Catalog</p>
-    </v-layout>
-    <v-layout row>
-      <v-flex lg6>
-        <v-toolbar dense id="search-bar">
-          <v-text-field
-            v-model="term"
-            hide-details
-            prepend-icon="search"
-            single-line
-            clearable
-            placeholder="Search by name or item no."
-          ></v-text-field>
-        </v-toolbar>
-      </v-flex>
-      <v-flex lg6 class="text-sm-right">
-        <v-select
+    </b-row>
+    <b-row>
+      <b-col lg="6">
+        <b-row>
+          <b-form-group style="width: 290px">
+            <b-input-group size="sm">
+              <b-input
+                v-model="searchTerm"
+                autofocus
+                placeholder="Search by name or item no."
+                @keyup.enter="search"
+              />
+              <b-input-group-append>
+                <b-button variant="outline-secondary" size="sm" @click="search">
+                  <!-- <font-awesome-icon :icon="['fas', 'search']" fixed-width /> -->
+                </b-button>
+              </b-input-group-append>
+            </b-input-group>
+          </b-form-group>
+          <b-form-group class="ml-3">
+            <b-button size="sm" @click="resetSearch">Reset</b-button>
+          </b-form-group>
+        </b-row>
+      </b-col>
+      <b-col lg="6" class="text-right">
+        <b-select
           v-model="brand"
           :items="brandOptions"
           label="Filter by brand"
           class="ml-auto"
-          style="width: 320px;"
+          style="width: 320px"
         >
-        </v-select>
-      </v-flex>
-    </v-layout>
-    <v-layout row justify-center>
-      <v-flex lg8>
-        <v-container fluid grid-list-sm class="mt-5">
-          <v-layout row wrap>
-            <v-flex v-for="product in filteredProducts" :key="product.id">
+        </b-select>
+      </b-col>
+    </b-row>
+    <b-row align-h="center">
+      <b-col lg="8">
+        <b-container fluid grid-list-sm class="mt-5">
+          <b-row>
+            <b-col v-for="product in filteredProducts" :key="product.id">
               <ProductIndexCard :product="product" class="mb-5" />
-            </v-flex>
-          </v-layout>
-        </v-container>
-      </v-flex>
-    </v-layout>
+            </b-col>
+          </b-row>
+        </b-container>
+      </b-col>
+    </b-row>
   </div>
 </template>
 
@@ -50,7 +60,7 @@ export default {
   components: { ProductIndexCard },
   data() {
     return {
-      term: '',
+      searchTerm: '',
       brand: null,
       brandOptions: [
         { text: 'All Brands', value: null },
@@ -76,10 +86,10 @@ export default {
           products = this.products;
         }
 
-        if (this.term) {
-          let term = this.term.toLowerCase();
+        if (this.searchTerm) {
+          let searchTerm = this.searchTerm.toLowerCase();
           return products.filter(product => {
-            return product.name_en.trim().toLowerCase().includes(term) || JSON.stringify(product.item_no).includes(term);
+            return product.name_en.trim().toLowerCase().includes(searchTerm) || JSON.stringify(product.item_no).includes(searchTerm);
           })
         } else {
           return products;
@@ -89,6 +99,9 @@ export default {
   },
   created() {
     this.$store.dispatch('fetchProducts');
+  },
+  search() {
+
   }
 }
 </script>

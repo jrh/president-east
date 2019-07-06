@@ -13,7 +13,7 @@
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav class="ml-auto">
           <b-nav-item to="/about">About Us</b-nav-item>
-      <!--     <b-nav-item to="/products">Products</b-nav-item> -->
+          <b-nav-item to="/products">Products</b-nav-item>
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->

@@ -1,30 +1,28 @@
 <template>
-  <v-card height="320" width="220" hover>
-    <v-layout row justify-center class="header pt-1">
+  <b-card style="height: 320px; width: 220px">
+    <b-row align-h="center" style="font-size: 11px">
       <span>#{{ product.item_no }}</span>
-    </v-layout>
-    <v-img v-if="product.image_url" :src="product.image_url" height="160" contain></v-img>
-    <v-layout v-else style="height: 160px;" justify-center align-center>
-      <v-icon x-large>photo</v-icon>
-    </v-layout>
-    <v-card-text style="height: 100px;">
-      <v-layout row>
+    </b-row>
+    <b-row align-h="center" align-v="center" style="height: 120px">
+      <img v-if="product.image_url" :src="product.image_url" style="max-height: 120px; max-width: 150px" />
+      <v-icon v-else>photo</v-icon>
+    </b-row>
+    <b-card-body style="height: 80px">
+      <b-row>
         <span class="name"><b>{{ product.name_zh }}</b></span>
-      </v-layout>
-      <v-layout row>
+      </b-row>
+      <b-row>
         <span class="name"><b>{{ product.name_en }}</b></span>
-      </v-layout>
-      <v-layout row>
+      </b-row>
+      <b-row>
         <span>{{ product.box_quantity }}</span>
-      </v-layout>
-    </v-card-text>
-    <v-divider></v-divider>
-    <v-card-actions>
-      <v-layout row justify-center>
-        <v-btn flat small color="orange">Order</v-btn>
-      </v-layout>
-    </v-card-actions>
-  </v-card>
+      </b-row>
+    </b-card-body>
+    <hr>
+    <b-row align-h="center">
+      <b-btn size="sm" variant="warning">Order</b-btn>
+    </b-row>
+  </b-card>
 </template>
 
 <script>
@@ -36,11 +34,9 @@ export default {
 
 <style scoped>
 span { font-size: 13px; }
-.header span {
-  font-size: 11px;
-}
 .name {
   font-size: 15px;
 }
+/*TODO b-card hover*/
 </style>
 
