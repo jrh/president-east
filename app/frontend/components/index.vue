@@ -9,7 +9,7 @@
           <p>萬事新東陽</p>
         </div>
       </b-col>
-      <b-col lg="4">
+      <b-col lg="4" class="text-center">
         <img
           style="height: 400px"
           :src="require('../images/storeshelf.jpg')"
