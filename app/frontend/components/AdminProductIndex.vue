@@ -18,70 +18,66 @@
     </b-table>
 
     <!--  Modal -->
-    <b-modal v-model="modalShow" centered>
+    <b-modal v-model="modalShow" centered static no-close-on-backdrop no-close-on-esc>
       <template #modal-title>
         <h5>{{ formTitle }}</h5>
       </template>
-      <b-container>
-        <b-form-row>
-          <b-col>
-            <b-form-group label="Item No." label-size="sm">
-              <b-input v-model="form.item_no" type="number" size="sm" />
-            </b-form-group>
-          </b-col>
-          <b-col>
-            <b-row align-h="center" class="pb-3">
-              <img v-if="form.image_url" :src="form.image_url" ref="imagePreview" style="height: 60px" />
-              <img v-else ref="imagePreview" style="height: 60px" />
-              <b-spinner v-if="uploadingImage" small type="grow"></b-spinner>
-            </b-row>
-            <b-row align-h="center">
-              <div id="uppy-target"></div>
-            </b-row>
-            <input type="hidden" v-model="form.image" />
-          </b-col>
-        </b-form-row>
-        <b-form-row>
-          <b-form-group label="Name (Chinese)" label-size="sm">
-            <b-input v-model="form.name_zh" size="sm" />
+      <b-form-row>
+        <b-col>
+          <b-form-group label="Item No." label-size="sm">
+            <b-input v-model="form.item_no" type="number" size="sm" />
           </b-form-group>
-        </b-form-row>
-        <b-form-row>
-          <b-form-group label="Name (English)" label-size="sm">
-            <b-input v-model="form.name_en" size="sm" />
+        </b-col>
+        <b-col>
+          <b-row align-h="center" class="pb-3">
+            <img v-if="form.image_url" :src="form.image_url" ref="imagePreview" style="height: 60px" />
+            <img v-else ref="imagePreview" style="height: 60px" />
+            <b-spinner v-if="uploadingImage" small type="grow"></b-spinner>
+          </b-row>
+          <b-row align-h="center">
+            <div id="uppy-target"></div>
+          </b-row>
+          <input type="hidden" v-model="form.image" />
+        </b-col>
+      </b-form-row>
+      <b-form-row>
+        <b-form-group label="Name (Chinese)" label-size="sm">
+          <b-input v-model="form.name_zh" size="sm" />
+        </b-form-group>
+      </b-form-row>
+      <b-form-row>
+        <b-form-group label="Name (English)" label-size="sm">
+          <b-input v-model="form.name_en" size="sm" />
+        </b-form-group>
+      </b-form-row>
+      <b-form-row>
+        <b-form-group label="Brand" label-size="sm">
+          <b-select
+            v-model="form.brand_en"
+            :options="brandOptions"
+            size="sm">
+          </b-select>
+        </b-form-group>
+      </b-form-row>
+      <b-form-row>
+        <b-col>
+          <b-form-group label="Box Quantity" label-size="sm">
+            <b-input v-model="form.box_quantity" size="sm" />
           </b-form-group>
-        </b-form-row>
-        <b-form-row>
-          <b-form-group label="Brand" label-size="sm">
+        </b-col>
+        <b-col>
+          <b-form-group label="Storage Temp" label-size="sm">
             <b-select
-              v-model="form.brand_en"
-              :items="brandOptions"
+              v-model="form.storage_temp"
+              :options="storageOptions"
               size="sm">
             </b-select>
           </b-form-group>
-        </b-form-row>
-        <b-form-row>
-          <b-col>
-            <b-form-group label="Box Quantity" label-size="sm">
-              <b-input v-model="form.box_quantity" size="sm" />
-            </b-form-group>
-          </b-col>
-          <b-col>
-            <b-form-group label="Storage Temp" label-size="sm">
-              <b-select
-                v-model="form.storage_temp"
-                :items="storageOptions"
-                size="sm">
-              </b-select>
-            </b-form-group>
-          </b-col>
-        </b-form-row>
-      </b-container>
+        </b-col>
+      </b-form-row>
       <template #modal-footer>
-        <b-row align-h="between">
           <b-btn @click="close">Cancel</b-btn>
-          <b-btn variant="success" :disabled="uploadingImage" @click="save(editedItem)">Save</b-btn>
-        </b-row>
+          <b-btn variant="success" :disabled="uploadingImage" class="float-right" @click="save(editedItem)">Save</b-btn>
       </template>
     </b-modal>
   </div>
