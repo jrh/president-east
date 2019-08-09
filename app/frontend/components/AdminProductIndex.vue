@@ -1,13 +1,14 @@
 <template>
   <div>
-    <b-row align-h="between" class="p-2">
+    <b-row align-h="between" class="p-2 mt-5 mb-2">
+      <div></div>
       <span style="font-size: 20px">Product Catalog</span>
       <b-btn variant="success" @click="openNewModal">Add Product</b-btn>
     </b-row>
     <b-table
-      :fields="tableFields"
+      :fields="fields"
       :items="products"
-      head-variant="dark"
+      head-variant="light"
       bordered
       style="font-size: 14px"
     >
@@ -46,18 +47,22 @@
         </b-form-group>
       </b-form-row>
       <b-form-row>
-        <b-form-group label="Name (English)" label-size="sm">
-          <b-input v-model="form.name_en" size="sm" />
-        </b-form-group>
+        <b-col>
+          <b-form-group label="Name (English)" label-size="sm">
+            <b-input v-model="form.name_en" size="sm" />
+          </b-form-group>
+        </b-col>
       </b-form-row>
       <b-form-row>
-        <b-form-group label="Brand" label-size="sm">
-          <b-select
-            v-model="form.brand_en"
-            :options="brandOptions"
-            size="sm">
-          </b-select>
-        </b-form-group>
+        <b-col>
+          <b-form-group label="Brand" label-size="sm">
+            <b-select
+              v-model="form.brand_en"
+              :options="brandOptions"
+              size="sm">
+            </b-select>
+          </b-form-group>
+        </b-col>
       </b-form-row>
       <b-form-row>
         <b-col>
@@ -93,7 +98,7 @@ export default {
   name: 'AdminProductIndex',
   data() {
     return {
-      tableFields: [
+      fields: [
         { key: 'item_no', label: 'Item No.' },
         { key: 'name_en', label: 'Name (en)' },
         { key: 'name_zh', label: 'Name (ch)' },
@@ -278,4 +283,3 @@ export default {
   border: 1px dashed #aaa;
 }
 </style>
-

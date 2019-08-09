@@ -1,10 +1,10 @@
 <template>
   <div>
-    <b-row align-h="center">
+    <b-row align-h="center" class="mt-4">
       <p>Product Catalog</p>
     </b-row>
-    <b-row>
-      <b-col lg="6">
+    <b-row align-h="center" class="px-3">
+      <b-col lg="4">
         <b-row>
           <b-form-group style="width: 290px">
             <b-input-group size="sm">
@@ -26,7 +26,7 @@
           </b-form-group>
         </b-row>
       </b-col>
-      <b-col lg="6" class="text-right">
+      <b-col lg="4" class="text-right">
         <b-select
           v-model="brand"
           :items="brandOptions"

@@ -10,14 +10,10 @@
 
    <!--    <b-navbar-toggle target="nav-collapse"></b-navbar-toggle> -->
 
-      <!--<b-collapse id="nav-collapse" is-nav>
-        <b-navbar-nav class="ml-auto">
-          <b-nav-item to="/about">About Us</b-nav-item>
-          <b-nav-item to="/products">Products</b-nav-item>
-          <b-nav-item-dropdown text="Admin" right>
-            <b-dropdown-item to="/admin/products">Products</b-dropdown-item>
-            <b-dropdown-item to="/admin/users">User Accounts</b-dropdown-item>
-          </b-nav-item-dropdown>
+      <b-collapse id="nav-collapse" is-nav>
+        <b-navbar-nav class="ml-5">
+       <!--    <b-nav-item to="/about">About Us</b-nav-item> -->
+          <b-nav-item to="/products">Product Catalog</b-nav-item>
         </b-navbar-nav>
 
          <b-navbar-nav class="ml-auto">
@@ -25,9 +21,9 @@
             <b-dropdown-item to="/admin/products">Products</b-dropdown-item>
             <b-dropdown-item to="/admin/users">User Accounts</b-dropdown-item>
           </b-nav-item-dropdown>
-          <b-nav-item>Logout</b-nav-item>
+          <b-nav-item class="ml-3">Logout</b-nav-item>
         </b-navbar-nav>
-      </b-collapse> -->
+      </b-collapse>
     </b-navbar>
 
     <b-container fluid>
