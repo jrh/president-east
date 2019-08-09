@@ -12,29 +12,26 @@
                 v-model="searchTerm"
                 autofocus
                 placeholder="Search by name or item no."
-                @keyup.enter="search"
               />
               <b-input-group-append>
-                <b-button variant="outline-secondary" size="sm" @click="search">
+           <!--      <b-button variant="outline-secondary" size="sm" @click="search">
                   <font-awesome-icon :icon="['fas', 'search']" fixed-width />
-                </b-button>
+                </b-button> -->
+                <b-button size="sm" @click="resetSearch">Reset</b-button>
               </b-input-group-append>
             </b-input-group>
-          </b-form-group>
-          <b-form-group class="ml-3">
-            <b-button size="sm" @click="resetSearch">Reset</b-button>
           </b-form-group>
         </b-row>
       </b-col>
       <b-col lg="4" class="text-right">
-        <b-select
-          v-model="brand"
-          :items="brandOptions"
-          label="Filter by brand"
-          class="ml-auto"
-          style="width: 320px"
-        >
-        </b-select>
+        <b-form-group>
+          <b-select
+            v-model="brand"
+            :options="brandOptions"
+            size="sm"
+            style="width: 320px"
+          ></b-select>
+        </b-form-group>
       </b-col>
     </b-row>
     <b-row align-h="center">
@@ -105,7 +102,7 @@ export default {
 
     },
     resetSearch() {
-
+      this.searchTerm = '';
     }
   }
 }
