@@ -11,7 +11,7 @@
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
       <b-collapse id="nav-collapse" is-nav>
-        <b-navbar-nav class="ml-5" v-if="isLoggedIn && isAdmin">   <!-- Temporary v-if during testing -->
+        <b-navbar-nav class="ml-5">
           <b-nav-item to="/products">Product Catalog</b-nav-item>
         </b-navbar-nav>
 
