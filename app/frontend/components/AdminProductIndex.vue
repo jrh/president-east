@@ -3,7 +3,7 @@
     <b-row align-h="between" class="p-2 mt-5 mb-2">
       <div></div>
       <span style="font-size: 20px">Product Catalog</span>
-      <b-btn variant="success" @click="openNewModal">Add Product</b-btn>
+      <Button variant="green" @click="openNewModal">Add Product</Button>
     </b-row>
     <b-table
       :fields="fields"
@@ -81,8 +81,8 @@
         </b-col>
       </b-form-row>
       <template #modal-footer>
-          <b-btn @click="close">Cancel</b-btn>
-          <b-btn variant="success" :disabled="uploadingImage" class="float-right" @click="save(editedItem)">Save</b-btn>
+        <Button @click="close">Cancel</Button>
+        <Button variant="green" :disabled="uploadingImage" class="float-right" @click="save(editedItem)">Save</Button>
       </template>
     </b-modal>
   </div>
@@ -93,9 +93,11 @@ import { mapGetters, mapActions } from 'vuex';
 import Uppy from '@uppy/core';
 import FileInput from '@uppy/file-input';
 import AwsS3 from '@uppy/aws-s3';
+import Button from './shared/Button';
 
 export default {
   name: 'AdminProductIndex',
+  components: { Button },
   data() {
     return {
       fields: [
@@ -201,7 +203,7 @@ export default {
     }
   },
   watch: {
-    dialog (val) {
+    modalShow (val) {
       val || this.close()
     }
   },
@@ -210,7 +212,7 @@ export default {
     editItem(product) {
       this.mode = 'edit';
       this.editedItem = Object.assign({}, product);
-      this.dialog = true;
+      this.modalShow = true;
     },
     openNewModal() {
       this.mode = 'new'
@@ -227,7 +229,7 @@ export default {
     },
     close() {
       this.mode = 'new'
-      this.dialog = false
+      this.modalShow = false
       setTimeout(() => {
         this.editedItem = Object.assign({}, this.defaultItem);
         this.$refs.imagePreview.src = '';

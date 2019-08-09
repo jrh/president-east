@@ -33,38 +33,46 @@
       <router-view></router-view>
     </b-container>
 
-    <Footer />
-
     <!-- Login Modal -->
-    <b-modal v-model="loginModalShow">
-      <b-form>
-        <b-form-group label="Email">
-          <b-input v-model="email" />
-        </b-form-group>
-        <b-form-group label="Password">
-          <b-input v-model="password" type="password" @keydown.enter="submitLogin" />
-        </b-form-group>
-      </b-form>
-      <b-btn variant="primary" @click="submitLogin">Login</b-btn>
+    <b-modal v-model="loginModalShow" title="Login" centered hide-footer>
+      <b-row align-h="center" class="px-3">
+        <b-form style="width: 300px">
+          <b-form-group label="Email">
+            <b-input v-model="email" autofocus />
+          </b-form-group>
+          <b-form-group label="Password">
+            <b-input v-model="password" type="password" @keydown.enter="submitLogin" />
+          </b-form-group>
+        </b-form>
+      </b-row>
+      <b-row align-h="center">
+        <Button variant="blue" @click="submitLogin">Login</Button>
+      </b-row>
     </b-modal>
+
+    <!-- Alert -->
+    <ToastAlert :show="alertShow" :variant="alertVariant" @close="alertShow = false">
+      {{ alertMessage }}
+    </ToastAlert>
   </div>
 </template>
 
 <script>
-import Footer from './components/Footer.vue';
+import Button from './components/shared/Button';
+import ToastAlert from './components/shared/ToastAlert';
 
 export default {
   name: 'App',
-  components: { Footer },
+  components: { Button, ToastAlert },
   data() {
     return {
       drawer: false,
       loginModalShow: false,
-      snackbarShow: false,
-      snackbarMessage: '',
-      snackbarVariant: '',
       email: '',
-      password: ''
+      password: '',
+      alertShow: false,
+      alertVariant: null,
+      alertMessage: '',
     }
   },
   computed: {
@@ -95,18 +103,18 @@ export default {
           this.$store.commit('setCurrentUser', response.data.current_user);
           this.email = '',
           this.password = ''
-          this.snackbarShow = true;
-          this.snackbarMessage = 'You have been logged in successfully';
-          this.snackbarVariant = 'success';
+          this.alertShow = true;
+          this.alertMessage = 'You have been logged in successfully';
+          this.alertVariant = 'success';
         })
         .catch(error => {
           console.log(error)
           if (error.response.data.errors) {
             console.log(error.response.data.errors)
           }
-          this.snackbarShow = true;
-          this.snackbarMessage = 'Incorrect email or password';
-          this.snackbarVariant = 'error';
+          this.alertShow = true;
+          this.alertMessage = 'Incorrect email or password';
+          this.alertVariant = 'danger';
         })
         .finally(() => this.loginModalShow = false)
     },
@@ -132,5 +140,8 @@ export default {
 a.router-link-active {
   text-decoration: none;
   color: #000;
+}
+.nav-item {
+  padding: 0 1em;
 }
 </style>

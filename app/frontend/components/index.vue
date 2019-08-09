@@ -17,12 +17,16 @@
         <img :src="require('../images/dog.jpg')" style="height: 250px" />
       </b-col>
     </b-row>
+    <Footer />
   </div>
 </template>
 
 <script>
+import Footer from './Footer';
+
 export default {
-  name: 'index'
+  name: 'index',
+  components: { Footer }
 }
 </script>
 
