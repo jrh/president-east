@@ -15,15 +15,10 @@ Vue.use({
     instance.interceptors.response.use(response => {
       return response;
     }, error => {
-      // if (error.response.status === 401) {
-      //   console.log('401 error intercepted!!!')
-      //   Rails.ajax({
-      //     url: '/timeout',
-      //     type: 'GET',
-      //     dataType: 'script',
-      //     success: function() { window.location.href = '/accounts/sign_in' }
-      //   });
-      // }
+      if (error.response.status === 401) {
+        console.log('401 error intercepted!!!')
+        return Promise.reject(error)
+      }
       return error;
     });
     Vue.prototype.$http = instance;

@@ -11,7 +11,7 @@
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
       <b-collapse id="nav-collapse" is-nav>
-        <b-navbar-nav class="ml-5">
+        <b-navbar-nav class="ml-5" v-if="isLoggedIn && isAdmin">   <!-- Temporary v-if during testing -->
           <b-nav-item to="/products">Product Catalog</b-nav-item>
         </b-navbar-nav>
 
@@ -34,6 +34,7 @@
 
     <!-- Login Modal -->
     <b-modal v-model="loginModalShow" title="Login" centered hide-footer>
+      <b-alert v-model="authError" variant="danger">Incorrect email or password</b-alert>
       <b-row align-h="center" class="px-3">
         <b-form style="width: 300px">
           <b-form-group label="Email">
@@ -45,7 +46,7 @@
         </b-form>
       </b-row>
       <b-row align-h="center">
-        <Button variant="blue" @click="submitLogin">Login</Button>
+        <Button variant="blue" :disabled="!email || !password" @click="submitLogin">Login</Button>
       </b-row>
     </b-modal>
 
@@ -65,10 +66,10 @@ export default {
   components: { Button, ToastAlert },
   data() {
     return {
-      drawer: false,
       loginModalShow: false,
       email: '',
       password: '',
+      authError: false,
       alertShow: false,
       alertVariant: null,
       alertMessage: '',
@@ -97,25 +98,26 @@ export default {
           password: this.password
         })
         .then(response => {
+          console.log('Response successful')
           console.log(response)
           this.$store.commit('setToken', response.data.auth_token);
           this.$store.commit('setCurrentUser', response.data.current_user);
+          this.loginModalShow = false;
           this.email = '',
           this.password = ''
+          this.authError = false;
           this.alertShow = true;
           this.alertMessage = 'You have been logged in successfully';
           this.alertVariant = 'success';
         })
         .catch(error => {
+          console.log('Error')
           console.log(error)
-          if (error.response.data.errors) {
-            console.log(error.response.data.errors)
-          }
-          this.alertShow = true;
-          this.alertMessage = 'Incorrect email or password';
-          this.alertVariant = 'danger';
-        })
-        .finally(() => this.loginModalShow = false)
+          // if (error.response.data.errors) {
+          //   console.log(error.response.data.errors)
+          // }
+          this.authError = true;
+        });
     },
     handleBgColor() {
       if (this.$route.path == "/") {
