@@ -17,11 +17,14 @@
         </b-navbar-nav>
 
          <b-navbar-nav class="ml-auto">
-          <b-nav-item-dropdown text="Admin" right>
+          <b-nav-item-dropdown v-if="isLoggedIn && isAdmin" text="Admin" right>
             <b-dropdown-item to="/admin/products">Products</b-dropdown-item>
             <b-dropdown-item to="/admin/users">User Accounts</b-dropdown-item>
           </b-nav-item-dropdown>
-          <b-nav-item class="ml-3">Logout</b-nav-item>
+          <b-nav-item v-if="!isLoggedIn" to="/sign_up">Sign Up</b-nav-item>
+          <b-nav-item v-if="isLoggedIn" @click="$store.dispatch('logout')">Logout</b-nav-item>
+
+          <b-nav-item v-else @click="loginModalShow = true">Login</b-nav-item>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
@@ -29,49 +32,21 @@
     <b-container fluid>
       <router-view></router-view>
     </b-container>
-<!--       <v-toolbar-items class="hidden-sm-and-down" style="height: 50px;">
-        <v-menu v-if="isLoggedIn && isAdmin" open-on-hover offset-y>
-          <template v-slot:activator="{ on }">
-            <v-btn flat v-on="on">Admin</v-btn>
-          </template>
-        </v-menu>
-        <v-btn v-if="!isLoggedIn" flat to="/sign_up">Sign Up</v-btn>
-        <v-btn v-if="isLoggedIn" flat @click="$store.dispatch('logout')">Logout</v-btn> -->
-        <!-- Login Dialog -->
-     <!--    <v-dialog
-          v-else
-          v-model="loginDialogShow"
-          width="500"
-        >
-          <template v-slot:activator="{ on }">
-            <v-btn flat round v-on="on">Login</v-btn>
-          </template>
-          <v-card>
-            <v-card-title primary-title class="headline grey lighten-2">
-              Login
-            </v-card-title>
-            <v-card-text>
-              <v-form>
-                <v-text-field
-                  v-model="email"
-                  label="Email"
-                >
-                </v-text-field>
-                <v-text-field
-                  v-model="password"
-                  type="password"
-                  label="Password"
-                  @keydown.enter="submitLogin"
-                >
-                </v-text-field>
-                <v-btn color="primary" @click="submitLogin">
-                  Login
-                </v-btn>
-              </v-form>
-            </v-card-text>
-          </v-card>
-        </v-dialog>-->
+
     <Footer />
+
+    <!-- Login Modal -->
+    <b-modal v-model="loginModalShow">
+      <b-form>
+        <b-form-group label="Email">
+          <b-input v-model="email" />
+        </b-form-group>
+        <b-form-group label="Password">
+          <b-input v-model="password" type="password" @keydown.enter="submitLogin" />
+        </b-form-group>
+      </b-form>
+      <b-btn variant="primary" @click="submitLogin">Login</b-btn>
+    </b-modal>
   </div>
 </template>
 
@@ -84,7 +59,7 @@ export default {
   data() {
     return {
       drawer: false,
-      loginDialogShow: false,
+      loginModalShow: false,
       snackbarShow: false,
       snackbarMessage: '',
       snackbarVariant: '',
@@ -133,7 +108,7 @@ export default {
           this.snackbarMessage = 'Incorrect email or password';
           this.snackbarVariant = 'error';
         })
-        .finally(() => this.loginDialogShow = false)
+        .finally(() => this.loginModalShow = false)
     },
     handleBgColor() {
       if (this.$route.path == "/") {
