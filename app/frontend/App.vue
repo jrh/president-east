@@ -8,11 +8,10 @@
         </div>
       </b-navbar-brand>
 
-   <!--    <b-navbar-toggle target="nav-collapse"></b-navbar-toggle> -->
+      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav class="ml-5">
-       <!--    <b-nav-item to="/about">About Us</b-nav-item> -->
           <b-nav-item to="/products">Product Catalog</b-nav-item>
         </b-navbar-nav>
 
@@ -21,7 +20,7 @@
             <b-dropdown-item to="/admin/products">Products</b-dropdown-item>
             <b-dropdown-item to="/admin/users">User Accounts</b-dropdown-item>
           </b-nav-item-dropdown>
-          <b-nav-item v-if="!isLoggedIn" to="/sign_up">Sign Up</b-nav-item>
+          <!-- <b-nav-item v-if="!isLoggedIn" to="/sign_up">Sign Up</b-nav-item> -->
           <b-nav-item v-if="isLoggedIn" @click="$store.dispatch('logout')">Logout</b-nav-item>
 
           <b-nav-item v-else @click="loginModalShow = true">Login</b-nav-item>

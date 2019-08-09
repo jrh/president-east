@@ -101,13 +101,13 @@ export default {
   data() {
     return {
       fields: [
-        { key: 'item_no', label: 'Item No.' },
-        { key: 'name_en', label: 'Name (en)' },
-        { key: 'name_zh', label: 'Name (ch)' },
-        { key: 'brand_en', label: 'Brand', thClass: 'text-center', tdClass: 'text-center' },
-        { key: 'box_quantity', label: 'Box Quantity', thClass: 'text-center', tdClass: 'text-center' },
-        { key: 'storage_temp', label: 'Storage Temp', thClass: 'text-center', tdClass: 'text-center' },
-        { key: 'actions', sortable: false, label: 'Actions', thClass: 'text-center', tdClass: 'text-center' }
+        { key: 'item_no', label: 'Item No.', thClass: 'font-lato-th' },
+        { key: 'name_en', label: 'Name (en)', thClass: 'font-lato-th' },
+        { key: 'name_zh', label: 'Name (ch)', thClass: 'font-lato-th' },
+        { key: 'brand_en', label: 'Brand', thClass: 'text-center font-lato-th', tdClass: 'text-center' },
+        { key: 'box_quantity', label: 'Box Quantity', thClass: 'text-center font-lato-th', tdClass: 'text-center' },
+        { key: 'storage_temp', label: 'Storage Temp', thClass: 'text-center font-lato-th', tdClass: 'text-center' },
+        { key: 'actions', sortable: false, label: 'Actions', thClass: 'text-center font-lato-th', tdClass: 'text-center' }
       ],
       mode: 'new',
       modalShow: false,

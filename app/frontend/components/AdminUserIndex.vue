@@ -32,12 +32,12 @@ export default {
     return {
       users: [],
       fields: [
-        { key: 'admin', label: '', tdClass: 'text-center', thClass: 'text-center' },
-        { key: 'first_name', label: 'First Name' },
-        { key: 'last_name', label: 'Last Name' },
-        { key: 'company', label: 'Company' },
-        { key: 'email', label: 'Email' },
-        { key: 'name', label: 'Actions', tdClass: 'text-center', thClass: 'text-center' }
+        { key: 'admin', label: '', thClass: 'text-center font-lato-th', tdClass: 'text-center' },
+        { key: 'first_name', label: 'First Name', thClass: 'font-lato-th' },
+        { key: 'last_name', label: 'Last Name', thClass: 'font-lato-th' },
+        { key: 'company', label: 'Company', thClass: 'font-lato-th' },
+        { key: 'email', label: 'Email', thClass: 'font-lato-th' },
+        { key: 'name', label: 'Actions', thClass: 'text-center font-lato-th', tdClass: 'text-center' }
       ],
     }
   },

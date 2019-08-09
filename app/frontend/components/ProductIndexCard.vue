@@ -1,5 +1,5 @@
 <template>
-  <b-card style="height: 320px; width: 220px">
+  <b-card style="height: 300px; width: 220px">
     <b-row align-h="center" style="font-size: 11px">
       <span>#{{ product.item_no }}</span>
     </b-row>
@@ -18,10 +18,10 @@
         <span>{{ product.box_quantity }}</span>
       </b-row>
     </b-card-body>
-    <hr>
+<!--     <hr>
     <b-row align-h="center">
       <b-btn size="sm" variant="warning">Order</b-btn>
-    </b-row>
+    </b-row> -->
   </b-card>
 </template>
 
