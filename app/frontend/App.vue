@@ -120,7 +120,7 @@ export default {
         });
     },
     handleBgColor() {
-      if (this.$route.path == "/") {
+      if (this.$route.path == '/' || this.$route.path == '/products') {
         document.body.classList.add('body-bg-yellow');
         document.body.classList.remove('body-bg-white');
       } else {

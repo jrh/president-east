@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-row align-h="center" class="mt-5 mb-2">
-      <p class="lead" style="font-size: 38px">Product Catalog</p>
+      <p style="font-size: 38px">Product Catalog</p>
     </b-row>
     <b-row align-h="center" class="px-3">
       <b-col sm="4">
@@ -63,6 +63,7 @@ export default {
         { text: 'All Brands', value: null },
         'Tung-I',
         'Hsin Tung Yang',
+        'Want Want'
         // 'Chi-Sheng',
         // 'Kimlan',
         // 'Little Cook Noodle',

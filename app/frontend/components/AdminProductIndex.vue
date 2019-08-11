@@ -26,7 +26,7 @@
       <b-form-row>
         <b-col>
           <b-form-group label="Item No." label-size="sm">
-            <b-input v-model="form.item_no" type="number" size="sm" />
+            <b-input v-model="form.item_no" type="number" size="sm" autofocus />
           </b-form-group>
         </b-col>
         <b-col>
@@ -42,9 +42,11 @@
         </b-col>
       </b-form-row>
       <b-form-row>
-        <b-form-group label="Name (Chinese)" label-size="sm">
-          <b-input v-model="form.name_zh" size="sm" />
-        </b-form-group>
+        <b-col>
+          <b-form-group label="Name (Chinese)" label-size="sm">
+            <b-input v-model="form.name_zh" size="sm" />
+          </b-form-group>
+        </b-col>
       </b-form-row>
       <b-form-row>
         <b-col>
@@ -127,6 +129,7 @@ export default {
       brandOptions: [
         'Tung-I',
         'Hsin Tung Yang',
+        'Want Want',
         'Chi-Sheng',
         'Kimlan',
         'Little Cook Noodle',
