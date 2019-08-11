@@ -1,5 +1,5 @@
 <template>
-  <b-card style="height: 300px; width: 220px">
+  <b-card style="height: 310px; width: 220px">
     <b-row align-h="center" style="font-size: 11px">
       <span>#{{ product.item_no }}</span>
     </b-row>
@@ -16,6 +16,9 @@
       </b-row>
       <b-row>
         <span>{{ product.box_quantity }}</span>
+      </b-row>
+      <b-row v-if="product.storage_temp !== 'Room'">
+        <span class="text-danger">{{ product.storage_temp }}</span>
       </b-row>
     </b-card-body>
 <!--     <hr>
