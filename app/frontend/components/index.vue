@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-row align-h="center" class="mt-5" style="background-color: #FFFCF5">
+    <b-row align-h="center" class="font-lato mt-4" style="background-color: #FFFCF5">
       <b-col lg="4" class="text-center pt-5">
         <div class="red-text">
           <p>恭祝讀者</p>
@@ -9,9 +9,24 @@
           <p>萬事新東陽</p>
         </div>
       </b-col>
-      <b-col lg="4" class="text-center pt-5 pt-sm-0">
-        <img :src="require('../images/storeshelf.jpg')" style="height: 350px" />
-        <p class="mt-5" style="font-size: 15px">Founded in 1992, our company distributes food products from Taiwan and other Asian countries</p>
+      <b-col lg="4" class="text-center pt-3 pt-sm-0">
+        <b-row align-h="center" class="pb-4">
+          <span class="mt-5 px-5" style="font-size: 15px; max-width: 500px">Founded in 1992, our company distributes food products from Taiwan and other Asian countries</span>
+        </b-row>
+        <img :src="require('../images/storeshelf.jpg')" style="height: 280px" />
+        <b-row align-h="center" class="mt-4">
+          <b-button
+            to="/products"
+            variant="outline-danger"
+            size="lg"
+            pill
+            block
+            class="shadow font-weight-bold"
+            style="width: 300px"
+          >
+            CATALOG
+          </b-button>
+        </b-row>
       </b-col>
       <b-col lg="4" class="text-center pt-5">
         <img :src="require('../images/dog.jpg')" style="height: 250px" />

@@ -1,10 +1,10 @@
 <template>
   <div>
-    <b-row align-h="center" class="mt-4">
-      <p>Product Catalog</p>
+    <b-row align-h="center" class="mt-5 mb-2">
+      <p class="lead" style="font-size: 38px">Product Catalog</p>
     </b-row>
     <b-row align-h="center" class="px-3">
-      <b-col lg="4">
+      <b-col sm="4">
         <b-row>
           <b-form-group style="width: 290px">
             <b-input-group size="sm">
@@ -23,7 +23,7 @@
           </b-form-group>
         </b-row>
       </b-col>
-      <b-col lg="4" class="text-right">
+      <b-col sm="4" class="text-right">
         <b-form-group>
           <b-select
             v-model="brand"
@@ -112,9 +112,6 @@ export default {
 #search-bar {
   width: 350px;
   background-color: #ffffff;
-}
-p {
-  font-size: 24px;
 }
 </style>
 
