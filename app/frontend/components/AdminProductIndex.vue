@@ -2,7 +2,7 @@
   <div>
     <b-row align-h="between" class="p-2 mt-5 mb-2">
       <div></div>
-      <span style="font-size: 20px">Product Catalog</span>
+      <span style="font-size: 20px">Manage Products</span>
       <Button variant="green" @click="openNewModal">Add Product</Button>
     </b-row>
     <b-table
@@ -84,7 +84,7 @@
       </b-form-row>
       <template #modal-footer>
         <Button @click="close">Cancel</Button>
-        <Button variant="green" :disabled="uploadingImage" class="float-right" @click="save(editedItem)">Save</Button>
+        <Button variant="green" :disabled="uploadingImage || !form.item_no || !form.name_en" class="float-right" @click="save">Save</Button>
       </template>
     </b-modal>
   </div>
@@ -113,7 +113,7 @@ export default {
       ],
       mode: 'new',
       modalShow: false,
-      newProductImageUrl: '',
+      imageUrl: '',
       form: {
         id: null,
         item_no: '',
@@ -122,9 +122,7 @@ export default {
         brand_en: '',
         box_quantity: '',
         storage_temp: 'Room',
-        image: null,
-        image_data: null,
-        image_url: ''
+        image: null
       },
       brandOptions: [
         'Tung-I',
@@ -135,7 +133,7 @@ export default {
         'Little Cook Noodle',
         "King's Cook"
       ],
-      storageOptions: [ 'Room', 'Cooler', 'Frozen' ],
+      storageOptions: ['Room', 'Cooler', 'Frozen'],
       uploadingImage: false,
       loading: false,
       processing: false
@@ -188,13 +186,13 @@ export default {
       console.log(file)
       console.log(response)
       // set hidden field value to the uploaded file data so that it's submitted with the form as the attachment
-      this.editedItem.image = uploadedFileData;
+      this.form.image = uploadedFileData;
 
       // show image preview
       this.$refs.imagePreview.src = URL.createObjectURL(file.data);
 
       // use cached version of AWS image URL for form submital
-      this.newProductImageUrl = response.uploadURL;
+      this.imageUrl = response.uploadURL;
 
       this.uploadingImage = false;
     })
@@ -218,15 +216,24 @@ export default {
       this.modalShow = true;
     },
     openNewModal() {
-      this.mode = 'new'
+      this.mode = 'new';
+      this.imageUrl = '';
+      this.id = null,
+      this.item_no = '';
+      this.name_en = '';
+      this.name_zh = '';
+      this.brand_en = '';
+      this.box_quantity = '';
+      this.storage_temp = 'Room';
+      this.image = null;
       this.modalShow = true;
     },
-    save(product) {
+    save() {
       if (this.mode === 'edit') {
         // Object.assign(this.products[this.editedIndex], this.editedItem)
         this.updateProduct(product);
       } else {
-        this.createProduct(product)
+        this.createProduct()
       }
       this.close()
     },
@@ -238,17 +245,23 @@ export default {
         this.$refs.imagePreview.src = '';
       }, 300)
     },
-    createProduct(product) {
-      this.$http.post('/products', { product })
+    createProduct() {
+      if (this.processing) return;
+      this.processing = true;
+      this.$http.post('/products', {
+          product: this.form  // unpermitted parameters image_data image_url
+        })
         .then(response => {
           console.log(response);
           let createdProduct = response.data;
-          createdProduct['image_url'] = this.newProductImageUrl;
+          createdProduct['image_url'] = this.imageUrl;
 
           this.$store.commit('addProduct', createdProduct);
-          this.newProductImageUrl = '';
+          this.imageUrl = '';
+          // clear form
         })
         .catch(error => console.log(error))
+        .finally(() => this.processing = false);
     },
     updateProduct(product) {
       this.$http.put(`/products/${product.id}`, {
