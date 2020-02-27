@@ -12,13 +12,13 @@
       style="font-size: 14px"
     >
       <!-- Table data -->
-      <template #admin="data">
+      <template v-slot:cell(admin)="data">
         <span v-if="data.value">
           <b-badge>Admin</b-badge>
         </span>
       </template>
 
-      <template #actions="data">
+      <template v-slot:cell(actions)="data">
         <font-awesome-icon :icon="['far', 'edit']" fixed-width />
       </template>
     </b-table>

@@ -13,7 +13,7 @@
       style="font-size: 14px"
     >
       <!-- Table data -->
-      <template #actions="data">
+      <template v-slot:cell(actions)="data">
         <font-awesome-icon :icon="['far', 'edit']" fixed-width />
       </template>
     </b-table>
