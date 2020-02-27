@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.6.2'
+ruby '2.7.0'
 
 gem 'rails', '5.2.3'
 gem 'pg', '>= 0.18', '< 2.0'
@@ -10,7 +10,7 @@ gem 'webpacker'
 gem 'kaminari'
 gem 'bcrypt'
 gem 'jwt'
-gem 'bootsnap', '>= 1.1.0', require: false
+gem 'bootsnap', '>= 1.4.2', require: false
 gem 'sucker_punch'
 gem 'aws-sdk-s3'
 gem 'shrine'
@@ -36,7 +36,7 @@ end
 group :test do
   gem 'capybara', '>= 2.15'
   gem 'selenium-webdriver'
-  gem 'chromedriver-helper'
+  gem 'webdrivers'
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
