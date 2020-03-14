@@ -1,6 +1,8 @@
 class Product < ApplicationRecord
   include ImageUploader::Attachment.new(:image)
 
+  belongs_to :brand, optional: false
+
   # searchkick word_start: [:item_no, :name_en],
   #           searchable: [:item_no, :name_en],
   #           callbacks: :async

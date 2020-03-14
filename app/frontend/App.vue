@@ -13,25 +13,6 @@ import AppHeader from './components/AppHeader';
 export default {
   name: 'App',
   components: { AppHeader },
-  // data() {
-  //   return {
-  //     loginModalShow: false,
-  //     email: '',
-  //     password: '',
-  //     authError: false,
-  //     alertShow: false,
-  //     alertVariant: null,
-  //     alertMessage: '',
-  //   }
-  // },
-  // computed: {
-  //   isLoggedIn() {
-  //     return this.$store.getters.isLoggedIn;
-  //   },
-  //   isAdmin() {
-  //     return this.$store.getters.isAdmin;
-  //   }
-  // },
   watch: {
     '$route'() {
       this.handleBgColor();
