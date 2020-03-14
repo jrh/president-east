@@ -21,5 +21,10 @@ class Product < ApplicationRecord
 
   validates :item_no, presence: true
   validates :name_en, presence: true
+
+  enum status: {
+    active: 0,
+    inactive: 1
+  }
 end
 
