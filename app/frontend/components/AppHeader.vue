@@ -18,6 +18,7 @@
           <b-navbar-nav class="ml-auto">
           <b-nav-item-dropdown v-if="isLoggedIn && isAdmin" text="Admin" right>
             <b-dropdown-item to="/admin/products">Manage Products</b-dropdown-item>
+            <b-dropdown-item to="/admin/brands">Manage Brands</b-dropdown-item>
             <b-dropdown-item to="/admin/users">User Accounts</b-dropdown-item>
           </b-nav-item-dropdown>
           <!-- <b-nav-item v-if="!isLoggedIn" to="/sign_up">Sign Up</b-nav-item> -->

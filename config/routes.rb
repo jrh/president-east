@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     resources :products, only: [:index, :create, :update, :destroy] do
       get 'search', on: :collection
     end
+    resources :brands, only: [:index, :create, :update]
   end
 
   # Vue fallback
