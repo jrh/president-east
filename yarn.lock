@@ -875,63 +875,64 @@
   resolved "https://registry.yarnpkg.com/@types/q/-/q-1.5.2.tgz#690a1475b84f2a884fd07cd797c00f5f31356ea8"
   integrity sha512-ce5d3q03Ex0sy4R14722Rmt6MT07Ua+k4FwDfdcToYJcMKNtRVQvJ6JCAPdAmAnbRb6CsX6aYb9m96NGod9uTw==
 
-"@uppy/aws-s3@^1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@uppy/aws-s3/-/aws-s3-1.2.0.tgz#9adea6f46964eeb4dd53040450503e6a1deec12c"
-  integrity sha512-t1rGT9lSggfcczq5DLFhWuB0qtS3zJJ3gNwSi3ZXjN5wmnGbVKUM+SCYjY9JLrK8nMai3ppf3NHBKoJjYCZbOQ==
+"@uppy/aws-s3@^1.5.2":
+  version "1.5.2"
+  resolved "https://registry.yarnpkg.com/@uppy/aws-s3/-/aws-s3-1.5.2.tgz#2f6c034a7927b39accd9cad13d1253e7b6a5f7b1"
+  integrity sha512-150BJKxlamQSx7/l/0OmLVvNa9T+f+bS01n/lmWNbtSgssOnbBVfM1odvGAXj6hF7vznS0M30iqFoWef167mTA==
   dependencies:
-    "@uppy/companion-client" "1.2.0"
-    "@uppy/utils" "1.2.0"
-    "@uppy/xhr-upload" "1.2.0"
-    resolve-url "^0.2.1"
+    "@uppy/companion-client" "^1.4.2"
+    "@uppy/utils" "^2.2.2"
+    "@uppy/xhr-upload" "^1.5.2"
+    qs-stringify "^1.1.0"
+    url-parse "^1.4.7"
 
-"@uppy/companion-client@1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@uppy/companion-client/-/companion-client-1.2.0.tgz#698101abdfe1ea25a2850aff73b2fa4133dcfc63"
-  integrity sha512-db8tHGEjrwVDNZ62H546Fl63Dzf1erWIEgBKCBGENrZaDUGOOosScREtnaX0X/psG7cfznEf+yRODXf31Jxi0Q==
+"@uppy/companion-client@^1.4.2":
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/@uppy/companion-client/-/companion-client-1.4.2.tgz#affe4f056902251b572a493b4de57d1941040508"
+  integrity sha512-UBYvz0RZ7oBFHItpBSSXEok+gQRMKN4jz1kaDQt8UQbN/SFtdOghpeSH3LqHcqRZvZ6zq3JnCIHiM6sm3RCg7Q==
   dependencies:
     namespace-emitter "^2.0.1"
 
-"@uppy/core@^1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@uppy/core/-/core-1.2.0.tgz#9fe30cae1584561450cd616828f182b7b111f84c"
-  integrity sha512-Z/rzxfaA1YrkvYO5BXLjROceDcwz2Tz7o/NjIEUsbeqiJURP3Apa0PMiJk42rq3LdfVVfzyW4JO0sJpIQ8plSw==
+"@uppy/core@^1.8.2":
+  version "1.8.2"
+  resolved "https://registry.yarnpkg.com/@uppy/core/-/core-1.8.2.tgz#6ad16dbaf73d19b39ecad20e98ac308d0a5db0ab"
+  integrity sha512-0E5JdN8olQeh4NRnIcg7C1uZxqzUTkfwoBuJujaLb0Qt4/AEiNXG9ztxRXomHMANp23eWnmUs6CMNwpTjgCWCA==
   dependencies:
-    "@uppy/store-default" "1.1.0"
-    "@uppy/utils" "1.2.0"
+    "@uppy/store-default" "^1.2.1"
+    "@uppy/utils" "^2.2.2"
     cuid "^2.1.1"
     lodash.throttle "^4.1.1"
     mime-match "^1.0.2"
     namespace-emitter "^2.0.1"
     preact "8.2.9"
 
-"@uppy/file-input@^1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@uppy/file-input/-/file-input-1.2.0.tgz#1c3b8816ee2a87e772b203db520dab152d0c4b10"
-  integrity sha512-7riT0XcRHgoWWTU6boOZerqbKC67gglfe3g2vvIndMw84s10Rj5GnsNckk/8QGe5FmQkLreNv6rsf9PQGcOsYQ==
+"@uppy/file-input@^1.4.5":
+  version "1.4.5"
+  resolved "https://registry.yarnpkg.com/@uppy/file-input/-/file-input-1.4.5.tgz#6e1c8637570e5334525a4c03d5534797ae7c3a0a"
+  integrity sha512-Cv0udN91uLo5g/Pueu0SDkYSLqOwvBNDMEFPICnpQKCwZ053vGes+VXkZRHReT6wMC5eRXBn815xGbW1fLi4mg==
   dependencies:
-    "@uppy/utils" "1.2.0"
+    "@uppy/utils" "^2.2.2"
     preact "8.2.9"
 
-"@uppy/store-default@1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@uppy/store-default/-/store-default-1.1.0.tgz#c4ded532ed38d13ca955962edbffe58ecd9abb7e"
-  integrity sha512-xCnLDnQ9P42vGV5Q+f9TK/IdRFhZDwBpuAqwJtywPLdbN3sfVsf7uTTUn7ZcWs/jGs0rC/UgKnvIco1Kh7zpWg==
+"@uppy/store-default@^1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@uppy/store-default/-/store-default-1.2.1.tgz#4f6f1815292388bc2fd6da2655a3ae1133598d5c"
+  integrity sha512-B7iKa9CMLTPgSu1lHQX+Z82NgxoBrzWfZg9WbZnvoJRHnoiwu8A3EFXPLq0OEslvJndBD4xPgUms0BPt4WbnWw==
 
-"@uppy/utils@1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@uppy/utils/-/utils-1.2.0.tgz#f9e574f72ca728b2990d0e9775be580afdac6ea4"
-  integrity sha512-nvMVxeEbBbf5agYbb1BYggqTG79wHKyaIZlf9b31fIbYZjMdxlQgHLcNG3vPJp0x5SV7SUKFdqJDVVd62WZsnQ==
+"@uppy/utils@^2.2.2":
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/@uppy/utils/-/utils-2.2.2.tgz#27baf8d0437ed4a8f0f0d241a9644b4203ae5998"
+  integrity sha512-uTQBIKgvJaJ+2g7vs5vYanXkW4GqVZOFKgdlPtWEbfS7LQBaNpiTMlHdEmA4cCPKH8vj4Za9oO+LSkpOXar4Jw==
   dependencies:
     lodash.throttle "^4.1.1"
 
-"@uppy/xhr-upload@1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@uppy/xhr-upload/-/xhr-upload-1.2.0.tgz#581d7070d0d7a34d9ccc246e1946e4031262c791"
-  integrity sha512-jHJ0TaRactQmlQaFtvxXNXgu5+F8nV4TEdrLC2SAWNrE4DyscOTnPyuzAqZRGQ96SSKqdEwAO+6NXyWmFYu23Q==
+"@uppy/xhr-upload@^1.5.2":
+  version "1.5.2"
+  resolved "https://registry.yarnpkg.com/@uppy/xhr-upload/-/xhr-upload-1.5.2.tgz#66feedf3e231b00b182df8c4ff45d9a4bf487845"
+  integrity sha512-2K3V2y5zdCnUvs1e2YBRlApxGFE3x3eSLN4yAM5xJu8ZjSQy4bgq50JdiaNTPBKSrZccD764Q1qEisqSCa6y6A==
   dependencies:
-    "@uppy/companion-client" "1.2.0"
-    "@uppy/utils" "1.2.0"
+    "@uppy/companion-client" "^1.4.2"
+    "@uppy/utils" "^2.2.2"
     cuid "^2.1.1"
 
 "@vue/component-compiler-utils@^3.1.0":
@@ -1362,13 +1363,12 @@ aws4@^1.8.0:
   resolved "https://registry.yarnpkg.com/aws4/-/aws4-1.9.1.tgz#7e33d8f7d449b3f673cd72deb9abdc552dbe528e"
   integrity sha512-wMHVg2EOHaMRxbzgFJ9gtjOOCrI80OHLG14rxi28XwOW8ux6IiEbRCGGGqCtdAIg4FQCbW20k9RsT4y3gJlFug==
 
-axios@^0.19.0:
-  version "0.19.0"
-  resolved "https://registry.yarnpkg.com/axios/-/axios-0.19.0.tgz#8e09bff3d9122e133f7b8101c8fbdd00ed3d2ab8"
-  integrity sha512-1uvKqKQta3KBxIz14F2v06AEHZ/dIoeKfbTRkK1E5oqjDnuEerLmYTgJB5AiQZHJcljpg1TuRzdjDR06qNk0DQ==
+axios@^0.19.2:
+  version "0.19.2"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-0.19.2.tgz#3ea36c5d8818d0d5f8a8a97a6d36b86cdc00cb27"
+  integrity sha512-fjgm5MvRHLhx+osE2xoekY70AhARk3a6hkN+3Io1jc00jtquGvxYlKlsFUhmUET0V5te6CcZI7lcv2Ym61mjHA==
   dependencies:
     follow-redirects "1.5.10"
-    is-buffer "^2.0.2"
 
 babel-loader@^8.0.6:
   version "8.0.6"
@@ -1503,10 +1503,10 @@ boolbase@^1.0.0, boolbase@~1.0.0:
   resolved "https://registry.yarnpkg.com/boolbase/-/boolbase-1.0.0.tgz#68dff5fbe60c51eb37725ea9e3ed310dcc1e776e"
   integrity sha1-aN/1++YMUes3cl6p4+0xDcwed24=
 
-bootstrap-vue@^2.5.0:
-  version "2.5.0"
-  resolved "https://registry.yarnpkg.com/bootstrap-vue/-/bootstrap-vue-2.5.0.tgz#a8e48f9c0d15ebeb0f0b35cdc1ab26fd7a015307"
-  integrity sha512-LixZePxJqIkwsha2WAjAu7ZDH+oJ+JLxPGsl1SIbWebcEYZ+QtGx4JM2nR287t/0uWYGO+/oJ0KlaSO662VtLA==
+bootstrap-vue@^2.7.0:
+  version "2.7.0"
+  resolved "https://registry.yarnpkg.com/bootstrap-vue/-/bootstrap-vue-2.7.0.tgz#83730a133888fb54e6f6ddbd0af9af741f15a270"
+  integrity sha512-9DJwtQVFp+7hgKr8N4mjt/YHObep8SVG4wvCX/uKTaMeaNWcMAzxQ/bjFfYVDmf1sjfnWltw1Cqd+ilR+XS0FQ==
   dependencies:
     "@nuxt/opencollective" "^0.3.0"
     bootstrap ">=4.4.1 <5.0.0"
@@ -3762,11 +3762,6 @@ is-buffer@^1.1.5:
   version "1.1.6"
   resolved "https://registry.yarnpkg.com/is-buffer/-/is-buffer-1.1.6.tgz#efaa2ea9daa0d7ab2ea13a97b2b8ad51fefbe8be"
   integrity sha512-NcdALwpXkTm5Zvvbk7owOUSvVvBKDgKP5/ewfXEznmQFfs4ZRmanOeKBTjRVjka3QFoN6XJ+9F3USqfHqTaU5w==
-
-is-buffer@^2.0.2:
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/is-buffer/-/is-buffer-2.0.3.tgz#4ecf3fcf749cbd1e472689e109ac66261a25e725"
-  integrity sha512-U15Q7MXTuZlrbymiz95PJpZxu8IlipAp4dtS3wOdgPXx3mqBnslrWU14kxfHB+Py/+2PVKSr37dMAgM2A4uArw==
 
 is-callable@^1.1.4, is-callable@^1.1.5:
   version "1.1.5"
@@ -6042,6 +6037,11 @@ q@^1.1.2:
   resolved "https://registry.yarnpkg.com/q/-/q-1.5.1.tgz#7e32f75b41381291d04611f1bf14109ac00651d7"
   integrity sha1-fjL3W0E4EpHQRhHxvxQQmsAGUdc=
 
+qs-stringify@^1.1.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/qs-stringify/-/qs-stringify-1.2.0.tgz#d4e582cbb2ed52c58f99d53ed90c44c4e1687b59"
+  integrity sha512-IXLNBP7T8dEGnw8me1S5iuWkKv5CnkWV1vaMtuLEPt8RZTWju/FlaV1vzPQS+wXkJpbrek0YfASfPQxJSsyqUw==
+
 qs@6.7.0:
   version "6.7.0"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.7.0.tgz#41dc1a015e3d581f1621776be31afb2876a9b1bc"
@@ -7281,7 +7281,7 @@ urix@^0.1.0:
   resolved "https://registry.yarnpkg.com/urix/-/urix-0.1.0.tgz#da937f7a62e21fec1fd18d49b35c2935067a6c72"
   integrity sha1-2pN/emLiH+wf0Y1Js1wpNQZ6bHI=
 
-url-parse@^1.4.3:
+url-parse@^1.4.3, url-parse@^1.4.7:
   version "1.4.7"
   resolved "https://registry.yarnpkg.com/url-parse/-/url-parse-1.4.7.tgz#a8a83535e8c00a316e403a5db4ac1b9b853ae278"
   integrity sha512-d3uaVyzDB9tQoSXFvuSUNFibTd9zxd2bkVrDRvF5TmvWWQwqE4lgYJ5m+x1DbecWkw+LK4RNl2CU1hHuOKPVlg==
@@ -7448,10 +7448,10 @@ vuex-persistedstate@^2.7.1:
     deepmerge "^4.2.2"
     shvl "^2.0.0"
 
-vuex@^3.1.2:
-  version "3.1.2"
-  resolved "https://registry.yarnpkg.com/vuex/-/vuex-3.1.2.tgz#a2863f4005aa73f2587e55c3fadf3f01f69c7d4d"
-  integrity sha512-ha3jNLJqNhhrAemDXcmMJMKf1Zu4sybMPr9KxJIuOpVcsDQlTBYLLladav2U+g1AvdYDG5Gs0xBTb0M5pXXYFQ==
+vuex@^3.1.3:
+  version "3.1.3"
+  resolved "https://registry.yarnpkg.com/vuex/-/vuex-3.1.3.tgz#f2ad73e3fb73691698b38c93f66e58e267947180"
+  integrity sha512-k8vZqNMSNMgKelVZAPYw5MNb2xWSmVgCKtYKAptvm9YtZiOXnRXFWu//Y9zQNORTrm3dNj1n/WaZZI26tIX6Mw==
 
 watchpack@^1.6.0:
   version "1.6.0"
