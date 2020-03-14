@@ -32,16 +32,16 @@
         <img :src="require('../images/dog.jpg')" style="height: 250px" />
       </b-col>
     </b-row>
-    <Footer />
+    <AppFooter />
   </div>
 </template>
 
 <script>
-import Footer from './Footer';
+import AppFooter from './AppFooter';
 
 export default {
   name: 'index',
-  components: { Footer }
+  components: { AppFooter }
 }
 </script>
 
