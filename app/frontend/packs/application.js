@@ -1,4 +1,6 @@
 import '../styles/application.scss';
+import Rails from '@rails/ujs';
+Rails.start()
 import Vue from 'vue';
 import App from '../App.vue';
 import store from '../store';
@@ -15,8 +17,7 @@ Vue.use({
     instance.interceptors.response.use(response => {
       return response;
     }, error => {
-      if (error.response.status === 401) {
-        console.log('401 error intercepted!!!')
+      if (error.response.status == 401 || error.response.status == 422) {
         return Promise.reject(error)
       }
       return error;
