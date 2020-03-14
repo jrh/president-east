@@ -31,16 +31,11 @@ import BootstrapVue from 'bootstrap-vue';
 Vue.use(BootstrapVue);
 
 // Vee Validate
-import { Validator, install as VeeValidate } from 'vee-validate/dist/vee-validate.minimal.esm.js';
-import { required, email } from 'vee-validate/dist/rules.esm.js';
+import { extend } from 'vee-validate';
+import { required, email } from 'vee-validate/dist/rules';
 
-Validator.extend('required', required);
-Validator.extend('email', email);
-Vue.use(VeeValidate, {
-  inject: true,
-  errorBagName: 'veeErrors',
-  fieldsBagName: 'veeFields'
-});
+extend('required', required);
+extend('email', email);
 
 document.addEventListener("DOMContentLoaded", () => {
   const el = document.getElementById("vue-app");
