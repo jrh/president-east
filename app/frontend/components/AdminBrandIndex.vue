@@ -1,9 +1,9 @@
 <template>
   <div>
-    <b-row align-h="between" class="p-2 mt-5 mb-2">
+    <b-row align-h="between" class="pt-2 px-4 mt-5 mb-2">
       <div></div>
       <span style="font-size: 20px">Manage Brands</span>
-      <Button variant="green" @click="openNewModal">Add Brand</Button>
+      <Button variant="green" @click="addModalShow = true">Add Brand</Button>
     </b-row>
     <b-row align-h="center">
       <b-table
@@ -11,6 +11,7 @@
         :items="brands"
         head-variant="light"
         bordered
+        show-empty
         style="font-size: 14px; max-width: 800px"
       >
         <!-- Table data -->
@@ -21,55 +22,50 @@
     </b-row>
 
     <!-- Add Brand Modal -->
-    <b-modal v-model="addModalShow" centered static no-close-on-backdrop no-close-on-esc>
-      <template #modal-title>
-        <h5>{{ formTitle }}</h5>
-      </template>
-      <!-- <b-form-row>
-        <b-col>
-          <b-row align-h="center" class="pb-3">
-            <img v-if="form.image_url" :src="form.image_url" ref="imagePreview" style="height: 60px" />
-            <img v-else ref="imagePreview" style="height: 60px" />
-            <b-spinner v-if="uploadingImage" small type="grow"></b-spinner>
-          </b-row>
-          <b-row align-h="center">
-            <div id="uppy-target"></div>
-          </b-row>
-          <input type="hidden" v-model="form.image" />
-        </b-col>
-      </b-form-row> -->
-      <b-form-row>
-        <b-col>
-          <b-form-group label="Name (Chinese)" label-size="sm">
-            <b-input v-model="form.name_zh" size="sm" />
+    <b-modal v-model="addModalShow" title="Add brand" centered no-close-on-backdrop no-close-on-esc>
+      <ValidationObserver v-slot="{ invalid }">
+        <b-row align-h="center">
+          <ValidationProvider rules="required" name="Name (English)" v-slot="{ valid, errors }">
+            <b-form-group label-size="sm" :invalid-feedback="errors[0]" style="width: 300px">
+              <template #label>
+                <span>Name (English)</span><span class="asterisk">*</span>
+              </template>
+              <b-input v-model="brandForm.name_en" autofocus size="sm" :state="errors[0] ? false : (valid ? true : null)" />
+            </b-form-group>
+          </ValidationProvider>
+        </b-row>
+        <b-row align-h="center">
+          <b-form-group label="Name (Chinese)" label-size="sm" style="width: 300px">
+            <b-input v-model="brandForm.name_zh" size="sm" :state="brandForm.name_zh ? true : null" />
           </b-form-group>
-        </b-col>
-      </b-form-row>
-      <b-form-row>
-        <b-col>
-          <b-form-group label="Name (English)" label-size="sm">
-            <b-input v-model="form.name_en" size="sm" />
-          </b-form-group>
-        </b-col>
-      </b-form-row>
-      <template #modal-footer>
-        <Button @click="close">Cancel</Button>
-        <Button variant="green" :disabled="!form.name_en" class="float-right" @click="save">Save</Button>
-      </template>
+        </b-row>
+        <b-row align-h="around" class="mt-3">
+          <Button @click="addModalShow = false; clearForm()">Cancel</Button>
+          <Button variant="green" :disabled="invalid" class="float-right" @click="createBrand">Save</Button>
+        </b-row>
+      </ValidationObserver>
+      <template #modal-footer><span></span></template>
     </b-modal>
+
+    <!-- Alert -->
+    <ToastAlert :show="alertShow" :variant="alertVariant" @close="alertShow = false">
+      {{ alertMessage }}
+    </ToastAlert>
   </div>
 </template>
 
 <script>
 import { normalize, schema } from 'normalizr';
+import { ValidationObserver, ValidationProvider } from 'vee-validate';
 // import Uppy from '@uppy/core';
 // import FileInput from '@uppy/file-input';
 // import AwsS3 from '@uppy/aws-s3';
 import Button from './shared/Button';
+import ToastAlert from './shared/ToastAlert';
 
 export default {
   name: 'AdminBrandIndex',
-  components: { Button },
+  components: { Button, ToastAlert, ValidationObserver, ValidationProvider },
   data() {
     return {
       brandData: {},
@@ -77,27 +73,21 @@ export default {
       mode: 'new',
       addModalShow: false,
       imageUrl: '',
-      form: {
+      brandForm: {
         name_en: '',
         name_zh: ''
       },
-      // brandOptions: [
-      //   'Tung-I',
-      //   'Hsin Tung Yang',
-      //   'Want Want',
-      //   'Chi-Sheng',
-      //   'Kimlan',
-      //   'Little Cook Noodle',
-      //   "King's Cook"
-      // ],
       brandFields: [
         { key: 'name_en', label: 'Name (en)', thClass: 'font-lato-th' },
         { key: 'name_zh', label: 'Name (ch)', thClass: 'font-lato-th' },
         { key: 'actions', sortable: false, label: 'Actions', thClass: 'text-center font-lato-th', tdClass: 'text-center' }
       ],
       uploadingImage: false,
+      alertShow: false,
+      alertVariant: null,
+      alertMessage: '',
       loading: false,
-      processing: false
+      processing: false,
     }
   },
   mounted() {
@@ -158,12 +148,8 @@ export default {
     // })
   },
   computed: {
-    formTitle() {
-      return this.mode === 'new' ? 'New Brand' : 'Edit Brand'
-    },
     brands() {
-      let array = this.brandList.map(id => this.brandData[id]);
-      return array.sort((a,b) => a.name_en - b.name_en);
+      return this.brandList.map(id => this.brandData[id]).sort((a,b) => a.name_en - b.name_en);
     }
   },
   methods: {
@@ -177,7 +163,7 @@ export default {
             { brands: response.data },
             { brands: [ new schema.Entity('brands') ] }
           );
-          if (brandData.entities.hasOwnProperty('brands')) { // in case of empty data
+          if (brandData.entities.hasOwnProperty('brands')) {
             this.brandData = brandData.entities.brands;
           }
           this.brandList = brandData.result.brands;
@@ -187,35 +173,34 @@ export default {
         })
         .finally(() => this.loading = false);
     },
-    editItem(product) {
-      this.mode = 'edit';
-      this.editedItem = Object.assign({}, product);
-      this.addModalShow = true;
+    createBrand() {
+      if (this.processing) return;
+      this.processing = true;
+      this.$http.post('/brands', {
+          brand: this.brandForm
+        })
+        .then(response => {
+          console.log(response)
+          this.brandList.push(response.data.id);
+          this.$set(this.brandData, response.data.id, response.data);
+          this.addModalShow = false;
+          this.clearForm();
+        })
+        .catch(error => {
+          console.log(error)
+          this.alertShow = true;
+          this.alertVariant = 'danger';
+          if (error.response.data.errors) {
+            this.alertMessage = error.response.data.errors[0];
+          } else {
+            this.alertMessage = 'Error: Something went wrong'
+          }
+        })
+        .finally(() => this.processing = false);
     },
-    openNewModal() {
-      this.mode = 'new';
-      // this.imageUrl = '';
-      this.name_en = '';
-      this.name_zh = '';
-      // this.image = null;
-      this.addModalShow = true;
-    },
-    save() {
-      if (this.mode === 'edit') {
-        // Object.assign(this.products[this.editedIndex], this.editedItem)
-        this.updateProduct(product);
-      } else {
-        this.createProduct()
-      }
-      this.close()
-    },
-    close() {
-      this.mode = 'new'
-      this.addModalShow = false
-      setTimeout(() => {
-        this.editedItem = Object.assign({}, this.defaultItem);
-        this.$refs.imagePreview.src = '';
-      }, 300)
+    clearForm() {
+      this.brandForm.name_en = '';
+      this.brandForm.name_zh = '';
     }
   }
 }

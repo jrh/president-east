@@ -11,7 +11,7 @@ module Api
       if @brand.save
         render status: :created, json: @brand
       else
-        render status: 422
+        render status: 422, json: { errors: @brand.errors.full_messages }
       end
     end
 

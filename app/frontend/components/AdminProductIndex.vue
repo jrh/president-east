@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-row align-h="between" class="p-2 mt-5 mb-2">
+    <b-row align-h="between" class="pt-2 px-4 mt-5 mb-2">
       <div></div>
       <span style="font-size: 20px">Manage Products</span>
       <Button variant="green" @click="openNewModal">Add Product</Button>
@@ -43,15 +43,15 @@
       </b-form-row>
       <b-form-row>
         <b-col>
-          <b-form-group label="Name (Chinese)" label-size="sm">
-            <b-input v-model="form.name_zh" size="sm" />
+          <b-form-group label="Name (English)" label-size="sm">
+            <b-input v-model="form.name_en" size="sm" />
           </b-form-group>
         </b-col>
       </b-form-row>
       <b-form-row>
         <b-col>
-          <b-form-group label="Name (English)" label-size="sm">
-            <b-input v-model="form.name_en" size="sm" />
+          <b-form-group label="Name (Chinese)" label-size="sm">
+            <b-input v-model="form.name_zh" size="sm" />
           </b-form-group>
         </b-col>
       </b-form-row>

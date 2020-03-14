@@ -46,11 +46,6 @@
         <Button variant="blue" :disabled="!email || !password" @click="submitLogin">Login</Button>
       </b-row>
     </b-modal>
-
-    <!-- Alert -->
-    <ToastAlert :show="alertShow" :variant="alertVariant" @close="alertShow = false">
-      {{ alertMessage }}
-    </ToastAlert>
   </div>
 </template>
 
