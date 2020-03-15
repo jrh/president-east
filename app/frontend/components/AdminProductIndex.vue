@@ -59,7 +59,7 @@
         <b-col>
           <b-form-group label="Brand" label-size="sm">
             <b-select
-              v-model="form.brand_en"
+              v-model="form.brand_id"
               :options="brandOptions"
               size="sm">
             </b-select>
@@ -110,7 +110,7 @@ export default {
         { key: 'item_no', label: 'Item No.', thClass: 'font-lato-th' },
         { key: 'name_en', label: 'Name (en)', thClass: 'font-lato-th' },
         { key: 'name_zh', label: 'Name (ch)', thClass: 'font-lato-th' },
-        { key: 'brand_en', label: 'Brand', thClass: 'text-center font-lato-th', tdClass: 'text-center' },
+        { key: 'brand', label: 'Brand', thClass: 'text-center font-lato-th', tdClass: 'text-center' },
         { key: 'box_quantity', label: 'Box Quantity', thClass: 'text-center font-lato-th', tdClass: 'text-center' },
         { key: 'storage_temp', label: 'Storage Temp', thClass: 'text-center font-lato-th', tdClass: 'text-center' },
         { key: 'actions', sortable: false, label: 'Actions', thClass: 'text-center font-lato-th', tdClass: 'text-center' }
@@ -123,7 +123,7 @@ export default {
         item_no: '',
         name_en: '',
         name_zh: '',
-        brand_en: '',
+        brand_id: '',
         box_quantity: '',
         storage_temp: 'Room',
         image: null
@@ -245,7 +245,6 @@ export default {
       this.item_no = '';
       this.name_en = '';
       this.name_zh = '';
-      this.brand_en = '';
       this.box_quantity = '';
       this.storage_temp = 'Room';
       this.image = null;
@@ -292,7 +291,6 @@ export default {
           item_no: product.item_no,
           name_en: product.name_en,
           name_zh: product.name_zh,
-          brand_en: product.brand_en,
           box_quantity: product.box_quantity,
           storage_temp: product.storage_temp,
           image: product.image

@@ -12,8 +12,6 @@ class Product < ApplicationRecord
   #     item_no: item_no,
   #     name_en: name_en,
   #     name_zh: name_zh,
-  #     brand_en: brand_en,
-  #     # brand_zh: brand_zh,
   #     box_quantity: box_quantity,
   #     storage_temp: storage_temp,
   #     image_data: image_data,

@@ -64,7 +64,7 @@ module Api
       private
 
         def product_params
-          params.require(:product).permit(:id, :item_no, :name_en, :name_zh, :brand_en, :box_quantity, :storage_temp, :image)
+          params.require(:product).permit(:id, :item_no, :name_en, :name_zh, :box_quantity, :storage_temp, :image)
         end
     end
   end
