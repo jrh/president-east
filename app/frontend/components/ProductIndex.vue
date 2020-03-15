@@ -26,11 +26,16 @@
       <b-col sm="4" class="text-right">
         <b-form-group>
           <b-select
-            v-model="brand"
+            v-model="brandFilter"
             :options="brandOptions"
             size="sm"
             style="width: 320px"
-          ></b-select>
+          >
+            <template #first>
+              <b-select-option :value="null">All brands</b-select-option>
+            </template>
+
+          </b-select>
         </b-form-group>
       </b-col>
     </b-row>
@@ -49,7 +54,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { normalize, schema } from 'normalizr';
 import ProductIndexCard from './ProductIndexCard.vue';
 
 export default {
@@ -58,27 +63,22 @@ export default {
   data() {
     return {
       searchTerm: '',
-      brand: null,
-      brandOptions: [
-        { text: 'All Brands', value: null },
-        'Tung-I',
-        'Hsin Tung Yang',
-        'Want Want'
-        // 'Chi-Sheng',
-        // 'Kimlan',
-        // 'Little Cook Noodle',
-        // "King's Cook"
-      ],
+      productData: {},
+      productList: [],
+      brands: [],
+      brandFilter: null
     }
   },
   computed: {
-    ...mapGetters(['products']),
+    products() {
+      return this.productList.map(id => this.productData[id]);
+    },
     filteredProducts() {
       if (this.products.length > 0) {
         let products;
-        if (this.brand) {
+        if (this.brandFilter) {
           products = this.products.filter(p => {
-            return p.brand_en === this.brand;
+            return p.brand_id === this.brandFilter;
           })
         } else {
           products = this.products;
@@ -93,12 +93,36 @@ export default {
           return products;
         }
       }
+    },
+    brandOptions() {
+      return this.brands.map(brand => ({ text: brand.name_en, value: brand.id }))
     }
   },
   mounted() {
-    this.$store.dispatch('fetchProducts');
+    this.fetchProducts();
   },
   methods: {
+    fetchProducts() {
+      this.loading = true;
+      this.$http.get('/products')
+        .then(response => {
+          console.log(response.data)
+
+          const productData = normalize(
+            { products: response.data.products },
+            { products: [ new schema.Entity('products') ] }
+          );
+          if (productData.entities.hasOwnProperty('products')) {
+            this.productData = productData.entities.products;
+          }
+          this.productList = productData.result.products;
+          this.brands = response.data.brands;
+        })
+        .catch(error => {
+          console.log(error)
+        })
+        .finally(() => this.loading = false);
+    },
     search() {
 
     },
