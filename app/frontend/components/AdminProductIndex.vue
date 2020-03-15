@@ -91,7 +91,8 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { normalize, schema } from 'normalizr';
+import { ValidationObserver, ValidationProvider } from 'vee-validate';
 import Uppy from '@uppy/core';
 import FileInput from '@uppy/file-input';
 import AwsS3 from '@uppy/aws-s3';
@@ -99,9 +100,12 @@ import Button from './shared/Button';
 
 export default {
   name: 'AdminProductIndex',
-  components: { Button },
+  components: { Button, ValidationObserver, ValidationProvider },
   data() {
     return {
+      productData: {},
+      productList: [],
+      brands: [],
       fields: [
         { key: 'item_no', label: 'Item No.', thClass: 'font-lato-th' },
         { key: 'name_en', label: 'Name (en)', thClass: 'font-lato-th' },
@@ -124,15 +128,6 @@ export default {
         storage_temp: 'Room',
         image: null
       },
-      brandOptions: [
-        'Tung-I',
-        'Hsin Tung Yang',
-        'Want Want',
-        'Chi-Sheng',
-        'Kimlan',
-        'Little Cook Noodle',
-        "King's Cook"
-      ],
       storageOptions: ['Room', 'Cooler', 'Frozen'],
       uploadingImage: false,
       loading: false,
@@ -198,9 +193,14 @@ export default {
     })
   },
   computed: {
-    ...mapGetters(['products']),
+    products() {
+      return this.productList.map(id => this.productData[id]);
+    },
     formTitle() {
       return this.mode === 'new' ? 'New Product' : 'Edit Product'
+    },
+    brandOptions() {
+      return this.brands.map(brand => ({ text: brand.name_en, value: brand.id }))
     }
   },
   watch: {
@@ -208,8 +208,31 @@ export default {
       val || this.close()
     }
   },
+  mounted() {
+    this.fetchProducts();
+  },
   methods: {
-    ...mapActions(['fetchProducts', 'updateProduct']),
+    fetchProducts() {
+      this.loading = true;
+      this.$http.get('/admin/products')
+        .then(response => {
+          console.log(response.data)
+
+          const productData = normalize(
+            { products: response.data.products },
+            { products: [ new schema.Entity('products') ] }
+          );
+          if (productData.entities.hasOwnProperty('products')) {
+            this.productData = productData.entities.products;
+          }
+          this.productList = productData.result.products;
+          this.brands = response.data.brands;
+        })
+        .catch(error => {
+          console.log(error)
+        })
+        .finally(() => this.loading = false);
+    },
     editItem(product) {
       this.mode = 'edit';
       this.editedItem = Object.assign({}, product);

@@ -155,7 +155,7 @@ export default {
   methods: {
     fetchBrands() {
       this.loading = true;
-      this.$http.get('/brands')
+      this.$http.get('/admin/brands')
         .then(response => {
           console.log(response.data)
 
@@ -176,7 +176,7 @@ export default {
     createBrand() {
       if (this.processing) return;
       this.processing = true;
-      this.$http.post('/brands', {
+      this.$http.post('/admin/brands', {
           brand: this.brandForm
         })
         .then(response => {

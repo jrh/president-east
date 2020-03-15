@@ -46,7 +46,7 @@ export default {
   },
   methods: {
     fetchUsers() {
-      this.$http.get('/users')
+      this.$http.get('/admin/users')
         .then(response => {
           console.log(response.data)
           this.users = response.data;

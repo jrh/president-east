@@ -6,11 +6,15 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: :json } do
     post 'login', to: 'authentication#create'
-    resources :users, only: [:index, :create]
-    resources :products, only: [:index, :create, :update, :destroy] do
+    resources :products, only: [:index] do
       get 'search', on: :collection
     end
-    resources :brands, only: [:index, :create, :update]
+
+    namespace :admin do
+      resources :brands, only: [:index, :create, :update]
+      resources :products, only: [:index, :create, :update, :destroy]
+      resources :users, only: [:index, :create]
+    end
   end
 
   # Vue fallback
