@@ -13,7 +13,7 @@
     "@uppy/file-input": "^1.4.5",
     "axios": "^0.19.2",
     "bootstrap": "^4.4.1",
-    "bootstrap-vue": "^2.7.0",
+    "bootstrap-vue": "^2.9.0",
     "js-cookie": "^2.2.1",
     "normalizr": "^3.6.0",
     "vee-validate": "^3.2.5",
