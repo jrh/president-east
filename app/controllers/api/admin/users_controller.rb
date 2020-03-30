@@ -1,6 +1,7 @@
 module Api
   module Admin
     class UsersController < ApiController
+      before_action :authenticate_user
 
       def index
         @users = User.all
@@ -10,10 +11,10 @@ module Api
       def create
         user = User.new(user_params)
         if user.save
-          auth_token = JsonWebToken.encode({ user_id: user.id })
-          render status: :created, json: { auth_token: auth_token, current_user: user }
+
+          render json: { current_user: user }
         else
-          render status: :bad_request, json: { errors: user.errors.full_messages }
+          render status: :unprocessable_entity, json: { errors: user.errors.full_messages.join(' ') }
         end
       end
 

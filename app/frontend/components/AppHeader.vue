@@ -69,7 +69,7 @@ export default {
   },
   computed: {
     isLoggedIn() {
-      return this.$store.getters.isLoggedIn;
+      return this.$store.state.auth.isLoggedIn;
     },
     isAdmin() {
       return this.$store.getters.isAdmin;
@@ -77,14 +77,16 @@ export default {
   },
   methods: {
     submitLogin() {
-      this.$http.post('/login', {
-          email: this.email,
-          password: this.password
+      this.$http.post('/user_token', {
+          auth: {
+            email: this.email,
+            password: this.password
+          }
         })
         .then(response => {
           console.log('Response successful')
           console.log(response)
-          this.$store.commit('setToken', response.data.auth_token);
+          this.$store.commit('loginUser');
           this.$store.commit('setCurrentUser', response.data.current_user);
           this.loginModalShow = false;
           this.email = '',

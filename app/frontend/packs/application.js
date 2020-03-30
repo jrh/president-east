@@ -12,7 +12,11 @@ import axios from 'axios';
 Vue.use({
   install (Vue) {
     const instance = axios.create({
-      baseURL: '/api'
+      withCredentials: true,
+      baseURL: '/api',
+      headers: {
+        'Content-Type': 'application/json'
+      }
     });
     instance.interceptors.response.use(response => {
       return response;

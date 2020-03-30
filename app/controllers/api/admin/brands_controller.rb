@@ -1,6 +1,7 @@
 module Api
   module Admin
     class BrandsController < ApiController
+      before_action :authenticate_user
 
       def index
         @brands = Brand.all.order(:name_en)

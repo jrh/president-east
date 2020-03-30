@@ -1,12 +1,9 @@
 const state = {
   currentUser: null,
-  token: null
+  isLoggedIn: false
 };
 
 const getters = {
-  isLoggedIn(state) {
-    return state.token ? true : false;
-  },
   isAdmin(state) {
     if (state.currentUser && state.currentUser.admin) {
       return true;
@@ -19,7 +16,7 @@ const getters = {
 const actions = {
   logout({ commit }) {
     commit('setCurrentUser', null);
-    commit('setToken', null);
+    commit('logoutUser');
     // TODO:  router:  if in admin area move to home
   }
 };
@@ -28,8 +25,11 @@ const mutations = {
   setCurrentUser(state, user) {
     state.currentUser = user;
   },
-  setToken(state, token) {
-    state.token = token;
+  loginUser(state) {
+    state.isLoggedIn = true;
+  },
+  logoutUser(state) {
+    state.isLoggedIn = false;
   }
 };
 
