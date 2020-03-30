@@ -21,10 +21,9 @@
             <b-dropdown-item to="/admin/brands">Manage Brands</b-dropdown-item>
             <b-dropdown-item to="/admin/users">User Accounts</b-dropdown-item>
           </b-nav-item-dropdown>
-          <!-- <b-nav-item v-if="!isLoggedIn" to="/sign_up">Sign Up</b-nav-item> -->
           <b-nav-item v-if="isLoggedIn" @click="$store.dispatch('logout')">Logout</b-nav-item>
-
-          <b-nav-item v-else @click="loginModalShow = true">Login</b-nav-item>
+          <b-nav-item v-if="!isLoggedIn" to="/sign_up">Sign Up</b-nav-item>
+          <b-nav-item v-if="!isLoggedIn" @click="loginModalShow = true">Login</b-nav-item>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>

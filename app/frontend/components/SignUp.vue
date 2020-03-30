@@ -3,104 +3,118 @@
     <b-row align-h="center" class="mt-5">
       <p>Register an Account</p>
     </b-row>
-    <b-row align-h="center" class='mt-5'>
+    <b-row align-h="center" class='my-5'>
       <b-col lg="4" sm="8">
-        <b-form>
-          <b-form-group label="First Name *" :invalid-feedback="veeErrors.first('firstName')">
-            <b-input
-              v-model="firstName"
-              name="firstName"
-              v-validate="{ required: true }"
-              data-vv-as="first name"
-              :state="validateState('firstName')"
-            />
-          </b-form-group>
+        <ValidationObserver v-slot="{ invalid }">
+          <ValidationProvider rules="required" name="First Name" v-slot="{ valid, errors }">
+            <b-form-group :invalid-feedback="errors[0]">
+              <template #label>
+                <span>First Name</span><span class="asterisk">*</span>
+              </template>
+              <b-input
+                v-model="form.firstName"
+                :state="errors[0] ? false : (valid ? true : null)"
+              />
+            </b-form-group>
+          </ValidationProvider>
 
-          <b-form-group label="Last Name *" :invalid-feedback="veeErrors.first('lastName')">
-            <b-input
-              v-model="lastName"
-              name="lastName"
-              v-validate="{ required: true }"
-              data-vv-as="last name"
-              :state="validateState('lastName')"
-            />
-          </b-form-group>
+          <ValidationProvider rules="required" name="Last Name" v-slot="{ valid, errors }">
+            <b-form-group :invalid-feedback="errors[0]">
+              <template #label>
+                <span>Last Name</span><span class="asterisk">*</span>
+              </template>
+              <b-input
+                v-model="form.lastName"
+                :state="errors[0] ? false : (valid ? true : null)"
+              />
+            </b-form-group>
+          </ValidationProvider>
 
           <b-form-group label="Company">
             <b-input
-              v-model="company"
+              v-model="form.company"
             />
           </b-form-group>
 
-          <b-form-group label="Email *" :invalid-feedback="veeErrors.first('email')">
-            <b-input
-              v-model="email"
-              type="email"
-              name="email"
-              v-validate="{ required: true, email: true }"
-              :state="validateState('email')"
-            />
-          </b-form-group>
+          <ValidationProvider rules="required|email" name="Email" v-slot="{ valid, errors }">
+            <b-form-group :invalid-feedback="errors[0]">
+              <template #label>
+                <span>Email</span><span class="asterisk">*</span>
+              </template>
+              <b-input
+                v-model="form.email"
+                type="email"
+                :state="errors[0] ? false : (valid ? true : null)"
+              />
+            </b-form-group>
+          </ValidationProvider>
 
-          <b-form-group label="Password *" :invalid-feedback="veeErrors.first('password')">
-            <b-input
-              v-model="password"
-              type="password"
-              name="password"
-              v-validate="{ required: true }"
-              :state="validateState('password')"
-            />
-          </b-form-group>
+          <ValidationProvider rules="required" name="Password" v-slot="{ valid, errors }" vid="password">
+            <b-form-group :invalid-feedback="errors[0]">
+              <template #label>
+                <span>Password</span><span class="asterisk">*</span>
+              </template>
+              <b-input
+                v-model="form.password"
+                type="password"
+                :state="errors[0] ? false : (valid ? true : null)"
+              />
+            </b-form-group>
+          </ValidationProvider>
 
-          <b-form-group label="Password Confirmation *" :invalid-feedback="veeErrors.first('passwordConfirmation')">
-            <b-input
-              v-model="passwordConfirmation"
-              type="password"
-              name="passwordConfirmation"
-              v-validate="{ required: true }"
-              data-vv-as="password confirmation"
-              :state="validateState('passwordConfirmation')"
-            />
-          </b-form-group>
+          <ValidationProvider rules="required|confirmed:password" name="Password Confirmation" v-slot="{ valid, errors }">
+            <b-form-group :invalid-feedback="errors[0]">
+              <template #label>
+                <span>Password Confirmation</span><span class="asterisk">*</span>
+              </template>
+              <b-input
+                v-model="form.password_confirmation"
+                type="password"
+                :state="errors[0] ? false : (valid ? true : null)"
+              />
+            </b-form-group>
+          </ValidationProvider>
 
-          <b-btn color="primary" :disabled="veeErrors.any() || !formValid" @click="submit">Submit</b-btn>
-        </b-form>
+          <Button variant="blue" :disabled="invalid" @click="submit">Submit</Button>
+        </ValidationObserver>
       </b-col>
     </b-row>
   </div>
 </template>
 
 <script>
+import { ValidationObserver, ValidationProvider, extend } from 'vee-validate';
+import { required, email, confirmed } from 'vee-validate/dist/rules';
+extend('required', required);
+extend('email', email);
+extend('confirmed', {
+  ...confirmed,
+  message: 'This field must match the password field'
+});
+import Button from './shared/Button';
+
 export default {
   name: 'SignUp',
+  components: { ValidationObserver, ValidationProvider, Button },
   data() {
     return {
-      firstName: '',
-      lastName: '',
-      company: '',
-      email: '',
-      password: '',
-      passwordConfirmation: ''
+      form: {
+        firstName: null,
+        lastName: null,
+        company: null,
+        email: null,
+        password: null,
+        password_confirmation: null
+      }
     }
   },
   computed: {
-    formValid() {
-      return Object.keys(this.veeFields).every(field => {
-        return this.veeFields[field] && this.veeFields[field].valid;
-      });
-    },
+
   },
   methods: {
     submit() {
       this.$http.post('/users', {
-          user: {
-            first_name: this.firstName,
-            last_name: this.lastName,
-            company: this.company,
-            email: this.email,
-            password: this.password,
-            password_confirmation: this.passwordConfirmation
-          }
+          user: this.form
         })
         .then(response => {
           console.log(response)
@@ -115,13 +129,7 @@ export default {
             console.log(error.response.data.errors)
           }
         })
-    },
-    validateState(ref) {
-      if (this.veeFields[ref] && (this.veeFields[ref].dirty || this.veeFields[ref].validated)) {
-        return this.veeFields[ref].valid;
-      }
-      return null;
-    },
+    }
   }
 }
 </script>
