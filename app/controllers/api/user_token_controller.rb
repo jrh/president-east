@@ -6,13 +6,12 @@ module Api
         :jwt,
         {
           value: auth_token.token,
-          expires: 30.minutes.from_now,
+          expires: 5.minutes.from_now, # shorter time for testing
           path: '/',
           # secure: Rails.env.production?,
           httponly: Rails.env.production?
         }
       )
-      puts entity
 
       render status: :created, json: auth_token.payload
     end

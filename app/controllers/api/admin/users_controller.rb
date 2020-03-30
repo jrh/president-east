@@ -14,7 +14,7 @@ module Api
 
           render json: { current_user: user }
         else
-          render status: :unprocessable_entity, json: { errors: user.errors.full_messages.join(' ') }
+          render status: :unprocessable_entity, json: { errors: user.errors.full_messages }
         end
       end
 

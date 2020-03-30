@@ -91,7 +91,6 @@
 </template>
 
 <script>
-import Cookies from 'js-cookie'
 import { normalize, schema } from 'normalizr';
 import { ValidationObserver, ValidationProvider } from 'vee-validate';
 import Uppy from '@uppy/core';
@@ -215,11 +214,7 @@ export default {
   methods: {
     fetchProducts() {
       this.loading = true;
-      this.$http.get('/admin/products',{
-          headers: {
-            'Authorization': 'Bearer ' + Cookies.get('jwt')
-          }
-        })
+      this.$http.get('/admin/products')
         .then(response => {
           console.log(response.data)
 

@@ -6,6 +6,7 @@ import App from '../App.vue';
 import store from '../store';
 import router from '../routes.js';
 import '../filters/capitalize.js';
+import Cookies from 'js-cookie';
 
 // Axios config
 import axios from 'axios';
@@ -17,6 +18,14 @@ Vue.use({
       headers: {
         'Content-Type': 'application/json'
       }
+    });
+    instance.interceptors.request.use(config => {
+      config.headers.Authorization =  'Bearer ' + Cookies.get('jwt');
+
+      return config;
+    }, error => {
+      // Do something with request error
+      return Promise.reject(error);
     });
     instance.interceptors.response.use(response => {
       return response;
