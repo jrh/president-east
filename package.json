@@ -6,7 +6,7 @@
     "@fortawesome/pro-regular-svg-icons": "^5.12.1",
     "@fortawesome/pro-solid-svg-icons": "^5.12.1",
     "@fortawesome/vue-fontawesome": "^0.1.9",
-    "@rails/ujs": "^6.0.2-1",
+    "@rails/ujs": "^6.0.2-2",
     "@rails/webpacker": "^4.0.7",
     "@uppy/aws-s3": "^1.5.2",
     "@uppy/core": "^1.8.2",
