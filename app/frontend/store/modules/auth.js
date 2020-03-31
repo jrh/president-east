@@ -1,6 +1,10 @@
+import router from '../../routes.js';
+
 const state = {
+  loginModalShow: false,
+  // persisted
+  isLoggedIn: false,
   currentUser: null,
-  isLoggedIn: false
 };
 
 const getters = {
@@ -17,7 +21,13 @@ const actions = {
   logout({ commit }) {
     commit('setCurrentUser', null);
     commit('logoutUser');
-    // TODO:  router:  if in admin area move to home
+    router.push('/');  // TODO: only redirect if in admin area
+  },
+  forcedLogout({ commit }) {
+    commit('setCurrentUser', null);
+    commit('logoutUser');
+    commit('toggleLoginModalShow', true);
+    router.push('/');
   }
 };
 
@@ -30,6 +40,9 @@ const mutations = {
   },
   logoutUser(state) {
     state.isLoggedIn = false;
+  },
+  toggleLoginModalShow(state, boolean) {
+    state.loginModalShow = boolean;
   }
 };
 

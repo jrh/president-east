@@ -23,13 +23,13 @@
           </b-nav-item-dropdown>
           <b-nav-item v-if="isLoggedIn" @click="$store.dispatch('logout')">Logout</b-nav-item>
           <b-nav-item v-if="!isLoggedIn" to="/sign_up">Sign Up</b-nav-item>
-          <b-nav-item v-if="!isLoggedIn" @click="loginModalShow = true">Login</b-nav-item>
+          <b-nav-item v-if="!isLoggedIn" @click="$store.commit('toggleLoginModalShow', true)">Login</b-nav-item>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
 
     <!-- Login Modal -->
-    <b-modal v-model="loginModalShow" title="Login" centered hide-footer>
+    <b-modal v-model="loginModalShow" title="Login" centered hide-footer id="login-modal">
       <b-alert v-model="authError" variant="danger">Incorrect email or password</b-alert>
       <b-row align-h="center" class="px-3">
         <b-form style="width: 300px">
@@ -57,7 +57,6 @@ export default {
   components: { Button, ToastAlert },
   data() {
     return {
-      loginModalShow: false,
       email: '',
       password: '',
       authError: false,
@@ -67,6 +66,14 @@ export default {
     }
   },
   computed: {
+    loginModalShow: {
+      get() {
+        return this.$store.state.auth.loginModalShow;
+      },
+      set(boolean) {
+        this.$store.commit('toggleLoginModalShow', boolean);
+      }
+    },
     isLoggedIn() {
       return this.$store.state.auth.isLoggedIn;
     },
@@ -87,7 +94,7 @@ export default {
           console.log(response)
           this.$store.commit('loginUser');
           this.$store.commit('setCurrentUser', response.data.current_user);
-          this.loginModalShow = false;
+          this.$store.commit('toggleLoginModalShow', false);
           this.email = '',
           this.password = ''
           this.authError = false;
@@ -103,7 +110,7 @@ export default {
           // }
           this.authError = true;
         });
-    },
+    }
   }
 }
 </script>

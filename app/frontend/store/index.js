@@ -12,7 +12,9 @@ export default new Vuex.Store({
     products
   },
   plugins: [
-    createPersistedState()
+    createPersistedState({
+      paths: ['auth.currentUser', 'auth.isLoggedIn']
+    })
   ]
 });
 

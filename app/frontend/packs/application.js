@@ -10,34 +10,32 @@ import Cookies from 'js-cookie';
 
 // Axios config
 import axios from 'axios';
-Vue.use({
-  install (Vue) {
-    const instance = axios.create({
-      withCredentials: true,
-      baseURL: '/api',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
-    instance.interceptors.request.use(config => {
-      config.headers.Authorization =  'Bearer ' + Cookies.get('jwt');
-
-      return config;
-    }, error => {
-      // Do something with request error
-      return Promise.reject(error);
-    });
-    instance.interceptors.response.use(response => {
-      return response;
-    }, error => {
-      if (error.response.status == 401 || error.response.status == 422) {
-        return Promise.reject(error)
-      }
-      return error;
-    });
-    Vue.prototype.$http = instance;
+const instance = axios.create({
+  withCredentials: true,
+  baseURL: '/api',
+  headers: {
+    'Content-Type': 'application/json'
   }
 });
+
+instance.interceptors.request.use(config => {
+  config.headers.Authorization =  'Bearer ' + Cookies.get('jwt');
+  return config;
+}, error => {
+  // Do something with request error
+  return Promise.reject(error);
+});
+
+instance.interceptors.response.use(response => {
+  return response;
+}, error => {
+  if (error.response.status == 401 || error.response.status == 422) {
+    store.dispatch('forcedLogout');
+    // trigger event and login modal
+  }
+  return Promise.reject(error);
+});
+Vue.prototype.$http = instance;
 
 // Bootstrap Vue
 import BootstrapVue from 'bootstrap-vue';

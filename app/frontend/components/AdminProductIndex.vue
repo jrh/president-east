@@ -134,10 +134,9 @@ export default {
       processing: false
     }
   },
-  created() {
-    this.fetchProducts();
-  },
   mounted() {
+    this.fetchProducts();
+
     const uppy = new Uppy({
       debug: true,
       autoProceed: true
