@@ -25,7 +25,7 @@
             <template #button-content>
               <b-avatar></b-avatar>
             </template>
-            <b-dropdown-item to="/profile">My Profile</b-dropdown-item>
+            <b-dropdown-item :to="`/users/${$store.state.auth.currentUser.id}/profile`">My Profile</b-dropdown-item>
             <b-dropdown-divider />
             <b-dropdown-item @click="$store.dispatch('logout')">
               <span class="text-danger">Logout</span>

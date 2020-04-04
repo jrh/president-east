@@ -1,9 +1,9 @@
 <template>
   <div>
     <b-row align-h="center" class="mt-5">
-      <p>Register an Account</p>
+      <p style="font-size: 24px">Register an Account</p>
     </b-row>
-    <b-row align-h="center" class='my-5'>
+    <b-row align-h="center" class="my-5">
       <b-col lg="4" sm="8">
         <ValidationObserver v-slot="{ invalid }">
           <ValidationProvider rules="required" name="First Name" v-slot="{ valid, errors }">
@@ -133,9 +133,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-p {
-  font-size: 24px;
-}
-</style>

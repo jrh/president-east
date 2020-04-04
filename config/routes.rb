@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     post 'user_token' => 'user_token#create'
 
+    resources :users, only: :update
+
     resources :products, only: [:index] do
       get 'search', on: :collection
     end
