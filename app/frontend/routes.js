@@ -8,6 +8,7 @@ import AdminProductIndex from './components/AdminProductIndex';
 import AdminBrandIndex from './components/AdminBrandIndex';
 import AdminUserIndex from './components/AdminUserIndex';
 import SignUp from './components/SignUp';
+import NotFoundComponent from './components/NotFoundComponent';
 
 Vue.use(VueRouter);
 
@@ -21,7 +22,10 @@ export default new VueRouter({
     { path: '/admin/products', component: AdminProductIndex },
     { path: '/admin/brands', component: AdminBrandIndex },
     { path: '/admin/users', component: AdminUserIndex },
-    { path: '/sign_up', component: SignUp }
+    { path: '/sign_up', component: SignUp },
+
+    // Not found
+    { path: '/*', component: NotFoundComponent }
   ]
 });
 
