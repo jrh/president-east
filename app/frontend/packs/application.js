@@ -47,6 +47,7 @@ import {
   FormPlugin,
   FormGroupPlugin,
   FormInputPlugin,
+  FormRadioPlugin,
   FormSelectPlugin,
   InputGroupPlugin,
   LayoutPlugin,
@@ -64,6 +65,7 @@ Vue.use(CardPlugin);
 Vue.use(FormPlugin);
 Vue.use(FormGroupPlugin);
 Vue.use(FormInputPlugin);
+Vue.use(FormRadioPlugin);
 Vue.use(FormSelectPlugin);
 Vue.use(InputGroupPlugin);
 Vue.use(LayoutPlugin);
