@@ -9,7 +9,7 @@ const state = {
 
 const getters = {
   isAdmin(state) {
-    if (state.currentUser && state.currentUser.admin) {
+    if (state.currentUser && (state.currentUser.role == 'admin' || state.currentUser.role == 'super_admin')) {
       return true;
     } else {
       return false;

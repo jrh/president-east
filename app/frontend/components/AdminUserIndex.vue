@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="isAdmin">
     <b-row align-h="center" class="p-2 mt-5 mb-2">
       <span style="font-size: 20px">User Accounts</span>
     </b-row>
@@ -12,8 +12,8 @@
       style="font-size: 14px"
     >
       <!-- Table data -->
-      <template v-slot:cell(admin)="data">
-        <span v-if="data.value">
+      <template v-slot:cell(role)="data">
+        <span v-if="data.value == 'admin' || data.value == 'super_admin'">
           <b-badge>Admin</b-badge>
         </span>
       </template>
@@ -26,13 +26,15 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'AdminUserIndex',
   data() {
     return {
       users: [],
       fields: [
-        { key: 'admin', label: '', thClass: 'text-center font-lato-th', tdClass: 'text-center' },
+        { key: 'role', label: '', thClass: 'text-center font-lato-th', tdClass: 'text-center' },
         { key: 'first_name', label: 'First Name', thClass: 'font-lato-th' },
         { key: 'last_name', label: 'Last Name', thClass: 'font-lato-th' },
         { key: 'company', label: 'Company', thClass: 'font-lato-th' },
@@ -40,6 +42,9 @@ export default {
         { key: 'name', label: 'Actions', thClass: 'text-center font-lato-th', tdClass: 'text-center' }
       ],
     }
+  },
+  computed: {
+    ...mapGetters(['isAdmin'])
   },
   mounted() {
     this.fetchUsers();

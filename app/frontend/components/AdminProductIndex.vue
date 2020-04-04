@@ -91,6 +91,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import { normalize, schema } from 'normalizr';
 import { ValidationObserver, ValidationProvider } from 'vee-validate';
 import Uppy from '@uppy/core';
@@ -192,6 +193,7 @@ export default {
     })
   },
   computed: {
+    ...mapGetters(['isAdmin']),
     products() {
       return this.productList.map(id => this.productData[id]);
     },

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_15_223304) do
+ActiveRecord::Schema.define(version: 2020_04_04_155117) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,9 +44,10 @@ ActiveRecord::Schema.define(version: 2020_03_15_223304) do
     t.string "email", null: false
     t.string "password_digest", null: false
     t.string "company"
-    t.boolean "admin", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "role", default: 0, null: false
+    t.index ["role"], name: "index_users_on_role"
   end
 
   add_foreign_key "products", "brands"

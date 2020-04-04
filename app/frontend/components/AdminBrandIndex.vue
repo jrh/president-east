@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="isAdmin">
     <b-row align-h="between" class="pt-2 px-4 mt-5 mb-2">
       <div></div>
       <span style="font-size: 20px">Manage Brands</span>
@@ -55,6 +55,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import { normalize, schema } from 'normalizr';
 import { ValidationObserver, ValidationProvider } from 'vee-validate';
 // import Uppy from '@uppy/core';
@@ -148,6 +149,7 @@ export default {
     // })
   },
   computed: {
+    ...mapGetters(['isAdmin']),
     brands() {
       return this.brandList.map(id => this.brandData[id]).sort((a,b) => a.name_en - b.name_en);
     }
