@@ -13,15 +13,24 @@
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav class="ml-5">
           <b-nav-item to="/products">Product Catalog</b-nav-item>
-        </b-navbar-nav>
-
-          <b-navbar-nav class="ml-auto">
-          <b-nav-item-dropdown v-if="isLoggedIn && isAdmin" text="Admin" right>
+          <b-nav-item-dropdown v-if="isLoggedIn && isAdmin" text="Admin Menu">
             <b-dropdown-item to="/admin/products">Manage Products</b-dropdown-item>
             <b-dropdown-item to="/admin/brands">Manage Brands</b-dropdown-item>
             <b-dropdown-item to="/admin/users">User Accounts</b-dropdown-item>
           </b-nav-item-dropdown>
-          <b-nav-item v-if="isLoggedIn" @click="$store.dispatch('logout')">Logout</b-nav-item>
+        </b-navbar-nav>
+
+        <b-navbar-nav class="ml-auto">
+          <b-nav-item-dropdown v-if="isLoggedIn" right no-caret>
+            <template #button-content>
+              <b-avatar></b-avatar>
+            </template>
+            <b-dropdown-item to="/profile">My Profile</b-dropdown-item>
+            <b-dropdown-divider />
+            <b-dropdown-item @click="$store.dispatch('logout')">
+              <span class="text-danger">Logout</span>
+            </b-dropdown-item>
+          </b-nav-item-dropdown>
           <b-nav-item v-if="!isLoggedIn" to="/sign_up">Sign Up</b-nav-item>
           <b-nav-item v-if="!isLoggedIn" @click="$store.commit('toggleLoginModalShow', true)">Login</b-nav-item>
         </b-navbar-nav>

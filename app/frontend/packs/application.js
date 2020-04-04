@@ -44,6 +44,7 @@ import {
   BadgePlugin,
   ButtonPlugin,
   CardPlugin,
+  FormPlugin,
   FormGroupPlugin,
   FormInputPlugin,
   FormSelectPlugin,
@@ -60,6 +61,7 @@ Vue.use(AvatarPlugin);
 Vue.use(BadgePlugin);
 Vue.use(ButtonPlugin);
 Vue.use(CardPlugin);
+Vue.use(FormPlugin);
 Vue.use(FormGroupPlugin);
 Vue.use(FormInputPlugin);
 Vue.use(FormSelectPlugin);
