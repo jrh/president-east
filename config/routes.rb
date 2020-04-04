@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 Rails.application.routes.draw do
   # AWS s3 presign
   mount Shrine.presign_endpoint(:cache) => "/presign"
