@@ -38,11 +38,40 @@ instance.interceptors.response.use(response => {
 Vue.prototype.$http = instance;
 
 // Bootstrap Vue
-import BootstrapVue from 'bootstrap-vue';
-Vue.use(BootstrapVue);
+import {
+  AlertPlugin,
+  AvatarPlugin,
+  BadgePlugin,
+  ButtonPlugin,
+  CardPlugin,
+  FormGroupPlugin,
+  FormInputPlugin,
+  FormSelectPlugin,
+  InputGroupPlugin,
+  LayoutPlugin,
+  ModalPlugin,
+  NavbarPlugin,
+  SpinnerPlugin,
+  TablePlugin
+} from 'bootstrap-vue'
+
+Vue.use(AlertPlugin);
+Vue.use(AvatarPlugin);
+Vue.use(BadgePlugin);
+Vue.use(ButtonPlugin);
+Vue.use(CardPlugin);
+Vue.use(FormGroupPlugin);
+Vue.use(FormInputPlugin);
+Vue.use(FormSelectPlugin);
+Vue.use(InputGroupPlugin);
+Vue.use(LayoutPlugin);
+Vue.use(ModalPlugin);
+Vue.use(NavbarPlugin);
+Vue.use(SpinnerPlugin);
+Vue.use(TablePlugin);
 
 // Vee Validate
-import { extend } from 'vee-validate';
+import { extend, version } from 'vee-validate';
 import { required, email } from 'vee-validate/dist/rules';
 
 extend('required', {
