@@ -8,6 +8,7 @@ import AdminProductIndex from './components/AdminProductIndex';
 import AdminBrandIndex from './components/AdminBrandIndex';
 import AdminUserIndex from './components/AdminUserIndex';
 import SignUp from './components/SignUp';
+import PasswordReset from './components/PasswordReset';
 import NotFoundComponent from './components/NotFoundComponent';
 
 Vue.use(VueRouter);
@@ -23,6 +24,7 @@ export default new VueRouter({
     { path: '/admin/brands', component: AdminBrandIndex },
     { path: '/admin/users', component: AdminUserIndex },
     { path: '/sign_up', component: SignUp },
+    { path: '/password/new', component: PasswordReset },
 
     // Not found
     { path: '/*', component: NotFoundComponent }

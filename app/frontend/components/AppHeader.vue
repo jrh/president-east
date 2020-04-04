@@ -51,7 +51,10 @@
         </b-form>
       </b-row>
       <b-row align-h="center">
-        <Button variant="blue" :disabled="!email || !password" @click="submitLogin">Login</Button>
+        <Button variant="blue" :disabled="!email || !password" style="width: 100px" @click="submitLogin">Login</Button>
+      </b-row>
+      <b-row align-h="center" class="mt-5">
+        <b-link style="font-size: 14px" @click="goToPasswordReset">Forgot your password?</b-link>
       </b-row>
     </b-modal>
   </div>
@@ -119,6 +122,10 @@ export default {
           // }
           this.authError = true;
         });
+    },
+    goToPasswordReset() {
+      this.loginModalShow = false;
+      this.$router.push('/password/new');
     }
   }
 }

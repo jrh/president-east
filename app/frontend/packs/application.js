@@ -51,6 +51,7 @@ import {
   FormSelectPlugin,
   InputGroupPlugin,
   LayoutPlugin,
+  LinkPlugin,
   ModalPlugin,
   NavbarPlugin,
   SpinnerPlugin,
@@ -69,6 +70,7 @@ Vue.use(FormRadioPlugin);
 Vue.use(FormSelectPlugin);
 Vue.use(InputGroupPlugin);
 Vue.use(LayoutPlugin);
+Vue.use(LinkPlugin);
 Vue.use(ModalPlugin);
 Vue.use(NavbarPlugin);
 Vue.use(SpinnerPlugin);

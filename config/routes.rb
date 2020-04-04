@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   root to: 'main#home'
 
   namespace :api, defaults: { format: :json } do
+    get 'password/new' => 'passwords#new'
+    put 'password/reset' => 'passwords#update'
     post 'user_token' => 'user_token#create'
 
     resources :users, only: :update
