@@ -752,31 +752,31 @@
   resolved "https://registry.yarnpkg.com/@csstools/convert-colors/-/convert-colors-1.4.0.tgz#ad495dc41b12e75d588c6db8b9834f08fa131eb7"
   integrity sha512-5a6wqoJV/xEdbRNKVo6I4hO3VjyDq//8q2f9I6PBAvMesJHFauXDorcNCsr9RzvsZnaWi5NYCcfyqP1QeFHFbw==
 
-"@fortawesome/fontawesome-common-types@^0.2.27":
-  version "0.2.27"
-  resolved "https://npm.fontawesome.com/@fortawesome/fontawesome-common-types/-/0.2.27/fontawesome-common-types-0.2.27.tgz#19706345859fc46adf3684ed01d11b40903b87e9"
-  integrity sha512-97GaByGaXDGMkzcJX7VmR/jRJd8h1mfhtA7RsxDBN61GnWE/PPCZhOdwG/8OZYktiRUF0CvFOr+VgRkJrt6TWg==
+"@fortawesome/fontawesome-common-types@^0.2.28":
+  version "0.2.28"
+  resolved "https://npm.fontawesome.com/@fortawesome/fontawesome-common-types/-/0.2.28/fontawesome-common-types-0.2.28.tgz#1091bdfe63b3f139441e9cba27aa022bff97d8b2"
+  integrity sha512-gtis2/5yLdfI6n0ia0jH7NJs5i/Z/8M/ZbQL6jXQhCthEOe5Cr5NcQPhgTvFxNOtURE03/ZqUcEskdn2M+QaBg==
 
-"@fortawesome/fontawesome-svg-core@^1.2.27":
-  version "1.2.27"
-  resolved "https://npm.fontawesome.com/@fortawesome/fontawesome-svg-core/-/1.2.27/fontawesome-svg-core-1.2.27.tgz#e4db8e3be81a40988213507c3e3d0c158a6641a3"
-  integrity sha512-sOD3DKynocnHYpuw2sLPnTunDj7rLk91LYhi2axUYwuGe9cPCw7Bsu9EWtVdNJP+IYgTCZIbyARKXuy5K/nv+Q==
+"@fortawesome/fontawesome-svg-core@^1.2.28":
+  version "1.2.28"
+  resolved "https://npm.fontawesome.com/@fortawesome/fontawesome-svg-core/-/1.2.28/fontawesome-svg-core-1.2.28.tgz#e5b8c8814ef375f01f5d7c132d3c3a2f83a3abf9"
+  integrity sha512-4LeaNHWvrneoU0i8b5RTOJHKx7E+y7jYejplR7uSVB34+mp3Veg7cbKk7NBCLiI4TyoWS1wh9ZdoyLJR8wSAdg==
   dependencies:
-    "@fortawesome/fontawesome-common-types" "^0.2.27"
+    "@fortawesome/fontawesome-common-types" "^0.2.28"
 
-"@fortawesome/pro-regular-svg-icons@^5.12.1":
-  version "5.12.1"
-  resolved "https://npm.fontawesome.com/@fortawesome/pro-regular-svg-icons/-/5.12.1/pro-regular-svg-icons-5.12.1.tgz#852f782eb2f50ee56784f6bb05d62d249b1c0794"
-  integrity sha512-IHwJ1Jj8zfNwC3Bj2m+YD21L1et9Ocxu6RCSLVqpTYgz2BT7CwUzHy83hUL+4JDEuA41sYyZjdsAXDgg5+DKZg==
+"@fortawesome/pro-regular-svg-icons@^5.13.0":
+  version "5.13.0"
+  resolved "https://npm.fontawesome.com/@fortawesome/pro-regular-svg-icons/-/5.13.0/pro-regular-svg-icons-5.13.0.tgz#f6a74484e1e20a8e8cfcc4e41c0c81c505e0d5dd"
+  integrity sha512-yYQV729ECEtpT+39KF7oRTDtAS7OxkAfj8kUjuE7AoxaVwcK/Mw9B6x3klpzXGJFc6gL+/CTxFCPRMbtIjNo+w==
   dependencies:
-    "@fortawesome/fontawesome-common-types" "^0.2.27"
+    "@fortawesome/fontawesome-common-types" "^0.2.28"
 
-"@fortawesome/pro-solid-svg-icons@^5.12.1":
-  version "5.12.1"
-  resolved "https://npm.fontawesome.com/@fortawesome/pro-solid-svg-icons/-/5.12.1/pro-solid-svg-icons-5.12.1.tgz#1de223a184a81f40c1ab575880168c82c7afc773"
-  integrity sha512-7xhIu8QuBBK9/grUVx28rs9MNJaMQppt/rrhY2LMiYuETVKrYzHuTDvjS+UXaKsgHN31JTM/vVMVro/daTB/uw==
+"@fortawesome/pro-solid-svg-icons@^5.13.0":
+  version "5.13.0"
+  resolved "https://npm.fontawesome.com/@fortawesome/pro-solid-svg-icons/-/5.13.0/pro-solid-svg-icons-5.13.0.tgz#8708f27cdbf906f0799e0f0d41a8b4556fafe798"
+  integrity sha512-MK3ycWLTTDw2xdY5BOQU3KYcGFk07Lj1Ub+EAlEAs9WcSgw7meEO3acPBpgNXUPB11gsI/4o9h+UxzJM1u+L8g==
   dependencies:
-    "@fortawesome/fontawesome-common-types" "^0.2.27"
+    "@fortawesome/fontawesome-common-types" "^0.2.28"
 
 "@fortawesome/vue-fontawesome@^0.1.9":
   version "0.1.9"
@@ -875,14 +875,14 @@
   resolved "https://registry.yarnpkg.com/@types/q/-/q-1.5.2.tgz#690a1475b84f2a884fd07cd797c00f5f31356ea8"
   integrity sha512-ce5d3q03Ex0sy4R14722Rmt6MT07Ua+k4FwDfdcToYJcMKNtRVQvJ6JCAPdAmAnbRb6CsX6aYb9m96NGod9uTw==
 
-"@uppy/aws-s3@^1.5.2":
-  version "1.5.2"
-  resolved "https://registry.yarnpkg.com/@uppy/aws-s3/-/aws-s3-1.5.2.tgz#2f6c034a7927b39accd9cad13d1253e7b6a5f7b1"
-  integrity sha512-150BJKxlamQSx7/l/0OmLVvNa9T+f+bS01n/lmWNbtSgssOnbBVfM1odvGAXj6hF7vznS0M30iqFoWef167mTA==
+"@uppy/aws-s3@^1.5.5":
+  version "1.5.5"
+  resolved "https://registry.yarnpkg.com/@uppy/aws-s3/-/aws-s3-1.5.5.tgz#d17f1dab6ead36bd02609d4079f9ed45dc7e4ecf"
+  integrity sha512-qhVuyJcZe5p9EdaTPyi57zUuG3F6NLzvbDr3sY9gF7WY2ruroeWX6Zve0QpSpnVEgAK+HlnK93YFis2knfIaCQ==
   dependencies:
     "@uppy/companion-client" "^1.4.2"
-    "@uppy/utils" "^2.2.2"
-    "@uppy/xhr-upload" "^1.5.2"
+    "@uppy/utils" "^2.3.0"
+    "@uppy/xhr-upload" "^1.5.5"
     qs-stringify "^1.1.0"
     url-parse "^1.4.7"
 
@@ -893,25 +893,25 @@
   dependencies:
     namespace-emitter "^2.0.1"
 
-"@uppy/core@^1.8.2":
-  version "1.8.2"
-  resolved "https://registry.yarnpkg.com/@uppy/core/-/core-1.8.2.tgz#6ad16dbaf73d19b39ecad20e98ac308d0a5db0ab"
-  integrity sha512-0E5JdN8olQeh4NRnIcg7C1uZxqzUTkfwoBuJujaLb0Qt4/AEiNXG9ztxRXomHMANp23eWnmUs6CMNwpTjgCWCA==
+"@uppy/core@^1.9.0":
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/@uppy/core/-/core-1.9.0.tgz#3acfdee010b06eee9d9e0a09ba6b2f2985dc7d27"
+  integrity sha512-RF9rP+2s7Pi9V8xoYDtwSKOB8ubTdl6DHMDUDsUITDt44Z/diDsVcY4ay/vwwTqRUiyh+rXA+c+Z2AkC1A3wjg==
   dependencies:
     "@uppy/store-default" "^1.2.1"
-    "@uppy/utils" "^2.2.2"
+    "@uppy/utils" "^2.3.0"
     cuid "^2.1.1"
     lodash.throttle "^4.1.1"
     mime-match "^1.0.2"
     namespace-emitter "^2.0.1"
     preact "8.2.9"
 
-"@uppy/file-input@^1.4.5":
-  version "1.4.5"
-  resolved "https://registry.yarnpkg.com/@uppy/file-input/-/file-input-1.4.5.tgz#6e1c8637570e5334525a4c03d5534797ae7c3a0a"
-  integrity sha512-Cv0udN91uLo5g/Pueu0SDkYSLqOwvBNDMEFPICnpQKCwZ053vGes+VXkZRHReT6wMC5eRXBn815xGbW1fLi4mg==
+"@uppy/file-input@^1.4.6":
+  version "1.4.6"
+  resolved "https://registry.yarnpkg.com/@uppy/file-input/-/file-input-1.4.6.tgz#1413ce1e85ea105322329f1caf6b293f4c0e3bb9"
+  integrity sha512-Rbm4BKTib0HRw+B+2CLdaRMlkjpocEs2D/XAod5YabLd3CUw+P+J4sPZyg75mw9x4YLj88zWFQYlbMOQGrcaag==
   dependencies:
-    "@uppy/utils" "^2.2.2"
+    "@uppy/utils" "^2.3.0"
     preact "8.2.9"
 
 "@uppy/store-default@^1.2.1":
@@ -919,20 +919,20 @@
   resolved "https://registry.yarnpkg.com/@uppy/store-default/-/store-default-1.2.1.tgz#4f6f1815292388bc2fd6da2655a3ae1133598d5c"
   integrity sha512-B7iKa9CMLTPgSu1lHQX+Z82NgxoBrzWfZg9WbZnvoJRHnoiwu8A3EFXPLq0OEslvJndBD4xPgUms0BPt4WbnWw==
 
-"@uppy/utils@^2.2.2":
-  version "2.2.2"
-  resolved "https://registry.yarnpkg.com/@uppy/utils/-/utils-2.2.2.tgz#27baf8d0437ed4a8f0f0d241a9644b4203ae5998"
-  integrity sha512-uTQBIKgvJaJ+2g7vs5vYanXkW4GqVZOFKgdlPtWEbfS7LQBaNpiTMlHdEmA4cCPKH8vj4Za9oO+LSkpOXar4Jw==
+"@uppy/utils@^2.3.0":
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/@uppy/utils/-/utils-2.3.0.tgz#71d5e62feeebef0b87825bedafc27c951f5a91a3"
+  integrity sha512-wnZUy0kZTVLQ9xPQaFEdmaPwDBcwAsAt6Q3hvu2QUsAHeV0evOLzLK9YuoRcSPOWU2UF9GlUtle6ZibBf4bsGg==
   dependencies:
     lodash.throttle "^4.1.1"
 
-"@uppy/xhr-upload@^1.5.2":
-  version "1.5.2"
-  resolved "https://registry.yarnpkg.com/@uppy/xhr-upload/-/xhr-upload-1.5.2.tgz#66feedf3e231b00b182df8c4ff45d9a4bf487845"
-  integrity sha512-2K3V2y5zdCnUvs1e2YBRlApxGFE3x3eSLN4yAM5xJu8ZjSQy4bgq50JdiaNTPBKSrZccD764Q1qEisqSCa6y6A==
+"@uppy/xhr-upload@^1.5.5":
+  version "1.5.5"
+  resolved "https://registry.yarnpkg.com/@uppy/xhr-upload/-/xhr-upload-1.5.5.tgz#3a6ea89e6a3f243da338cb26bad2d24c048bd920"
+  integrity sha512-4P8h0HTgs8RWzU2RZMv9xn/0Zh4469VypZBLNt5R5cuZxTM4ddAlV8vAQ9H/+Qtq7M3QYsbrS7oSgEM6iEP5TQ==
   dependencies:
     "@uppy/companion-client" "^1.4.2"
-    "@uppy/utils" "^2.2.2"
+    "@uppy/utils" "^2.3.0"
     cuid "^2.1.1"
 
 "@vue/component-compiler-utils@^3.1.0":
@@ -1503,10 +1503,10 @@ boolbase@^1.0.0, boolbase@~1.0.0:
   resolved "https://registry.yarnpkg.com/boolbase/-/boolbase-1.0.0.tgz#68dff5fbe60c51eb37725ea9e3ed310dcc1e776e"
   integrity sha1-aN/1++YMUes3cl6p4+0xDcwed24=
 
-bootstrap-vue@^2.9.0:
-  version "2.9.0"
-  resolved "https://registry.yarnpkg.com/bootstrap-vue/-/bootstrap-vue-2.9.0.tgz#10dd8aaf98b359bdea877563fc23fc90dd971706"
-  integrity sha512-L9FOIT+nsqEk+5KtrC6XQktDG0UQo+Sk1bph9VxGUmA4Y4Yixy+dABhZNLErRuhIrFysf3FAt1JEkV0tkZfpXA==
+bootstrap-vue@^2.10.1:
+  version "2.10.1"
+  resolved "https://registry.yarnpkg.com/bootstrap-vue/-/bootstrap-vue-2.10.1.tgz#cd99d87f1f11393d4114c9236348d68727479518"
+  integrity sha512-rEQHjrYJePArWtOYAhyD1WranoZ87+AJd+KKOusqK40rUcQutopV2DKQJIf6g3bw4IZ4SQ3buWRnHP0QUo1NtQ==
   dependencies:
     "@nuxt/opencollective" "^0.3.0"
     bootstrap ">=4.4.1 <5.0.0"
@@ -7403,10 +7403,10 @@ vue-hot-reload-api@^2.3.0:
   resolved "https://registry.yarnpkg.com/vue-hot-reload-api/-/vue-hot-reload-api-2.3.3.tgz#2756f46cb3258054c5f4723de8ae7e87302a1ccf"
   integrity sha512-KmvZVtmM26BQOMK1rwUZsrqxEGeKiYSZGA7SNWE6uExx8UX/cj9hq2MRV/wWC3Cq6AoeDGk57rL9YMFRel/q+g==
 
-vue-loader@^15.9.0:
-  version "15.9.0"
-  resolved "https://registry.yarnpkg.com/vue-loader/-/vue-loader-15.9.0.tgz#5d4b0378a4606188fc83e587ed23c94bc3a10998"
-  integrity sha512-FeDHvTSpwyLeF7LIV1PYkvqUQgTJ8UmOxhSlCyRSxaXCKk+M6NF4tDQsLsPPNeDPyR7TfRQ8MLg6v+8PsDV9xQ==
+vue-loader@^15.9.1:
+  version "15.9.1"
+  resolved "https://registry.yarnpkg.com/vue-loader/-/vue-loader-15.9.1.tgz#bd2ab8f3d281e51d7b81d15390a58424d142243e"
+  integrity sha512-IaPU2KOPjs/QjMlxFs/TiTtQUSbftQ7lsAvoxe21rtcQohsMhx+1AltXCNhZIpIn46PtODiAgz+o8RbMpKtmJw==
   dependencies:
     "@vue/component-compiler-utils" "^3.1.0"
     hash-sum "^1.0.2"
@@ -7445,10 +7445,10 @@ vue@^2.6.11:
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.11.tgz#76594d877d4b12234406e84e35275c6d514125c5"
   integrity sha512-VfPwgcGABbGAue9+sfrD4PuwFar7gPb1yl1UK1MwXoQPAw0BKSqWfoYCT/ThFrdEVWoI51dBuyCoiNU9bZDZxQ==
 
-vuex-persistedstate@^2.7.1:
-  version "2.7.1"
-  resolved "https://registry.yarnpkg.com/vuex-persistedstate/-/vuex-persistedstate-2.7.1.tgz#25ced829ea5789a2ed7d71a1ba057eb01a5235ad"
-  integrity sha512-Ktvp6Bt6ApYj35MuxTClu+9Lpukcgl3Z/0o4PU12+Z4jU6lyOMzos0k6zGT5xrukAkGM1VV3EYNwz1TnHPhgFA==
+vuex-persistedstate@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/vuex-persistedstate/-/vuex-persistedstate-3.0.1.tgz#6eacc3c416fe8cfe63c40d3ee7b8ed13aac4f04f"
+  integrity sha512-2dH77+fIecAXO8GeJEXiYnC++gx48PFGUayB5d7rWrN3fblRCOHQoVnmu/VV9DXbHHJcJth/0W/ofl8vw12j1A==
   dependencies:
     deepmerge "^4.2.2"
     shvl "^2.0.0"
