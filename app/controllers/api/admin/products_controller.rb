@@ -30,7 +30,7 @@ module Api
           # end
           render status: :created, json: @product
         else
-          render status: :unprocessable_entity
+          render status: :unprocessable_entity, json: { errors: @product.errors.full_messages }
         end
       end
 
@@ -44,7 +44,7 @@ module Api
           end
           render status: :ok, json: @product
         else
-          render status: :unprocessable_entity
+          render status: :unprocessable_entity, json: { errors: @product.errors.full_messages }
         end
       end
 
@@ -66,7 +66,7 @@ module Api
       private
 
         def product_params
-          params.require(:product).permit(:id, :item_no, :name_en, :name_zh, :box_quantity, :storage_temp, :image)
+          params.require(:product).permit(:id, :item_no, :name_en, :name_zh, :brand_id, :box_quantity, :storage_temp, :image)
         end
     end
   end

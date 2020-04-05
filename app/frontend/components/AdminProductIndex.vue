@@ -139,17 +139,36 @@ export default {
       processing: false
     }
   },
+  computed: {
+    ...mapGetters(['isAdmin']),
+    products() {
+      return this.productList.map(id => this.productData[id]);
+    },
+    brands() {
+      return this.brandList.map(id => this.brandData[id]);
+    },
+    formTitle() {
+      return this.mode === 'new' ? 'New Product' : 'Edit Product'
+    },
+    brandOptions() {
+      return this.brands.map(brand => ({ text: brand.name_en, value: brand.id }))
+    }
+  },
+  watch: {
+    modalShow (val) {
+      val || this.close()
+    }
+  },
   mounted() {
     this.fetchProducts();
 
-    const uppy = new Uppy({
+    const uppy = Uppy({
       debug: true,
       autoProceed: true
     })
     .use(FileInput, {
       target: '#uppy-target',
       pretty: true,
-      replaceTargetContent: false,
       locale: {
         strings: {
           chooseFiles: 'Choose image file'
@@ -195,29 +214,6 @@ export default {
 
       this.uploadingImage = false;
     })
-  },
-  computed: {
-    ...mapGetters(['isAdmin']),
-    products() {
-      return this.productList.map(id => this.productData[id]);
-    },
-    brands() {
-      return this.brandList.map(id => this.brandData[id]);
-    },
-    formTitle() {
-      return this.mode === 'new' ? 'New Product' : 'Edit Product'
-    },
-    brandOptions() {
-      return this.brands.map(brand => ({ text: brand.name_en, value: brand.id }))
-    }
-  },
-  watch: {
-    modalShow (val) {
-      val || this.close()
-    }
-  },
-  mounted() {
-    this.fetchProducts();
   },
   methods: {
     fetchProducts() {
@@ -286,7 +282,7 @@ export default {
     createProduct() {
       if (this.processing) return;
       this.processing = true;
-      this.$http.post('/products', {
+      this.$http.post('/admin/products', {
           product: this.form  // unpermitted parameters image_data image_url
         })
         .then(response => {
@@ -302,7 +298,7 @@ export default {
         .finally(() => this.processing = false);
     },
     updateProduct(product) {
-      this.$http.put(`/products/${product.id}`, {
+      this.$http.put(`/admin/products/${product.id}`, {
         product: {
           item_no: product.item_no,
           name_en: product.name_en,
