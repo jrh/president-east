@@ -10,14 +10,24 @@
       :items="products"
       head-variant="light"
       bordered
+      hover
       style="font-size: 14px"
     >
       <!-- Table data -->
+      <template v-slot:cell(photo)="data">
+        <font-awesome-icon v-if="!data.item.image_url" :icon="['fas', 'exclamation-circle']" fixed-width size="lg" title="Missing photo" class="text-danger" />
+      </template>
+      <template v-slot:cell(status)="data">
+        <span :class="{'text-success': data.value == 'active', 'text-danger': data.value == 'inactive'}">{{ data.value | titleize }}</span>
+      </template>
       <template v-slot:cell(brand_id)="data">
         {{ brandData[data.value].name_en }}
       </template>
       <template v-slot:cell(actions)="data">
-        <font-awesome-icon :icon="['far', 'edit']" fixed-width />
+        <Button size="sm" class="py-0">
+          <font-awesome-icon :icon="['far', 'edit']" fixed-width />
+          <span class="pl-1">Status</span>
+        </Button>
       </template>
     </b-table>
 
@@ -112,13 +122,14 @@ export default {
       brandData: {},
       brandList: [],
       fields: [
-        { key: 'item_no', label: 'Item No.', thClass: 'font-lato-th' },
-        { key: 'name_en', label: 'Name (en)', thClass: 'font-lato-th' },
-        { key: 'name_zh', label: 'Name (ch)', thClass: 'font-lato-th' },
-        { key: 'brand_id', label: 'Brand', thClass: 'text-center font-lato-th', tdClass: 'text-center' },
-        { key: 'box_quantity', label: 'Box Quantity', thClass: 'text-center font-lato-th', tdClass: 'text-center' },
-        { key: 'storage_temp', label: 'Storage Temp', thClass: 'text-center font-lato-th', tdClass: 'text-center' },
-        { key: 'actions', sortable: false, label: 'Actions', thClass: 'text-center font-lato-th', tdClass: 'text-center' }
+        { key: 'photo', label: '', tdClass: 'text-center clickable' },
+        { key: 'item_no', label: 'Item No.', thClass: 'font-lato-th', tdClass: 'clickable' },
+        { key: 'name_en', label: 'Name (en)', thClass: 'font-lato-th', tdClass: 'clickable' },
+        { key: 'name_zh', label: 'Name (ch)', thClass: 'font-lato-th', tdClass: 'clickable' },
+        { key: 'status', label: 'Status', thClass: 'text-center font-lato-th', tdClass: 'text-center clickable' },
+        { key: 'brand_id', label: 'Brand', thClass: 'text-center font-lato-th', tdClass: 'text-center clickable' },
+        { key: 'storage_temp', label: 'Storage Temp', thClass: 'text-center font-lato-th', tdClass: 'text-center clickable' },
+        { key: 'actions', sortable: false, label: 'Actions', thClass: 'text-center font-lato-th', tdClass: 'text-center clickable' }
       ],
       mode: 'new',
       modalShow: false,
@@ -313,10 +324,6 @@ export default {
         this.$store.commit('setProduct', response.data);
       })
       .catch(error => console.log(error))
-    },
-    deleteItem(product) {
-      //const index = this.products.indexOf(item)
-      //confirm('Are you sure you want to delete this item?') && this.products.splice(index, 1)
     }
   }
 }

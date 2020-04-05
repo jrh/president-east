@@ -106,6 +106,7 @@ document.addEventListener("DOMContentLoaded", () => {
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
+  faExclamationCircle,
   faSearch
 } from '@fortawesome/pro-solid-svg-icons';
 
@@ -116,6 +117,7 @@ import {
 
 library.add(
   faEdit,
+  faExclamationCircle,
   faImage,
   faSearch
 );
