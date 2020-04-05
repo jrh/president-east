@@ -14,7 +14,7 @@ Rails.application.routes.draw do
 
     resources :users, only: :update
 
-    resources :products, only: [:index] do
+    resources :products, only: [:index, :show] do
       get 'search', on: :collection
     end
 

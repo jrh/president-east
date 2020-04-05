@@ -12,6 +12,7 @@
       bordered
       hover
       style="font-size: 14px"
+      @row-clicked="goToProduct"
     >
       <!-- Table data -->
       <template v-slot:cell(photo)="data">
@@ -324,6 +325,9 @@ export default {
         this.$store.commit('setProduct', response.data);
       })
       .catch(error => console.log(error))
+    },
+    goToProduct(item) {
+      this.$router.push(`/products/${item.id}`);
     }
   }
 }

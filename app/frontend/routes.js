@@ -4,6 +4,7 @@ import Home from './components';
 import About from './components/About';
 import UserProfile from './components/UserProfile';
 import ProductIndex from './components/ProductIndex';
+import ProductShow from './components/ProductShow';
 import AdminProductIndex from './components/AdminProductIndex';
 import AdminBrandIndex from './components/AdminBrandIndex';
 import AdminUserIndex from './components/AdminUserIndex';
@@ -21,6 +22,7 @@ export default new VueRouter({
     { path: '/about', component: About },
     { path: '/users/:id/profile', component: UserProfile, props: true },
     { path: '/products', component: ProductIndex },
+    { path: '/products/:id', component: ProductShow, props: true },
     { path: '/admin/products', component: AdminProductIndex },
     { path: '/admin/brands', component: AdminBrandIndex },
     { path: '/admin/users', component: AdminUserIndex },
