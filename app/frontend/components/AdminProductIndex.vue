@@ -13,6 +13,9 @@
       style="font-size: 14px"
     >
       <!-- Table data -->
+      <template v-slot:cell(brand_id)="data">
+        {{ brandData[data.value].name_en }}
+      </template>
       <template v-slot:cell(actions)="data">
         <font-awesome-icon :icon="['far', 'edit']" fixed-width />
       </template>
@@ -106,12 +109,13 @@ export default {
     return {
       productData: {},
       productList: [],
-      brands: [],
+      brandData: {},
+      brandList: [],
       fields: [
         { key: 'item_no', label: 'Item No.', thClass: 'font-lato-th' },
         { key: 'name_en', label: 'Name (en)', thClass: 'font-lato-th' },
         { key: 'name_zh', label: 'Name (ch)', thClass: 'font-lato-th' },
-        { key: 'brand', label: 'Brand', thClass: 'text-center font-lato-th', tdClass: 'text-center' },
+        { key: 'brand_id', label: 'Brand', thClass: 'text-center font-lato-th', tdClass: 'text-center' },
         { key: 'box_quantity', label: 'Box Quantity', thClass: 'text-center font-lato-th', tdClass: 'text-center' },
         { key: 'storage_temp', label: 'Storage Temp', thClass: 'text-center font-lato-th', tdClass: 'text-center' },
         { key: 'actions', sortable: false, label: 'Actions', thClass: 'text-center font-lato-th', tdClass: 'text-center' }
@@ -197,6 +201,9 @@ export default {
     products() {
       return this.productList.map(id => this.productData[id]);
     },
+    brands() {
+      return this.brandList.map(id => this.brandData[id]);
+    },
     formTitle() {
       return this.mode === 'new' ? 'New Product' : 'Edit Product'
     },
@@ -227,7 +234,15 @@ export default {
             this.productData = productData.entities.products;
           }
           this.productList = productData.result.products;
-          this.brands = response.data.brands;
+
+          const brandData = normalize(
+            { brands: response.data.brands },
+            { brands: [ new schema.Entity('brands') ] }
+          );
+          if (brandData.entities.hasOwnProperty('brands')) {
+            this.brandData = brandData.entities.brands;
+          }
+          this.brandList = brandData.result.brands;
         })
         .catch(error => {
           console.log(error)
