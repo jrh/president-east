@@ -18,4 +18,16 @@ class User < ApplicationRecord
       current_user: self
     }
   end
+
+  def generate_password_token!
+    self.reset_password_token = SecureRandom.urlsafe_base64
+    self.reset_password_sent_at = Time.now.utc
+    save!
+  end
+
+  def clear_password_token!
+    self.reset_password_token = nil
+    self.reset_password_sent_at = nil
+    save!
+  end
 end

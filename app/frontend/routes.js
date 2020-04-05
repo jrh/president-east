@@ -16,7 +16,7 @@ Vue.use(VueRouter);
 export default new VueRouter({
   mode: 'history',
   routes: [
-    { path: '/', component: Home },
+    { path: '/', component: Home, name: 'Home' },
     { path: '/about', component: About },
     { path: '/users/:id/profile', component: UserProfile, props: true },
     { path: '/products', component: ProductIndex },

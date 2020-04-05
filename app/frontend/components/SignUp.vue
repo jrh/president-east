@@ -84,9 +84,7 @@
 
 <script>
 import { ValidationObserver, ValidationProvider, extend } from 'vee-validate';
-import { required, email, confirmed } from 'vee-validate/dist/rules';
-extend('required', required);
-extend('email', email);
+import { confirmed } from 'vee-validate/dist/rules';
 extend('confirmed', {
   ...confirmed,
   message: 'This field must match the password field'
@@ -107,9 +105,6 @@ export default {
         password_confirmation: null
       }
     }
-  },
-  computed: {
-
   },
   methods: {
     submit() {

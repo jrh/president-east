@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: :json } do
     get 'password/new' => 'passwords#new'
+    post 'password/send_email' => 'passwords#create'
     put 'password/reset' => 'passwords#update'
     post 'user_token' => 'user_token#create'
 

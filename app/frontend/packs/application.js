@@ -77,7 +77,7 @@ Vue.use(SpinnerPlugin);
 Vue.use(TablePlugin);
 
 // Vee Validate
-import { extend, version } from 'vee-validate';
+import { extend } from 'vee-validate';
 import { required, email } from 'vee-validate/dist/rules';
 
 extend('required', {
