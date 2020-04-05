@@ -2,10 +2,12 @@
 module Api
   class PasswordsController < ApiController
 
+    # Email form
     def new
-
+      render status: :ok
     end
 
+    # Create token, send email
     def create
       if params[:email].blank?
         return render status: :unprocessable_entity, json: { error: 'Email not present' }
@@ -15,11 +17,17 @@ module Api
       # will not be able to check whether certain email addresses are registered in the system
       if @user
         @user.generate_password_token!
-        # UserMailer.reset_password(@user).deliver_later
+        UserMailer.send_password_reset(@user).deliver_later
       end
       render status: :ok
     end
 
+    # New password form
+    def edit
+      render status: :ok
+    end
+
+    # Reset password
     def update
 
     end
