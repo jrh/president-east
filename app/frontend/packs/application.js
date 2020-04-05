@@ -5,7 +5,7 @@ import Vue from 'vue';
 import App from '../App.vue';
 import store from '../store';
 import router from '../routes.js';
-import '../filters/capitalize.js';
+import '../filters/titleize.js';
 import Cookies from 'js-cookie';
 
 // Axios config
