@@ -150,14 +150,7 @@ export default {
       }
     })
     .use(AwsS3, {
-      getUploadParameters(file) {
-        var filename = encodeURIComponent(file.name)
-        var type     = encodeURIComponent(file.type)
-
-        return fetch('/presign?filename=' + filename + '&type=' + type, { // Shrine's presign endpoint
-          credentials: 'same-origin', // send cookies
-        }).then((response) => { return response.json() })
-      }
+      companionUrl: '/'
     })
 
     // uppy.on('upload', (data) => {

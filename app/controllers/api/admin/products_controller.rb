@@ -38,7 +38,7 @@ module Api
         product = Product.find(params[:id])
         if product.update(product_params)
           if product.image_data.present?
-            @product = product.attributes.merge!(image_url: product.image_url(:thumb))
+            @product = product.attributes.merge!(image_url: product.image_url(:medium))
           else
             @product = product.attributes.merge!(image_url: nil)
           end

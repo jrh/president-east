@@ -21,7 +21,7 @@ module Api
       @brands = Brand.all.order(:name_en)
       product = Product.find(params[:id])
       if product.image_data.present?
-        @product = product.attributes.merge!(image_url: product.image_url(:original))
+        @product = product.attributes.merge!(image_url: product.image_url(:medium))
       else
         @product = product.attributes.merge!(image_url: nil)
       end

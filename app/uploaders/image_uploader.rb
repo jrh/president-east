@@ -1,35 +1,31 @@
 require "image_processing/mini_magick"
 
 class ImageUploader < Shrine
-  # ALLOWED_TYPES = %w[image/jpeg image/png]
-  # MAX_SIZE      = 10*1024*1024 # 10 MB
+  # ALLOWED_TYPES  = %w[image/jpeg image/png image/webp]
+  # MAX_SIZE       = 10*1024*1024 # 10 MB
+  # MAX_DIMENSIONS = [5000, 5000] # 5000x5000
 
   plugin :remove_attachment
   plugin :pretty_location
-  plugin :processing
-  plugin :versions
-  plugin :delete_raw
   # plugin :validation_helpers
   plugin :store_dimensions, analyzer: :mini_magick
 
   # Attacher.validate do
-  #   validate_max_size MAX_SIZE
-  #   if validate_mime_type_inclusion(ALLOWED_TYPES)
-  #     validate_max_width 5000
-  #     validate_max_height 5000
+  #   validate_size 0..MAX_SIZE
+
+  #   if validate_mime_type ALLOWED_TYPES
+  #     validate_max_dimensions MAX_DIMENSIONS
   #   end
   # end
 
-  process(:store) do |io, context|
-    versions = { original: io } # retain original
+  Attacher.derivatives_processor do |original|
+    magick = ImageProcessing::MiniMagick.source(original)
 
-    io.download do |original|
-      pipeline = ImageProcessing::MiniMagick.source(original).loader(define: { jpeg: { size: "1600x1600" } })
-
-      versions[:thumb] = pipeline.resize_to_limit!(175, 175)
-    end
-
-    versions # return the hash of processed files
+    {
+      normalized: magick.resize_to_limit!(1600, 1600),
+      medium: magick.resize_to_limit!(500, 500),
+      thumb: magick.resize_to_limit!(175, 175)
+    }
   end
 end
 

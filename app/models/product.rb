@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class Product < ApplicationRecord
-  include ImageUploader::Attachment.new(:image)
+  include ImageUploader::Attachment(:image)
 
   belongs_to :brand, optional: false
 

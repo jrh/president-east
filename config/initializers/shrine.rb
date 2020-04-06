@@ -8,7 +8,6 @@ if Rails.env.production?
     region:            'us-east-1',
     bucket:            'president-east'
   }
-  
 else
   s3_options = {
     access_key_id:     Rails.application.credentials.dig(:aws, :access_key_id),
@@ -24,27 +23,26 @@ Shrine.storages = {
 }
 
 Shrine.plugin :activerecord
-Shrine.plugin :backgrounding
-Shrine::Attacher.promote do |data|
-  PromoteJob.perform_in(1, data) # perform background job in 1 second
-end
-Shrine.plugin :logging
+Shrine.logger = Rails.logger
+Shrine.plugin :instrumentation
 Shrine.plugin :determine_mime_type
-Shrine.plugin :cached_attachment_data
-Shrine.plugin :restore_cached_data
+Shrine.plugin :cached_attachment_data  # enables retaining cached file across form redisplays
+Shrine.plugin :restore_cached_data     # extracts metadata for assigned cached files
+Shrine.plugin :derivatives, versions_compatibility: true # handle versions column format
+
 Shrine.plugin :presign_endpoint, presign_options: -> (request) {
+  # Uppy will send the "filename" and "type" query parameters
   filename = request.params["filename"]
   type     = request.params["type"]
 
   {
-    content_disposition:    "inline; filename=\"#{filename}\"", # set download filename
-    content_type:           type,                               # set content type (defaults to "application/octet-stream")
-    content_length_range:   0..(10*1024*1024),                  # limit upload size to 10 MB
+    content_disposition:    ContentDisposition.inline(filename), # set download filename
+    content_type:           type,                                # set content type (defaults to "application/octet-stream")
+    content_length_range:   0..(10*1024*1024),                   # limit upload size to 10 MB
     success_action_status:  '201'
   }
 }
-Shrine.plugin :default_url_options, cache: { public: true }, store: { public: true }
 
-Shrine::Attacher.promote { |data| PromoteJob.perform_async(data) }
-Shrine::Attacher.delete { |data| DeleteJob.perform_async(data) }
-
+Shrine.plugin :backgrounding
+Shrine::Attacher.promote_block { Attachment::PromoteJob.perform_in(3, record, name, file_data) }
+Shrine::Attacher.destroy_block { Attachment::DestroyJob.perform_later(data) }
