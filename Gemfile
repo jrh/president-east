@@ -15,7 +15,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'sucker_punch'
 gem 'aws-sdk-s3'
 gem 'shrine'
-gem 'mini_magick'
+gem 'image_processing'
 gem 'searchkick'
 gem 'typhoeus'
 gem 'oj'
