@@ -107,18 +107,20 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
   faExclamationCircle,
+  faImage as fasImage,
   faSearch
 } from '@fortawesome/pro-solid-svg-icons';
 
 import {
   faEdit,
-  faImage
+  faImage as farImage
 } from '@fortawesome/pro-regular-svg-icons';
 
 library.add(
   faEdit,
   faExclamationCircle,
-  faImage,
+  farImage,
+  fasImage,
   faSearch
 );
 Vue.component('font-awesome-icon', FontAwesomeIcon);

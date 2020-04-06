@@ -24,14 +24,17 @@
     <b-container class="mt-5">
       <small class="text-info">What the customer sees in product catalog:</small>
     </b-container>
-    <b-container class="px-5 py-3" style="border: 1px dotted #0f0f0f">
-      <b-row align-h="center" class="mt-3">
-        <b-col lg="6">
-          <!-- Image -->
-          <img v-if="product.image_url" :src="product.image_url" ref="imagePreview" style="height: 300px" />
-          <!-- TODO: missing photo image -->
+    <b-container class="p-5" style="border: 1px dotted #0f0f0f">
+      <b-row align-h="center">
+        <b-col lg="6" class="text-center">
+          <div v-if="product.image_url" class="d-flex justify-content-center align-items-center mx-auto">
+            <img :src="product.image_url" ref="imagePreview" style="max-height: 350px; max-width: 400px" />
+          </div>
+          <div v-else class="d-flex justify-content-center align-items-center mx-auto" style="background-color: #f2f2f2; height: 300px; width: 300px; border-radius: 3px">
+            <font-awesome-icon :icon="['fas', 'image']" size="7x" fixed-width style="color: #fff" />
+          </div>
         </b-col>
-        <b-col lg="6">
+        <b-col lg="6" class="pt-5 pt-lg-0">
           <b-row align-h="end">
             <span class="pr-3" style="font-size: 12px">#{{ product.item_no }}</span>
           </b-row>
