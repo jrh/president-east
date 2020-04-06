@@ -176,7 +176,13 @@ export default {
 
     const uppy = Uppy({
       debug: true,
-      autoProceed: true
+      autoProceed: true,
+      restrictions: {
+        maxFileSize: 10000000,
+        maxNumberOfFiles: 1,
+        minNumberOfFiles: 1,
+        allowedFileTypes: ['image/*', '.jpg', '.jpeg', '.JPG', '.JPEG', '.png', '.PNG']
+      },
     })
     .use(FileInput, {
       target: '#uppy-target',

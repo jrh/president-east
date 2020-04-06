@@ -3,11 +3,11 @@
     <b-container class="mt-5">
       <b-alert show variant="warning">
         <span class="mr-5">Admin Panel:</span>
-        <Button class="mr-3">
+        <Button class="mr-3" id="uppy-select-files">
           <font-awesome-icon :icon="['far', 'image']" fixed-width />
           <span class="pl-2">Upload Photo</span>
         </Button>
-        <Button>
+        <Button @click="openEditModal">
           <font-awesome-icon :icon="['far', 'edit']" fixed-width />
           <span class="pl-2">Edit Product</span>
         </Button>
@@ -22,7 +22,7 @@
       </b-row>
     </b-container>
     <b-container class="mt-5">
-      <small class="text-info">What the customer sees:</small>
+      <small class="text-info">What the customer sees in product catalog:</small>
     </b-container>
     <b-container class="px-5 py-3" style="border: 1px dotted #0f0f0f">
       <b-row align-h="center" class="mt-3">
@@ -45,7 +45,7 @@
             <b-table-simple small borderless style="font-size: 13px">
               <b-tbody>
                 <b-tr>
-                  <b-td>Brand:</b-td>
+                  <b-td style="width: 100px">Brand:</b-td>
                   <b-td v-if="brandData[product.brand_id]">{{ brandData[product.brand_id].name_en }}</b-td>
                 </b-tr>
                 <b-tr>
@@ -59,12 +59,17 @@
               </b-tbody>
             </b-table-simple>
           </b-row>
-          <b-row v-if="product.status == 'active'">
+          <b-row v-if="product.status == 'active'" class="mt-2">
             <b-btn :disabled="isAdmin" size="lg" variant="warning">Add to Cart</b-btn>
           </b-row>
         </b-col>
       </b-row>
     </b-container>
+
+    <b-modal v-model="editModalShow" title="Edit product details" centered>
+      <b-row>
+      </b-row>
+    </b-modal>
 
   </div>
 </template>
@@ -74,7 +79,7 @@ import { mapGetters } from 'vuex';
 import { normalize, schema } from 'normalizr';
 import { ValidationObserver, ValidationProvider } from 'vee-validate';
 import Uppy from '@uppy/core';
-import FileInput from '@uppy/file-input';
+import Dashboard from '@uppy/dashboard';
 import AwsS3 from '@uppy/aws-s3';
 import Button from './shared/Button';
 
@@ -87,6 +92,7 @@ export default {
       product: {},
       brandData: {},
       brandList: [],
+      editModalShow: false,
       productForm: {
         item_no: null,
         name_en: null,
@@ -112,6 +118,68 @@ export default {
   },
   mounted() {
     this.fetchProduct();
+
+    const uppy = Uppy({
+      debug: true,
+      autoProceed: true,
+      restrictions: {
+        maxFileSize: 10000000,
+        maxNumberOfFiles: 1,
+        minNumberOfFiles: 1,
+        allowedFileTypes: ['image/*', '.jpg', '.jpeg', '.JPG', '.JPEG', '.png', '.PNG']
+      },
+    })
+    .use(Dashboard, {
+      target: 'body',
+      metaFields: [],
+      trigger: '#uppy-select-files',
+      closeAfterFinish: true,
+      proudlyDisplayPoweredByUppy: false,
+      locale: {
+        strings: {
+          dropPaste: 'Drop photo file here, or %{browse}'
+        }
+      }
+    })
+    .use(AwsS3, {
+      getUploadParameters(file) {
+        var filename = encodeURIComponent(file.name)
+        var type     = encodeURIComponent(file.type)
+
+        return fetch('/presign?filename=' + filename + '&type=' + type, { // Shrine's presign endpoint
+          credentials: 'same-origin', // send cookies
+        }).then((response) => { return response.json() })
+      }
+    })
+
+    // uppy.on('upload', (data) => {
+    //   this.uploadingImage = true;
+    // })
+
+    uppy.on('upload-success', (file, response) => {
+      // construct uploaded file data in the format that Shrine expects
+      let uploadedFileData = JSON.stringify({
+        id: file.meta['key'].match(/^cache\/(.+)/)[1], // object key without prefix
+        storage: 'cache',
+        metadata: {
+          size:      file.size,
+          filename:  file.name,
+          mime_type: file.type,
+        }
+      })
+      console.log(file)
+      console.log(response)
+      // set hidden field value to the uploaded file data so that it's submitted with the form as the attachment
+      this.photoForm.image = uploadedFileData;
+
+      // show image preview
+      this.$refs.imagePreview.src = URL.createObjectURL(file.data);
+
+      // use cached version of AWS image URL for form submital
+      this.imageUrl = response.uploadURL;
+
+      // this.uploadingImage = false;
+    })
   },
   methods: {
     fetchProduct() {
@@ -132,7 +200,39 @@ export default {
         .catch(error => {
           console.log(error)
         })
-    }
+    },
+    openEditModal() {
+      this.editModalShow = true;
+    },
+    updatePhoto(product) {
+      this.$http.put(`/admin/products/${product.id}`, {
+        product: {
+          image: this.photoForm.image
+        }
+      })
+      .then(response => {
+        console.log(response);
+        this.product = response.data;
+      })
+      .catch(error => console.log(error))
+    },
+  //   updateProduct(product) {
+  //     this.$http.put(`/admin/products/${product.id}`, {
+  //       product: {
+  //         item_no: product.item_no,
+  //         name_en: product.name_en,
+  //         name_zh: product.name_zh,
+  //         box_quantity: product.box_quantity,
+  //         storage_temp: product.storage_temp,
+  //         image: product.image
+  //       }
+  //     })
+  //     .then(response => {
+  //       console.log(response);
+  //       this.$store.commit('setProduct', response.data);
+  //     })
+  //     .catch(error => console.log(error))
+  //   },
   }
 }
 </script>
