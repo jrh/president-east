@@ -10,7 +10,7 @@ module Api
           # expires: 2.minutes.from_now, # shorter time for testing
           expires: 30.minutes.from_now,
           path: '/',
-          # secure: Rails.env.production?,
+          secure: Rails.env.production?,
           httponly: Rails.env.production?
         }
       )
