@@ -2,14 +2,18 @@
   <div>
     <b-container class="mt-5">
       <b-alert show variant="warning">
-        <span class="mr-5">Admin Panel:</span>
+        <span class="mr-5">Admin Control Panel:</span>
         <Button class="mr-3" id="uppy-select-files">
           <font-awesome-icon :icon="['far', 'image']" fixed-width />
           <span class="pl-2">Upload Photo</span>
         </Button>
         <Button @click="openEditModal">
           <font-awesome-icon :icon="['far', 'edit']" fixed-width />
-          <span class="pl-2">Edit Product</span>
+          <span class="pl-2">Edit Product Info</span>
+        </Button>
+        <Button class="float-right">
+          <font-awesome-icon :icon="['far', 'edit']" fixed-width />
+          <span class="pl-2">Change Status</span>
         </Button>
       </b-alert>
     </b-container>
@@ -125,6 +129,7 @@ export default {
     const uppy = Uppy({
       debug: true,
       autoProceed: true,
+      allowMultipleUploads: false,
       restrictions: {
         maxFileSize: 10000000,
         maxNumberOfFiles: 1,
@@ -175,13 +180,21 @@ export default {
       // set hidden field value to the uploaded file data so that it's submitted with the form as the attachment
       this.photoForm.image = uploadedFileData;
 
+      this.updatePhoto();
+
       // show image preview
-      this.$refs.imagePreview.src = URL.createObjectURL(file.data);
+      // this.$refs.imagePreview.src = URL.createObjectURL(file.data);
 
       // use cached version of AWS image URL for form submital
-      this.imageUrl = response.uploadURL;
+      // this.imageUrl = response.uploadURL;
 
       // this.uploadingImage = false;
+    })
+
+    uppy.on('complete', (result) => {
+      uppy.reset();
+      console.log('successful files:', result.successful)
+      console.log('failed files:', result.failed)
     })
   },
   methods: {
@@ -207,8 +220,8 @@ export default {
     openEditModal() {
       this.editModalShow = true;
     },
-    updatePhoto(product) {
-      this.$http.put(`/admin/products/${product.id}`, {
+    updatePhoto() {
+      this.$http.put(`/admin/products/${this.product.id}`, {
         product: {
           image: this.photoForm.image
         }
@@ -216,6 +229,7 @@ export default {
       .then(response => {
         console.log(response);
         this.product = response.data;
+        this.photoForm.image = null;
       })
       .catch(error => console.log(error))
     },
