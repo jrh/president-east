@@ -190,13 +190,13 @@ export default {
         })
         .catch(error => {
           console.log(error)
-          this.alertShow = true;
           this.alertVariant = 'danger';
           if (error.response.data.errors) {
             this.alertMessage = error.response.data.errors[0];
           } else {
             this.alertMessage = 'Error: Something went wrong'
           }
+          this.alertShow = true;
         })
         .finally(() => this.processing = false);
     },
