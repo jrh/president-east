@@ -31,8 +31,9 @@
     <b-container class="p-5" style="border: 1px dotted #0f0f0f">
       <b-row align-h="center">
         <b-col lg="6" class="text-center">
-          <div v-if="product.image_url" class="d-flex justify-content-center align-items-center mx-auto">
-            <img :src="product.image_url" ref="imagePreview" style="max-height: 350px; max-width: 400px" />
+          <img v-if="thumbnailAvailable" ref="imagePreview" style="max-height: 350px; max-width: 400px">
+          <div v-else-if="product.image_url" class="d-flex justify-content-center align-items-center mx-auto">
+            <img :src="product.image_url" style="max-height: 350px; max-width: 400px" />
           </div>
           <div v-else class="d-flex justify-content-center align-items-center mx-auto" style="background-color: #f2f2f2; height: 300px; width: 300px; border-radius: 3px">
             <font-awesome-icon :icon="['fas', 'image']" size="7x" fixed-width style="color: #fff" />
@@ -176,6 +177,7 @@ export default {
         box_quantity: null,
         storage_temp: null,
       },
+      thumbnailAvailable: false,
       photoForm: {
         image: null
       },
@@ -210,8 +212,8 @@ export default {
     })
     .use(Dashboard, {
       target: 'body',
-      metaFields: [],
       trigger: '#uppy-select-files',
+      thumbnailWidth: 400,
       closeAfterFinish: true,
       proudlyDisplayPoweredByUppy: false,
       locale: {
@@ -224,9 +226,13 @@ export default {
       companionUrl: '/'
     })
 
-    // uppy.on('upload', (data) => {
-    //   this.uploadingImage = true;
-    // })
+    uppy.on('upload', (data) => {
+      this.thumbnailAvailable = true;
+    })
+
+    uppy.on('thumbnail:generated', (file, preview) => {
+      this.$refs.imagePreview.src = preview;
+    })
 
     uppy.on('upload-success', (file, response) => {
       // construct uploaded file data in the format that Shrine expects
@@ -239,20 +245,8 @@ export default {
           mime_type: file.type,
         }
       })
-      console.log(file)
-      console.log(response)
-      // set hidden field value to the uploaded file data so that it's submitted with the form as the attachment
       this.photoForm.image = uploadedFileData;
-
       this.updatePhoto();
-
-      // show image preview
-      // this.$refs.imagePreview.src = URL.createObjectURL(file.data);
-
-      // use cached version of AWS image URL for form submital
-      // this.imageUrl = response.uploadURL;
-
-      // this.uploadingImage = false;
     })
 
     uppy.on('complete', (result) => {
