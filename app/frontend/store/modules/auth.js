@@ -1,12 +1,20 @@
 import router from '../../routes.js';
 import axios from 'axios';
+const instance = axios.create({
+  baseURL: '/api',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  withCredentials: true,
+  xsrfCookieName: 'CSRF-TOKEN',
+  xsrfHeaderName: 'X-CSRF-Token'
+});
 
 const state = {
   loginModalShow: false,
   // persisted
   isLoggedIn: false,
-  currentUser: null,
-  csrf: null
+  currentUser: null
 };
 
 const getters = {
@@ -21,25 +29,25 @@ const getters = {
 
 const actions = {
   logout({ commit }) {
-    axios.delete('/api/logout')
+    instance.delete('/logout')
       .then(response => {
         console.log(response)
         commit('setCurrentUser', null);
         commit('logoutUser');
-        router.push('/');
+        router.push('/').catch(err => {});
       })
       .catch(error => {
         console.log(error)
       });
   },
   forcedLogout({ commit }) {
-    axios.delete('/api/logout')
+    instance.delete('/logout')
       .then(response => {
         console.log(response)
         commit('setCurrentUser', null);
         commit('logoutUser');
         commit('toggleLoginModalShow', true);
-        router.push('/');
+        router.push('/').catch(err => {});
       })
       .catch(error => {
         console.log(error)

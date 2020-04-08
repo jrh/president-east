@@ -6,33 +6,26 @@ import App from '../App.vue';
 import store from '../store';
 import router from '../routes.js';
 import '../filters/titleize.js';
-import Cookies from 'js-cookie';
+// import Cookies from 'js-cookie';  // remove?
 
 // Axios config
 import axios from 'axios';
 const instance = axios.create({
-  withCredentials: true,
   baseURL: '/api',
   headers: {
     'Content-Type': 'application/json'
-  }
-});
-
-instance.interceptors.request.use(config => {
-  // config.headers.Authorization =  'Bearer ' + Cookies.get('jwt');
-  // config.headers: { "X-CSRF-Token": getCookie("CSRF-TOKEN") }
-  return config;
-}, error => {
-  // Do something with request error
-  return Promise.reject(error);
+  },
+  withCredentials: true,
+  xsrfCookieName: 'CSRF-TOKEN',
+  xsrfHeaderName: 'X-CSRF-Token'
 });
 
 instance.interceptors.response.use(response => {
   return response;
 }, error => {
-  if (error.response.status == 401 || error.response.status == 422) {
-    store.dispatch('forcedLogout');
+  if (error.response.status == 401) {
     // trigger event and login modal
+    store.dispatch('forcedLogout');
   }
   return Promise.reject(error);
 });

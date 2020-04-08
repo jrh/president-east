@@ -6,13 +6,13 @@ Rails.application.routes.draw do
   root to: 'main#home'
 
   namespace :api, defaults: { format: :json } do
+    post 'login' => 'sessions#create'
+    delete 'logout' => 'sessions#destroy'
+
     get 'password/new' => 'passwords#new'
     get 'password/edit/:token' => 'passwords#edit'
     post 'password/send_email' => 'passwords#create'
     put 'password/reset' => 'passwords#update'
-
-    post 'login' => 'sessions#create'
-    delete 'logout' => 'sessions#destroy'
 
     resources :users, only: :update
 
