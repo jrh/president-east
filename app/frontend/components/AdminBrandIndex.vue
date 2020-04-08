@@ -3,7 +3,7 @@
     <b-row align-h="between" class="pt-2 px-4 mt-5 mb-2">
       <div></div>
       <span style="font-size: 20px">Manage Brands</span>
-      <Button variant="green" @click="addModalShow = true">Add Brand</Button>
+      <Button variant="green" @click="newModalShow = true">Add Brand</Button>
     </b-row>
     <b-row align-h="center">
       <b-table
@@ -22,7 +22,7 @@
     </b-row>
 
     <!-- Add Brand Modal -->
-    <b-modal v-model="addModalShow" title="Add brand" centered no-close-on-backdrop no-close-on-esc>
+    <b-modal v-model="newModalShow" title="Add brand" centered no-close-on-backdrop no-close-on-esc>
       <ValidationObserver v-slot="{ invalid }">
         <b-row align-h="center">
           <ValidationProvider rules="required" name="Name (English)" v-slot="{ valid, errors }">
@@ -40,7 +40,7 @@
           </b-form-group>
         </b-row>
         <b-row align-h="around" class="mt-3">
-          <Button @click="addModalShow = false; clearForm()">Cancel</Button>
+          <Button @click="newModalShow = false; clearForm()">Cancel</Button>
           <Button variant="green" :disabled="invalid" class="float-right" @click="createBrand">Save</Button>
         </b-row>
       </ValidationObserver>
@@ -72,7 +72,7 @@ export default {
       brandData: {},
       brandList: [],
       mode: 'new',
-      addModalShow: false,
+      newModalShow: false,
       imageUrl: '',
       brandForm: {
         name_en: '',
@@ -183,9 +183,9 @@ export default {
         })
         .then(response => {
           console.log(response)
-          this.brandList.push(response.data.id);
           this.$set(this.brandData, response.data.id, response.data);
-          this.addModalShow = false;
+          this.brandList.push(response.data.id);
+          this.newModalShow = false;
           this.clearForm();
         })
         .catch(error => {
