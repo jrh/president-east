@@ -28,7 +28,7 @@ Shrine.plugin :instrumentation
 Shrine.plugin :determine_mime_type
 Shrine.plugin :cached_attachment_data  # enables retaining cached file across form redisplays
 Shrine.plugin :restore_cached_data     # extracts metadata for assigned cached files
-Shrine.plugin :derivatives, versions_compatibility: true # handle versions column format
+Shrine.plugin :derivatives
 
 Shrine.plugin :presign_endpoint, presign_options: -> (request) {
   # Uppy will send the "filename" and "type" query parameters
