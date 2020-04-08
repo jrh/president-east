@@ -31,10 +31,10 @@
       <b-row align-h="center" class="px-3">
         <b-form style="width: 300px">
           <b-form-group label="Role:">
-            <b-form-radio-group v-model="roleForm.role">
-              <b-form-radio value="customer">Customer</b-form-radio>
-              <b-form-radio value="admin">Admin</b-form-radio>
-            </b-form-radio-group>
+            <b-radio-group v-model="roleForm.role">
+              <b-radio value="customer">Customer</b-radio>
+              <b-radio value="admin">Admin</b-radio>
+            </b-radio-group>
           </b-form-group>
         </b-form>
       </b-row>

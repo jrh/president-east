@@ -11,7 +11,7 @@
           <font-awesome-icon :icon="['far', 'edit']" fixed-width />
           <span class="pl-2">Edit Product Info</span>
         </Button>
-        <Button class="float-right">
+        <Button class="float-right" @click="openStatusModal">
           <font-awesome-icon :icon="['far', 'edit']" fixed-width />
           <span class="pl-2">Change Status</span>
         </Button>
@@ -20,9 +20,9 @@
     <b-container class="mt-5">
       <b-row align-h="between" align-v="end" class="pb-1">
         <span class="text-info" style="font-size: 12px">What the customer sees in product catalog:</span>
-        <div style="font-size: 18px">
-          <span class="pr-3">Status: </span>
-          <span :class="{'text-success': product.status == 'active', 'text-danger': product.status == 'inactive'}">
+        <div class="pr-1" style="font-size: 18px">
+          <span class="pr-2">Status: </span>
+          <span :class="{'text-success': product.status == 'active', 'text-warning': product.status == 'out_of_stock', 'text-danger': product.status == 'inactive'}">
             {{ product.status | titleize }}
           </span>
         </div>
@@ -142,6 +142,29 @@
       <template #modal-footer><span></span></template>
     </b-modal>
 
+    <!-- Status modal -->
+    <b-modal v-model="statusModalShow" centered>
+      <template #modal-title>
+        <span>Edit status of {{ product.name_en }}</span>
+      </template>
+      <b-row align-h="center" class="px-3">
+        <b-form style="width: 300px">
+          <b-form-group label="Status:">
+            <b-radio-group v-model="statusForm.status" stacked>
+              <b-radio value="active">Active</b-radio>
+              <b-radio value="out_of_stock">Out of stock</b-radio>
+              <b-radio value="inactive">Inactive</b-radio>
+            </b-radio-group>
+          </b-form-group>
+        </b-form>
+      </b-row>
+      <template #modal-footer>
+        <b-row align-h="center">
+          <Button variant="green" @click="updateStatus">Save</Button>
+        </b-row>
+      </template>
+    </b-modal>
+
     <!-- Alert -->
     <ToastAlert :show="alertShow" :variant="alertVariant" @close="alertShow = false">
       {{ alertMessage }}
@@ -175,11 +198,15 @@ export default {
         name_zh: null,
         brand_id: null,
         box_quantity: null,
-        storage_temp: null,
+        storage_temp: null
       },
       thumbnailAvailable: false,
       photoForm: {
         image: null
+      },
+      statusModalShow: false,
+      statusForm: {
+        status: null
       },
       storageOptions: ['Room', 'Cooler', 'Frozen'],
       alertShow: false,
@@ -283,16 +310,29 @@ export default {
       this.productForm.box_quantity = this.product.box_quantity;
       this.productForm.storage_temp = this.product.storage_temp;
     },
+    openStatusModal() {
+      this.statusForm.status = this.product.status;
+      this.statusModalShow = true;
+    },
     updatePhoto() {
       this.$http.put(`/admin/products/${this.product.id}`, {
-        product: {
-          image: this.photoForm.image
-        }
+        product: this.photoForm
       })
       .then(response => {
         console.log(response);
         this.product = response.data;
         this.photoForm.image = null;
+      })
+      .catch(error => console.log(error))
+    },
+    updateStatus() {
+      this.$http.put(`/admin/products/${this.product.id}`, {
+        product: this.statusForm
+      })
+      .then(response => {
+        console.log(response);
+        this.product = response.data;
+        this.statusModalShow = false;
       })
       .catch(error => console.log(error))
     },
@@ -305,7 +345,6 @@ export default {
       .then(response => {
         console.log(response);
         this.product = response.data;
-        this.editModalShow = false;
         this.clearProductForm();
       })
       .catch(error => {
@@ -318,7 +357,10 @@ export default {
         }
         this.alertShow = true;
       })
-      .finally(() => this.processing = false);
+      .finally(() => {
+        this.processing = false;
+        this.editModalShow = false;
+      });
     },
     clearProductForm() {
       this.productForm.item_no = null;

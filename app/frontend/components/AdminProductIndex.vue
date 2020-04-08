@@ -14,18 +14,23 @@
       style="font-size: 14px"
       @row-clicked="goToProduct"
     >
+      <template v-slot:head(photo)>
+        <font-awesome-icon :icon="['far', 'image']" fixed-width />
+      </template>
       <!-- Table data -->
       <template v-slot:cell(photo)="data">
         <font-awesome-icon v-if="!data.item.image_url" :icon="['fas', 'exclamation-circle']" fixed-width size="lg" title="Missing photo" class="text-danger" />
       </template>
       <template v-slot:cell(status)="data">
-        <span :class="{'text-success': data.value == 'active', 'text-danger': data.value == 'inactive'}">{{ data.value | titleize }}</span>
+        <span :class="{'text-success': data.value == 'active', 'text-warning': data.value == 'out_of_stock', 'text-danger': data.value == 'inactive'}">
+          {{ data.value | titleize }}
+        </span>
       </template>
       <template v-slot:cell(brand_id)="data">
         {{ brandData[data.value].name_en }}
       </template>
       <template v-slot:cell(actions)="data">
-        <Button size="sm" class="py-0">
+        <Button size="sm" class="py-0" @click="openStatusModal(data.item)">
           <font-awesome-icon :icon="['far', 'edit']" fixed-width />
           <span class="pl-1">Status</span>
         </Button>
@@ -104,6 +109,29 @@
         <Button variant="green" :disabled="uploadingImage || !productForm.item_no || !productForm.name_en" class="float-right" @click="createProduct">Create</Button>
       </template>
     </b-modal>
+
+    <!-- Status modal -->
+    <b-modal v-model="statusModalShow" centered>
+      <template #modal-title>
+        <span v-if="selectedProduct">Edit status of {{ selectedProduct.name_en }}</span>
+      </template>
+      <b-row align-h="center" class="px-3">
+        <b-form style="width: 300px">
+          <b-form-group label="Status:">
+            <b-radio-group v-model="statusForm.status" stacked>
+              <b-radio value="active">Active</b-radio>
+              <b-radio value="out_of_stock">Out of stock</b-radio>
+              <b-radio value="inactive">Inactive</b-radio>
+            </b-radio-group>
+          </b-form-group>
+        </b-form>
+      </b-row>
+      <template #modal-footer>
+        <b-row align-h="center">
+          <Button variant="green" @click="updateProduct">Save</Button>
+        </b-row>
+      </template>
+    </b-modal>
   </div>
 </template>
 
@@ -126,7 +154,7 @@ export default {
       brandData: {},
       brandList: [],
       fields: [
-        { key: 'photo', label: '', tdClass: 'text-center clickable' },
+        { key: 'photo', label: '', thClass: 'text-center', tdClass: 'text-center clickable' },
         { key: 'item_no', label: 'Item No.', thClass: 'font-lato-th', tdClass: 'clickable' },
         { key: 'name_en', label: 'Name (en)', thClass: 'font-lato-th', tdClass: 'clickable' },
         { key: 'name_zh', label: 'Name (ch)', thClass: 'font-lato-th', tdClass: 'clickable' },
@@ -147,6 +175,11 @@ export default {
         storage_temp: 'Room',
         image: null
       },
+      statusModalShow: false,
+      statusForm: {
+        status: null
+      },
+      selectedProduct: null,
       storageOptions: ['Room', 'Cooler', 'Frozen'],
       uploadingImage: false,
       loading: false,
@@ -278,13 +311,21 @@ export default {
         .catch(error => console.log(error))
         .finally(() => this.processing = false);
     },
-    updateProduct(product) {
-      this.$http.put(`/admin/products/${product.id}`, {
-        product: {}
+    openStatusModal(item) {
+      this.selectedProduct = item;
+      this.statusForm.status = item.status;
+      this.statusModalShow = true;
+    },
+    updateProduct() {
+      this.$http.put(`/admin/products/${this.selectedProduct.id}`, {
+        product: this.statusForm
       })
       .then(response => {
         console.log(response);
-        this.$store.commit('setProduct', response.data);
+        this.$set(this.productData, response.data.id, response.data);
+        this.statusModalShow = false;
+        this.statusForm.status = null;
+        this.selectedProduct = null;
       })
       .catch(error => console.log(error))
     },

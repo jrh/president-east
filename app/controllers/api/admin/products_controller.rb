@@ -35,12 +35,12 @@ module Api
       end
 
       def update
-        product = Product.find(params[:id])
-        if product.update(product_params)
-          if product.image_data.present?
-            @product = product.attributes.merge!(image_url: product.image_url(:medium))
+        @product = Product.find(params[:id])
+        if @product.update(product_params)
+          if @product.image_data.present?
+            @product = @product.attributes.merge!(image_url: @product.image_url(:medium))
           else
-            @product = product.attributes.merge!(image_url: nil)
+            @product = @product.attributes.merge!(image_url: nil)
           end
           render status: :ok, json: @product
         else
@@ -66,7 +66,7 @@ module Api
       private
 
         def product_params
-          params.require(:product).permit(:id, :item_no, :name_en, :name_zh, :brand_id, :box_quantity, :storage_temp, :image)
+          params.require(:product).permit(:id, :item_no, :name_en, :name_zh, :brand_id, :status, :box_quantity, :storage_temp, :image)
         end
     end
   end
