@@ -12,13 +12,6 @@ class User < ApplicationRecord
     super_admin: 9
   }
 
-  def to_token_payload
-    {
-      sub: self.id,
-      current_user: self
-    }
-  end
-
   def generate_password_token!
     self.reset_password_token = SecureRandom.urlsafe_base64
     self.reset_password_sent_at = Time.now.utc

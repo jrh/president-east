@@ -1,10 +1,12 @@
 import router from '../../routes.js';
+import axios from 'axios';
 
 const state = {
   loginModalShow: false,
   // persisted
   isLoggedIn: false,
   currentUser: null,
+  csrf: null
 };
 
 const getters = {
@@ -19,15 +21,29 @@ const getters = {
 
 const actions = {
   logout({ commit }) {
-    commit('setCurrentUser', null);
-    commit('logoutUser');
-    router.push('/');  // TODO: only redirect if in admin area
+    axios.delete('/api/logout')
+      .then(response => {
+        console.log(response)
+        commit('setCurrentUser', null);
+        commit('logoutUser');
+        router.push('/');
+      })
+      .catch(error => {
+        console.log(error)
+      });
   },
   forcedLogout({ commit }) {
-    commit('setCurrentUser', null);
-    commit('logoutUser');
-    commit('toggleLoginModalShow', true);
-    router.push('/');
+    axios.delete('/api/logout')
+      .then(response => {
+        console.log(response)
+        commit('setCurrentUser', null);
+        commit('logoutUser');
+        commit('toggleLoginModalShow', true);
+        router.push('/');
+      })
+      .catch(error => {
+        console.log(error)
+      });
   }
 };
 

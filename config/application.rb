@@ -26,5 +26,8 @@ module PresidentEast
     # the framework and any gems in your application.
 
     config.active_job.queue_adapter = :sucker_punch
+
+    config.action_controller.forgery_protection_origin_check = false
+    # config.session_store :cookie_store, :expire_after => 30.minutes
   end
 end

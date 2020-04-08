@@ -95,17 +95,15 @@ export default {
   },
   methods: {
     submitLogin() {
-      this.$http.post('/user_token', {
-          auth: {
-            email: this.email,
-            password: this.password
-          }
+      this.$http.post('/login', {
+          email: this.email,
+          password: this.password
         })
         .then(response => {
           console.log('Response successful')
           console.log(response)
           this.$store.commit('loginUser');
-          this.$store.commit('setCurrentUser', response.data.current_user);
+          this.$store.commit('setCurrentUser', response.data);
           this.$store.commit('toggleLoginModalShow', false);
           this.email = '',
           this.password = ''

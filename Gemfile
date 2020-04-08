@@ -9,7 +9,6 @@ gem 'puma'
 gem 'webpacker'
 gem 'kaminari'
 gem 'bcrypt'
-gem 'knock', git: "https://github.com/nsarno/knock.git"
 gem 'rack-cors'
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'sucker_punch'

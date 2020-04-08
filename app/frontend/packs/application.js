@@ -19,7 +19,8 @@ const instance = axios.create({
 });
 
 instance.interceptors.request.use(config => {
-  config.headers.Authorization =  'Bearer ' + Cookies.get('jwt');
+  // config.headers.Authorization =  'Bearer ' + Cookies.get('jwt');
+  // config.headers: { "X-CSRF-Token": getCookie("CSRF-TOKEN") }
   return config;
 }, error => {
   // Do something with request error
