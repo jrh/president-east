@@ -15,8 +15,8 @@
     </b-row>
     <b-row align-h="center" class="mt-5">
       <b-col lg="4" sm="8">
-        <ValidationObserver v-slot="{ invalid }">
-          <ValidationProvider rules="required|email" name="Email" v-slot="{ valid, errors }">
+        <ValidationObserver v-slot="{ handleSubmit }">
+          <ValidationProvider mode="lazy" rules="required|email" name="Email" v-slot="{ valid, errors }">
             <b-form-group :invalid-feedback="errors[0]">
               <template #label>
                 <span>Email</span><span class="asterisk">*</span>
@@ -24,12 +24,14 @@
               <b-input
                 v-model="email"
                 type="email"
+                autofocus
                 :state="errors[0] ? false : (valid ? true : null)"
+                @keyup.enter="handleSubmit(sendEmail)"
               />
             </b-form-group>
           </ValidationProvider>
           <b-form-group>
-            <Button variant="blue" :disabled="invalid" @click="sendEmail">Initiate password reset</Button>
+            <Button variant="blue" @click="handleSubmit(sendEmail)">Initiate password reset</Button>
           </b-form-group>
         </ValidationObserver>
       </b-col>

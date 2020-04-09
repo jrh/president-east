@@ -10,7 +10,7 @@ Rails.application.routes.draw do
     delete 'logout' => 'sessions#destroy'
 
     get 'password/new' => 'passwords#new'
-    get 'password/edit/:token' => 'passwords#edit'
+    get 'password/:token/edit' => 'passwords#edit'
     post 'password/send_email' => 'passwords#create'
     put 'password/reset' => 'passwords#update'
 
