@@ -9,6 +9,7 @@ gem 'puma'
 gem 'webpacker'
 gem 'kaminari'
 gem 'bcrypt'
+gem 'pundit'
 gem 'rack-cors'
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'sucker_punch'

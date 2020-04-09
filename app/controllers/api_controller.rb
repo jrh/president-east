@@ -2,10 +2,12 @@
 class ApiController < ActionController::API
   include ActionController::Cookies
   include ActionController::RequestForgeryProtection
+  include Pundit
 
   protect_from_forgery with: :exception
 
   rescue_from ActionController::InvalidAuthenticityToken, with: :csrf_token_invalid
+  rescue_from Pundit::NotAuthorizedError, with: :not_authorized
 
   before_action :set_csrf_cookie
 
@@ -27,4 +29,7 @@ class ApiController < ActionController::API
       render status: :unauthorized, json: { error: 'CSRF token invalid' }
     end
 
+    def not_authorized
+      render status: :unauthorized, json: { error: 'You are not authorized to do that' }
+    end
 end

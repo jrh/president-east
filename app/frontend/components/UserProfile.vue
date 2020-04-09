@@ -18,11 +18,27 @@ export default {
   data() {
     return {
       userId: Number(this.$route.params.id),
+      user: {},
       alertShow: false,
       alertVariant: null,
       alertMessage: '',
       processing: false,
 
+    }
+  },
+  mounted() {
+    this.fetchUser();
+  },
+  methods: {
+    fetchUser() {
+      this.$http.get(`/users/${this.userId}`)
+        .then(response => {
+          console.log(response)
+          this.user = response.data;
+        })
+        .catch(error => {
+          console.log(error)
+        })
     }
   }
 }
