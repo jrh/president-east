@@ -4,15 +4,17 @@
     <b-container fluid>
       <router-view></router-view>
     </b-container>
+    <LoginModal />
   </div>
 </template>
 
 <script>
 import AppHeader from './components/AppHeader';
+import LoginModal from './components/LoginModal';
 
 export default {
   name: 'App',
-  components: { AppHeader },
+  components: { AppHeader, LoginModal },
   watch: {
     '$route'() {
       this.handleBgColor();
