@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-row align-h="center" class="mt-5">
+    <b-row align-h="center" class="mt-5 mb-2">
       <p style="font-size: 24px">Reset My Password</p>
     </b-row>
     <b-row align-h="center">
@@ -13,7 +13,7 @@
         <b-alert v-model="alertError" variant="danger">{{ alertMessage }}</b-alert>
       </b-col>
     </b-row>
-    <b-row align-h="center" class="mt-5">
+    <b-row align-h="center" class="mt-3">
       <b-col lg="4" sm="8">
         <ValidationObserver v-slot="{ handleSubmit }">
           <ValidationProvider mode="lazy" rules="required|email" name="Email" v-slot="{ valid, errors }">
@@ -59,7 +59,9 @@ export default {
       if (this.processing) return;
       this.processsing = true;
       this.$http.post('/password/send_email', {
-          email: this.email
+          user: {
+            email: this.email
+          }
         })
         .then(response => {
           console.log(response)

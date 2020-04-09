@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-row align-h="center" class="mt-5">
+    <b-row align-h="center" class="mt-5 mb-2">
       <p style="font-size: 24px">Register an Account</p>
     </b-row>
     <b-row align-h="center" class="my-5">

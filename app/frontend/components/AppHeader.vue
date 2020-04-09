@@ -100,7 +100,6 @@ export default {
           password: this.password
         })
         .then(response => {
-          console.log('Response successful')
           console.log(response)
           this.$store.commit('loginUser');
           this.$store.commit('setCurrentUser', response.data);
