@@ -2,17 +2,21 @@
   <b-modal v-model="loginModalShow" title="Login" centered hide-footer>
     <b-alert v-model="authError" variant="danger">Incorrect email or password</b-alert>
     <b-row align-h="center" class="px-3">
-      <b-form style="width: 300px">
-        <b-form-group label="Email">
-          <b-input v-model="email" autofocus />
+      <ValidationObserver v-slot="{ handleSubmit }" style="width: 300px">
+        <ValidationProvider mode="lazy" rules="required|email" name="Email" v-slot="{ errors }">
+          <b-form-group label="Email" :invalid-feedback="errors[0]">
+            <b-input v-model="email" autofocus :state="errors[0] ? false : null" />
+          </b-form-group>
+        </ValidationProvider>
+        <ValidationProvider mode="lazy" rules="required" name="Password" v-slot="{ errors }" vid="password">
+          <b-form-group label="Password" :invalid-feedback="errors[0]">
+            <b-input v-model="password" type="password" :state="errors[0] ? false : null" @keydown.enter="submitLogin" />
+          </b-form-group>
+        </ValidationProvider>
+        <b-form-group class="text-center">
+          <Button variant="blue" :disabled="!email || !password" style="width: 100px" @click="handleSubmit(submitLogin)">Login</Button>
         </b-form-group>
-        <b-form-group label="Password">
-          <b-input v-model="password" type="password" @keydown.enter="submitLogin" />
-        </b-form-group>
-      </b-form>
-    </b-row>
-    <b-row align-h="center">
-      <Button variant="blue" :disabled="!email || !password" style="width: 100px" @click="submitLogin">Login</Button>
+      </ValidationObserver>
     </b-row>
     <b-row align-h="center" class="mt-5">
       <b-link style="font-size: 14px" @click="goToPasswordReset">Forgot your password?</b-link>
@@ -21,12 +25,12 @@
 </template>
 
 <script>
+import { ValidationObserver, ValidationProvider } from 'vee-validate';
 import Button from './shared/Button';
-import ToastAlert from './shared/ToastAlert';
 
 export default {
   name: 'LoginModal',
-  components: { Button, ToastAlert },
+  components: { ValidationObserver, ValidationProvider, Button },
   data() {
     return {
       email: '',

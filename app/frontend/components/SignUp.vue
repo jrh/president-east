@@ -13,6 +13,7 @@
               </template>
               <b-input
                 v-model="form.firstName"
+                autofocus
                 :state="errors[0] ? false : (valid ? true : null)"
               />
             </b-form-group>
