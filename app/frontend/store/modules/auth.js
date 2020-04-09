@@ -12,7 +12,8 @@ const instance = axios.create({
 
 const state = {
   loginModalShow: false,
-  authErrorMessage: '',
+  authError: false,
+  authMessage: '',
   // persisted
   isLoggedIn: false,
   currentUser: null
@@ -41,12 +42,14 @@ const actions = {
         console.log(error)
       });
   },
-  forcedLogout({ commit }) {
+  forcedLogout({ commit }, message) {
     instance.delete('/logout')
       .then(response => {
         console.log(response)
         commit('setCurrentUser', null);
         commit('logoutUser');
+        commit('toggleAuthError', true);
+        commit('setAuthMessage', message);
         commit('toggleLoginModalShow', true);
         router.push('/').catch(err => {});
       })
@@ -69,8 +72,11 @@ const mutations = {
   toggleLoginModalShow(state, boolean) {
     state.loginModalShow = boolean;
   },
-  setAuthErrorMessage(state, message) {
-    state.authErrorMessage = message;
+  toggleAuthError(state, boolean) {
+    state.authError = boolean;
+  },
+  setAuthMessage(state, string) {
+    state.authMessage = string;
   }
 };
 

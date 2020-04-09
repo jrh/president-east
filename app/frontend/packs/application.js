@@ -24,8 +24,10 @@ instance.interceptors.response.use(response => {
   return response;
 }, error => {
   if (error.response.status == 401) {
-    // trigger event and login modal
-    store.dispatch('forcedLogout');
+    // trigger forced logout and show login modal with error message
+    let authMessage = 'Please log in';
+    if (error.response.data.auth_message) authMessage = error.response.data.auth_message;
+    store.dispatch('forcedLogout', authMessage);
   } else if (error.response.status == 403) {
     if (error.response.data.message) {
       // TODO: redirect??
@@ -105,7 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
-  faExclamationCircle,
+  faExclamationCircle as fasExclamationCircle,
   faImage as fasImage,
   faSearch,
   faUserFriends
@@ -114,6 +116,7 @@ import {
 import {
   faEdit,
   faEnvelope,
+  faExclamationCircle as farExclamationCircle,
   faImage as farImage,
   faKey
 } from '@fortawesome/pro-regular-svg-icons';
@@ -121,7 +124,8 @@ import {
 library.add(
   faEdit,
   faEnvelope,
-  faExclamationCircle,
+  farExclamationCircle,
+  fasExclamationCircle,
   farImage,
   fasImage,
   faKey,

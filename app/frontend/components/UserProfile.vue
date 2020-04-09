@@ -12,7 +12,7 @@
           <div>
             <p>
               <font-awesome-icon :icon="['far', 'envelope']" size="lg" fixed-width />
-              <span class="pl-2">{{ user.email }}</span>
+              <span class="pl-1">{{ user.email }}</span>
             </p>
             <p v-if="user.company">
               <font-awesome-icon :icon="['fas', 'user-friends']" size="lg" fixed-width />
