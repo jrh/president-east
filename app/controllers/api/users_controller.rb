@@ -14,7 +14,7 @@ module Api
       if @user.update(user_params)
         render status: :ok, json: @user
       else
-        render status: :unprocessable_entity, json: @user.errors.full_messages
+        render status: :unprocessable_entity, json: { errors: @user.errors.full_messages }
       end
     end
 
