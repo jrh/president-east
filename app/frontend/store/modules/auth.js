@@ -12,6 +12,7 @@ const instance = axios.create({
 
 const state = {
   loginModalShow: false,
+  authErrorMessage: '',
   // persisted
   isLoggedIn: false,
   currentUser: null
@@ -67,6 +68,9 @@ const mutations = {
   },
   toggleLoginModalShow(state, boolean) {
     state.loginModalShow = boolean;
+  },
+  setAuthErrorMessage(state, message) {
+    state.authErrorMessage = message;
   }
 };
 
@@ -76,4 +80,3 @@ export default {
   actions,
   mutations
 };
-

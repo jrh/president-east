@@ -1,7 +1,8 @@
 <template>
   <div>
     <AppHeader />
-    <b-container fluid>
+    <b-container fluid class="pt-3">
+      <FlashAlert />
       <router-view></router-view>
     </b-container>
     <LoginModal />
@@ -10,11 +11,12 @@
 
 <script>
 import AppHeader from './components/AppHeader';
+import FlashAlert from './components/FlashAlert';
 import LoginModal from './components/LoginModal';
 
 export default {
   name: 'App',
-  components: { AppHeader, LoginModal },
+  components: { AppHeader, FlashAlert, LoginModal },
   watch: {
     '$route'() {
       this.handleBgColor();

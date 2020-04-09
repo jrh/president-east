@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-row align-h="center" class="font-lato mt-4" style="background-color: #FFFCF5">
+    <b-row align-h="center" class="font-lato mt-3">
       <b-col lg="4" class="text-center pt-5">
         <div class="red-text">
           <p>恭祝讀者</p>
@@ -40,7 +40,7 @@
 import AppFooter from './AppFooter';
 
 export default {
-  name: 'index',
+  name: 'AppHome',
   components: { AppFooter }
 }
 </script>

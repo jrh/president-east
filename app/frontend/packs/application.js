@@ -26,6 +26,11 @@ instance.interceptors.response.use(response => {
   if (error.response.status == 401) {
     // trigger event and login modal
     store.dispatch('forcedLogout');
+  } else if (error.response.status == 403) {
+    if (error.response.data.message) {
+      // TODO: redirect??
+      store.dispatch('displayFlash', { variant: 'danger', message: error.response.data.message });
+    }
   }
   return Promise.reject(error);
 });

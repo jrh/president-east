@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Home from './components';
+import AppHome from './components/AppHome';
 import About from './components/About';
 import UserProfile from './components/UserProfile';
 import ProductIndex from './components/ProductIndex';
@@ -18,7 +18,7 @@ Vue.use(VueRouter);
 export default new VueRouter({
   mode: 'history',
   routes: [
-    { path: '/', component: Home, name: 'Home' },
+    { path: '/', component: AppHome, name: 'Home' },
     { path: '/about', component: About },
     { path: '/users/:id/profile', component: UserProfile, props: true },
     { path: '/products', component: ProductIndex },
