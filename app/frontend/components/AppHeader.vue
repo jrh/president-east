@@ -122,7 +122,7 @@ export default {
     },
     goToPasswordReset() {
       this.loginModalShow = false;
-      this.$router.push('/password/new');
+      this.$router.push('/passwords/new');
     }
   }
 }

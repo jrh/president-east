@@ -78,8 +78,7 @@ export default {
     updatePassword() {
       if (this.processing) return;
       this.processing = true;
-      this.$http.patch(`/password/reset`, {
-          token: this.token,
+      this.$http.patch(`/passwords/${this.token}`, {
           user: this.form
         })
         .then(response => {

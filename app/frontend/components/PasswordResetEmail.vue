@@ -58,7 +58,7 @@ export default {
     sendEmail() {
       if (this.processing) return;
       this.processsing = true;
-      this.$http.post('/password/send_email', {
+      this.$http.post('/passwords', {
           user: {
             email: this.email
           }

@@ -9,7 +9,7 @@ class UserMailer < ApplicationMailer
     else
       root = "http://localhost:3000"
     end
-    @url = "#{root}/password/#{@user.reset_password_token}/edit"
+    @url = "#{root}/passwords/#{@user.reset_password_token}/edit"
     mail(to: @user.email, subject: 'Reset Your Password')
   end
 end

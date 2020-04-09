@@ -9,10 +9,12 @@ Rails.application.routes.draw do
     post 'login' => 'sessions#create'
     delete 'logout' => 'sessions#destroy'
 
-    get 'password/new' => 'passwords#new'
-    post 'password/send_email' => 'passwords#create'
-    get 'password/:token/edit' => 'passwords#edit'
-    patch 'password/reset' => 'passwords#update'
+    resources :passwords, only: [:new, :create] do
+      collection do
+        get ':token/edit', action: :edit, as: :edit
+        patch ':token', action: :update
+      end
+    end
 
     resources :users, only: :update
 

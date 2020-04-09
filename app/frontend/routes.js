@@ -27,8 +27,8 @@ export default new VueRouter({
     { path: '/admin/brands', component: AdminBrandIndex },
     { path: '/admin/users', component: AdminUserIndex },
     { path: '/sign_up', component: SignUp },
-    { path: '/password/new', component: PasswordResetEmail },
-    { path: '/password/:token/edit', component: PasswordReset, props: true },
+    { path: '/passwords/new', component: PasswordResetEmail },
+    { path: '/passwords/:token/edit', component: PasswordReset, props: true },
 
     // Not found
     { path: '/*', component: NotFoundComponent }
