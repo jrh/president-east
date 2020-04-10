@@ -18,12 +18,14 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :users, only: [:show, :update]
-
+    resources :users, only: [:show, :update] do
+      patch 'change_password', on: :member
+    end
     resources :products, only: [:index, :show] do
       get 'search', on: :collection
     end
 
+    ### Admin
     namespace :admin do
       resources :brands, only: [:index, :create, :update]
       resources :products, only: [:index, :create, :update, :destroy]

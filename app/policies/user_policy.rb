@@ -13,4 +13,8 @@ class UserPolicy < ApplicationPolicy
   def update?
     current_user.id == user.id
   end
+
+  def change_password?
+    update?
+  end
 end

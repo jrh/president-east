@@ -1,5 +1,5 @@
 <template>
-  <b-alert :show="show" :variant="variant" class="toast-alert">
+  <b-alert :show="show" :variant="variant" class="toast-alert" style="font-size: 14px">
     <button class="close-button" @click="$emit('close')">
       <span>&times;</span>
     </button>
