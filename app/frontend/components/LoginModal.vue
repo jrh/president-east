@@ -31,7 +31,10 @@
         </b-form-group>
       </ValidationObserver>
     </b-row>
-    <b-row align-h="center" class="mt-5 mb-2">
+    <b-row align-h="center" class="mt-4">
+       <b-link style="font-size: 14px" @click="goToSignup">Need an account? Register here</b-link>
+    </b-row>
+    <b-row align-h="center" class="my-2">
       <b-link style="font-size: 14px" @click="goToPasswordReset">Forgot your password?</b-link>
     </b-row>
   </b-modal>
@@ -92,6 +95,10 @@ export default {
           }
         })
         .finally(() => this.processing = false);
+    },
+    goToSignup() {
+      this.loginModalShow = false;
+      this.$router.push('/sign_up');
     },
     goToPasswordReset() {
       this.loginModalShow = false;

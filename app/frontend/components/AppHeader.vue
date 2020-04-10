@@ -31,7 +31,6 @@
               <span class="text-danger">Logout</span>
             </b-dropdown-item>
           </b-nav-item-dropdown>
-          <b-nav-item v-if="!isLoggedIn" to="/sign_up" class="mr-3">Sign Up</b-nav-item>
           <b-nav-item v-if="!isLoggedIn" @click="$store.commit('toggleLoginModalShow', true)">Login</b-nav-item>
         </b-navbar-nav>
       </b-collapse>
