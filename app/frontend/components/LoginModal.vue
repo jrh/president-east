@@ -8,16 +8,22 @@
         </b-alert>
       </b-col>
     </b-row>
-    <b-row align-h="center" class="px-3">
+    <b-row align-h="center" class="px-3 mt-5">
       <ValidationObserver v-slot="{ handleSubmit }" style="width: 300px">
         <ValidationProvider mode="lazy" rules="required|email" name="Email" v-slot="{ errors }">
-          <b-form-group label="Email" :invalid-feedback="errors[0]">
-            <b-input v-model="form.email" autofocus :state="errors[0] ? false : null" />
+          <b-form-group label="Email" label-cols="2" :invalid-feedback="errors[0]">
+            <template #label>
+              <font-awesome-icon :icon="['far', 'envelope']" size="lg" fixed-width class="text-secondary" />
+            </template>
+            <b-input v-model="form.email" placeholder="Email" autofocus :state="errors[0] ? false : null" />
           </b-form-group>
         </ValidationProvider>
         <ValidationProvider mode="lazy" rules="required" name="Password" v-slot="{ errors }" vid="password">
-          <b-form-group label="Password" :invalid-feedback="errors[0]">
-            <b-input v-model="form.password" type="password" :state="errors[0] ? false : null" @keydown.enter="submitLogin" />
+          <b-form-group label="Password" label-cols="2" :invalid-feedback="errors[0]">
+            <template #label>
+              <font-awesome-icon :icon="['far', 'key']" size="lg" fixed-width class="text-secondary" />
+            </template>
+            <b-input v-model="form.password" placeholder="Password" type="password" :state="errors[0] ? false : null" @keydown.enter="submitLogin" />
           </b-form-group>
         </ValidationProvider>
         <b-form-group class="text-center">
@@ -25,7 +31,7 @@
         </b-form-group>
       </ValidationObserver>
     </b-row>
-    <b-row align-h="center" class="mt-5">
+    <b-row align-h="center" class="mt-5 mb-2">
       <b-link style="font-size: 14px" @click="goToPasswordReset">Forgot your password?</b-link>
     </b-row>
   </b-modal>
