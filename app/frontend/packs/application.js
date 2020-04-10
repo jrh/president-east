@@ -46,6 +46,7 @@ import {
   ButtonPlugin,
   CardPlugin,
   FormPlugin,
+  FormCheckboxPlugin,
   FormGroupPlugin,
   FormInputPlugin,
   FormRadioPlugin,
@@ -65,6 +66,7 @@ Vue.use(BadgePlugin);
 Vue.use(ButtonPlugin);
 Vue.use(CardPlugin);
 Vue.use(FormPlugin);
+Vue.use(FormCheckboxPlugin)
 Vue.use(FormGroupPlugin);
 Vue.use(FormInputPlugin);
 Vue.use(FormRadioPlugin);

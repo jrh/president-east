@@ -1,72 +1,68 @@
 <template>
   <div>
     <b-row align-h="center" class="mt-5 mb-2">
-      <p style="font-size: 38px">Product Catalog</p>
     </b-row>
-    <b-row align-h="center" class="px-3">
-      <b-col sm="4">
-        <b-row>
-          <b-form-group style="width: 290px">
+    <b-row align-h="center">
+      <b-col lg="2">
+        <b-row class="mb-2">
+          <p class="font-lato sidebar-label">Search:</p>
+        </b-row>
+        <b-row class="mb-5">
+          <b-form-group style="width: 100%">
+            <!-- <b-input v-model="searchTerm" placeholder="Search by name or item no." size="sm" /> -->
             <b-input-group size="sm">
-              <b-input
-                v-model="searchTerm"
-                autofocus
-                placeholder="Search by name or item no."
-              />
+              <b-input v-model="searchTerm" placeholder="Search by name" />
               <b-input-group-append>
-           <!--      <b-button variant="outline-secondary" size="sm" @click="search">
+                <b-button variant="outline-secondary" size="sm" @click="search">
                   <font-awesome-icon :icon="['fas', 'search']" fixed-width />
-                </b-button> -->
-                <b-button size="sm" @click="resetSearch">Reset</b-button>
+                </b-button>
+                <!-- <b-button size="sm" @click="resetSearch">Reset</b-button> -->
               </b-input-group-append>
             </b-input-group>
           </b-form-group>
         </b-row>
+        <b-row class="mb-2">
+          <p class="font-lato sidebar-label">Filter by brand:</p>
+        </b-row>
+        <b-row class="mb-5">
+          <b-form-group>
+            <b-checkbox-group v-model="brandFilter" :options="brandOptions" size="sm" stacked ></b-checkbox-group>
+          </b-form-group>
+        </b-row>
       </b-col>
-      <b-col sm="4" class="text-right">
-        <b-form-group>
-          <b-select
-            v-model="brandFilter"
-            :options="brandOptions"
-            size="sm"
-            style="width: 320px"
-          >
-            <template #first>
-              <b-select-option :value="null">All brands</b-select-option>
-            </template>
-
-          </b-select>
-        </b-form-group>
+      <b-col lg="1"></b-col>
+      <b-col lg="8">
+        <b-card-group deck>
+        <!-- <ProductIndexCard v-for="product in filteredProducts" :key="product.id" :product="product" /> -->
+        <ProductCard v-for="product in filteredProducts" :key="product.id" :product="product" />
+      </b-card-group>
       </b-col>
     </b-row>
-    <b-row align-h="center">
-      <b-col lg="8">
-        <b-container fluid grid-list-sm class="mt-5">
+        <!-- <b-container fluid grid-list-sm class="mt-5">
           <b-row>
             <b-col v-for="product in filteredProducts" :key="product.id">
               <ProductIndexCard :product="product" class="mb-5" />
             </b-col>
           </b-row>
-        </b-container>
-      </b-col>
-    </b-row>
+        </b-container> -->
   </div>
 </template>
 
 <script>
 import { normalize, schema } from 'normalizr';
-import ProductIndexCard from './ProductIndexCard.vue';
+import ProductIndexCard from './ProductIndexCard';
+import ProductCard from './ProductCard';
 
 export default {
   name: 'ProductIndex',
-  components: { ProductIndexCard },
+  components: { ProductIndexCard, ProductCard },
   data() {
     return {
       searchTerm: '',
       productData: {},
       productList: [],
       brands: [],
-      brandFilter: null
+      brandFilter: []
     }
   },
   computed: {
@@ -76,9 +72,9 @@ export default {
     filteredProducts() {
       if (this.products.length > 0) {
         let products;
-        if (this.brandFilter) {
+        if (this.brandFilter.length > 0) {
           products = this.products.filter(p => {
-            return p.brand_id === this.brandFilter;
+            return this.brandFilter.includes(p.brand_id);
           })
         } else {
           products = this.products;
@@ -138,5 +134,13 @@ export default {
   width: 350px;
   background-color: #ffffff;
 }
+.sidebar-label {
+  padding-left: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  font-size: 15px;
+  background-color: #f2f2f2;
+  width: 100%;
+  border-radius: 5px;
+}
 </style>
-

@@ -24,7 +24,8 @@ class ImageUploader < Shrine
     {
       normalized: magick.resize_to_limit!(1600, 1600),
       medium: magick.resize_to_limit!(500, 500),
-      thumb: magick.resize_to_limit!(175, 175)
+      small: magick.resize_to_limit!(300, 300),
+      thumb: magick.resize_to_limit!(100, 100)
     }
   end
 end
