@@ -9,6 +9,8 @@ Rails.application.routes.draw do
     post 'login' => 'sessions#create'
     delete 'logout' => 'sessions#destroy'
 
+    resources :registrations, only: :create
+
     resources :passwords, only: [:new, :create] do
       collection do
         get ':token/edit', action: :edit, as: :edit
@@ -25,7 +27,7 @@ Rails.application.routes.draw do
     namespace :admin do
       resources :brands, only: [:index, :create, :update]
       resources :products, only: [:index, :create, :update, :destroy]
-      resources :users, only: [:index, :create, :update]
+      resources :users, only: [:index, :update]
     end
   end
 

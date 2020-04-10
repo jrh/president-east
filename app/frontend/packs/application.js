@@ -25,7 +25,7 @@ instance.interceptors.response.use(response => {
 }, error => {
   if (error.response.status == 401) {
     // trigger forced logout and show login modal with error message
-    let authMessage = 'Please log in';
+    let authMessage = 'Authentication error. Please login';
     if (error.response.data.auth_message) authMessage = error.response.data.auth_message;
     store.dispatch('forcedLogout', authMessage);
   } else if (error.response.status == 403) {
