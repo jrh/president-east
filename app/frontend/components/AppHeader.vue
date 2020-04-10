@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-navbar toggleable="lg" type="light" variant="white">
+    <b-navbar toggleable="lg" type="light" variant="white" class="font-lato">
       <b-navbar-brand to="/">
         <div class="text-center">
         <img :src="require('../images/logo.png')" style="height: 60px; min-width: 120px;, max-width: 250px" />
@@ -31,7 +31,7 @@
               <span class="text-danger">Logout</span>
             </b-dropdown-item>
           </b-nav-item-dropdown>
-          <b-nav-item v-if="!isLoggedIn" to="/sign_up">Sign Up</b-nav-item>
+          <b-nav-item v-if="!isLoggedIn" to="/sign_up" class="mr-3">Sign Up</b-nav-item>
           <b-nav-item v-if="!isLoggedIn" @click="$store.commit('toggleLoginModalShow', true)">Login</b-nav-item>
         </b-navbar-nav>
       </b-collapse>
@@ -68,5 +68,10 @@ a.router-link-active {
 }
 .nav-item {
   padding: 0 1em;
+  border: 1px solid #d9d9d9;
+  border-radius: 5px;
+}
+.nav-item:hover {
+  background-color: #f2f2f2;
 }
 </style>
