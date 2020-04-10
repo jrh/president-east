@@ -9,9 +9,8 @@
         </b-row>
         <b-row class="mb-5">
           <b-form-group style="width: 100%">
-            <!-- <b-input v-model="searchTerm" placeholder="Search by name or item no." size="sm" /> -->
             <b-input-group size="sm">
-              <b-input v-model="searchTerm" placeholder="Search by name" />
+              <b-input v-model="searchTerm" placeholder="Type product name" />
               <b-input-group-append>
                 <b-button variant="outline-secondary" size="sm" @click="search">
                   <font-awesome-icon :icon="['fas', 'search']" fixed-width />
@@ -34,17 +33,10 @@
       <b-col lg="8">
         <b-card-group deck>
         <!-- <ProductIndexCard v-for="product in filteredProducts" :key="product.id" :product="product" /> -->
-        <ProductCard v-for="product in filteredProducts" :key="product.id" :product="product" />
+        <ProductCard v-for="product in filteredProducts" :key="product.id" :product="product" :brandData="brandData" />
       </b-card-group>
       </b-col>
     </b-row>
-        <!-- <b-container fluid grid-list-sm class="mt-5">
-          <b-row>
-            <b-col v-for="product in filteredProducts" :key="product.id">
-              <ProductIndexCard :product="product" class="mb-5" />
-            </b-col>
-          </b-row>
-        </b-container> -->
   </div>
 </template>
 
@@ -61,13 +53,17 @@ export default {
       searchTerm: '',
       productData: {},
       productList: [],
-      brands: [],
+      brandData: {},
+      brandList: [],
       brandFilter: []
     }
   },
   computed: {
     products() {
       return this.productList.map(id => this.productData[id]);
+    },
+    brands() {
+      return this.brandList.map(id => this.brandData[id]).sort((a,b) => a.name_en - b.name_en);
     },
     filteredProducts() {
       if (this.products.length > 0) {
@@ -112,7 +108,15 @@ export default {
             this.productData = productData.entities.products;
           }
           this.productList = productData.result.products;
-          this.brands = response.data.brands;
+
+          const brandData = normalize(
+            { brands: response.data.brands },
+            { brands: [ new schema.Entity('brands') ] }
+          );
+          if (brandData.entities.hasOwnProperty('brands')) {
+            this.brandData = brandData.entities.brands;
+          }
+          this.brandList = brandData.result.brands;
         })
         .catch(error => {
           console.log(error)
