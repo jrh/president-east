@@ -95,23 +95,12 @@ GEM
     crass (1.0.6)
     down (5.1.1)
       addressable (~> 2.5)
-    elasticsearch (7.5.0)
-      elasticsearch-api (= 7.5.0)
-      elasticsearch-transport (= 7.5.0)
-    elasticsearch-api (7.5.0)
-      multi_json
-    elasticsearch-transport (7.5.0)
-      faraday (>= 0.14, < 1)
-      multi_json
     erubi (1.9.0)
     ethon (0.11.0)
       ffi (>= 1.3.0)
-    faraday (0.17.3)
-      multipart-post (>= 1.2, < 3)
     ffi (1.12.2)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
-    hashie (4.1.0)
     i18n (1.8.2)
       concurrent-ruby (~> 1.0)
     image_processing (1.10.3)
@@ -135,8 +124,6 @@ GEM
     mini_portile2 (2.4.0)
     minitest (5.14.0)
     msgpack (1.3.3)
-    multi_json (1.14.1)
-    multipart-post (2.1.1)
     nio4r (2.5.2)
     nokogiri (1.10.9)
       mini_portile2 (~> 2.4.0)
@@ -194,10 +181,6 @@ GEM
     ruby-vips (2.0.17)
       ffi (~> 1.9)
     rubyzip (2.3.0)
-    searchkick (4.3.0)
-      activemodel (>= 5)
-      elasticsearch (>= 6)
-      hashie
     selenium-webdriver (3.142.7)
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
@@ -262,7 +245,6 @@ DEPENDENCIES
   pundit
   rack-cors
   rails (= 6.0.2.2)
-  searchkick
   selenium-webdriver
   shrine
   spring

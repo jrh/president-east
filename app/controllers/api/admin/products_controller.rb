@@ -52,17 +52,6 @@ module Api
 
       end
 
-      def search
-        # @search_results = Searchkick.search(params[:search],
-        #                   index_name: [ Product ],
-        #                   fields: [:item_no, :name_en],
-        #                   match: :word_start,
-        #                   load: false)
-        # puts "Total count: #{@search_results.total_count}"
-        # puts "Response: #{@search_results.response}"
-        # render status: :ok, json: @search_results
-      end
-
       private
 
         def product_params

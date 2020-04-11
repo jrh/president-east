@@ -16,7 +16,6 @@ gem 'aws-sdk-s3'
 gem 'shrine'
 gem 'image_processing'
 gem 'pagy'
-gem 'searchkick'
 gem 'typhoeus'
 gem 'oj'
 
