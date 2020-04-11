@@ -13,7 +13,7 @@
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav class="ml-5">
           <b-nav-item to="/products">Product Catalog</b-nav-item>
-          <b-nav-item-dropdown v-if="isLoggedIn && isAdmin" text="Admin Menu">
+          <b-nav-item-dropdown v-if="isLoggedIn && isAdmin" text="Admin Menu" class="ml-3">
             <b-dropdown-item to="/admin/products">Manage Products</b-dropdown-item>
             <b-dropdown-item to="/admin/brands">Manage Brands</b-dropdown-item>
             <b-dropdown-item to="/admin/users">User Accounts</b-dropdown-item>

@@ -7,23 +7,15 @@
         <b-row class="mb-2">
           <p class="font-lato sidebar-label">Search:</p>
         </b-row>
-        <b-row class="mb-5">
+        <b-row class="px-1 mb-5">
           <b-form-group style="width: 100%">
-            <b-input-group size="sm">
-              <b-input v-model="searchTerm" placeholder="Type product name" />
-              <b-input-group-append>
-                <b-button variant="outline-secondary" size="sm" @click="search">
-                  <font-awesome-icon :icon="['fas', 'search']" fixed-width />
-                </b-button>
-                <!-- <b-button size="sm" @click="resetSearch">Reset</b-button> -->
-              </b-input-group-append>
-            </b-input-group>
+            <SearchBar placeholder="Enter product name" @search-triggered="search" />
           </b-form-group>
         </b-row>
         <b-row class="mb-2">
           <p class="font-lato sidebar-label">Filter by brand:</p>
         </b-row>
-        <b-row class="mb-5">
+        <b-row class="px-1 mb-5">
           <b-form-group>
             <b-checkbox-group v-model="brandFilter" :options="brandOptions" size="sm" stacked ></b-checkbox-group>
           </b-form-group>
@@ -32,9 +24,8 @@
       <b-col lg="1"></b-col>
       <b-col lg="8">
         <b-card-group deck>
-        <!-- <ProductIndexCard v-for="product in filteredProducts" :key="product.id" :product="product" /> -->
-        <ProductCard v-for="product in filteredProducts" :key="product.id" :product="product" :brandData="brandData" />
-      </b-card-group>
+          <ProductIndexCard v-for="product in filteredProducts" :key="product.id" :product="product" :brandData="brandData" />
+        </b-card-group>
       </b-col>
     </b-row>
   </div>
@@ -43,14 +34,13 @@
 <script>
 import { normalize, schema } from 'normalizr';
 import ProductIndexCard from './ProductIndexCard';
-import ProductCard from './ProductCard';
+import SearchBar from './shared/SearchBar';
 
 export default {
   name: 'ProductIndex',
-  components: { ProductIndexCard, ProductCard },
+  components: { ProductIndexCard, SearchBar },
   data() {
     return {
-      searchTerm: '',
       productData: {},
       productList: [],
       brandData: {},
@@ -67,22 +57,12 @@ export default {
     },
     filteredProducts() {
       if (this.products.length > 0) {
-        let products;
         if (this.brandFilter.length > 0) {
-          products = this.products.filter(p => {
+          return this.products.filter(p => {
             return this.brandFilter.includes(p.brand_id);
           })
         } else {
-          products = this.products;
-        }
-
-        if (this.searchTerm) {
-          let searchTerm = this.searchTerm.toLowerCase();
-          return products.filter(product => {
-            return product.name_en.trim().toLowerCase().includes(searchTerm) || JSON.stringify(product.item_no).includes(searchTerm);
-          })
-        } else {
-          return products;
+          return this.products;
         }
       }
     },
@@ -123,8 +103,32 @@ export default {
         })
         .finally(() => this.loading = false);
     },
-    search() {
+    search(term) {
+      if (this.processing) return;
+      this.processing = true;
+      this.$http.get('/products/search', {
+          params: { q: term }
+        })
+        .then(response => {
+          console.log(response)
 
+          const productData = normalize(
+            { products: response.data.products },
+            { products: [ new schema.Entity('products') ] }
+          );
+          if (productData.entities.hasOwnProperty('products')) {
+            this.productData = productData.entities.products;
+          }
+          this.productList = productData.result.products;
+
+          // this.page = response.data.pagy.page;
+          // this.next = response.data.pagy.next;
+          // this.prev = response.data.pagy.prev;
+        })
+        .catch(error => {
+          console.log(error)
+        })
+        .finally(() => this.processing = false);
     },
     resetSearch() {
       this.searchTerm = '';
