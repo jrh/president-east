@@ -21,9 +21,7 @@ Rails.application.routes.draw do
     resources :users, only: [:show, :update] do
       patch 'change_password', on: :member
     end
-    resources :products, only: [:index, :show] do
-      get 'search', on: :collection
-    end
+    resources :products, only: [:index, :show]
 
     ### Admin
     namespace :admin do

@@ -4,28 +4,23 @@ module Api
     include Pagy::Backend
 
     def index
-      @brands = Brand.all.order(:name_en)
-      @pagy, @products = pagy(Product.active.order(:item_no), items: 20)
-      @products = @products.map do |p|
-        if !p.image_data.nil?
-          p.attributes.merge!(image_url: p.image_url(:thumb))
+      query = Product.active
+      if params[:brand_filter].present?
+        "filter triggered"
+        query = query.where(brand_id: [ params[:brand_filter] ])
+      end
+      if params[:q].present?
+        puts "search triggered"
+        if is_number?(params[:q])
+          query = query.where(item_no: params[:q].to_i)
         else
-          p.attributes.merge!(image_url: nil)
+          query = query.where("name_en ILIKE ?", "%#{params[:q]}%")
         end
       end
-      render status: :ok, json: {
-        pagy: pagy_metadata(@pagy),
-        brands: @brands,
-        products: @products
-      }
-    end
+      query = query.order(:item_no)
 
-    def search
-      if is_number?(params[:q])
-        @pagy, @products = pagy(Product.active.where(item_no: params[:q].to_i).order(:item_no), items: 20)
-      else
-        @pagy, @products = pagy(Product.active.where("name_en ILIKE ?", "%#{params[:q]}%").order(:item_no), items: 20)
-      end
+      @pagy, @products = pagy(query, items: 20)
+
       @products = @products.map do |p|
         if !p.image_data.nil?
           p.attributes.merge!(image_url: p.image_url(:thumb))
@@ -33,7 +28,10 @@ module Api
           p.attributes.merge!(image_url: nil)
         end
       end
-      render status: :ok, json: { pagy: pagy_metadata(@pagy), products: @products }
+
+      @brands = ActiveModel::Type::Boolean.new.cast(params[:loading]) ? Brand.all.order(:name_en) : []
+
+      render status: :ok, json: { pagy: pagy_metadata(@pagy), brands: @brands, products: @products }
     end
 
     def show

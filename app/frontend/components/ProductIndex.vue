@@ -28,17 +28,17 @@
         </b-row>
         <b-row class="px-1 mb-5">
           <b-form-group>
-            <b-checkbox-group v-model="brandFilter" :options="brandOptions" size="sm" stacked ></b-checkbox-group>
+            <b-checkbox-group v-model="brandFilter" :options="brandOptions" name="brandFilter" size="sm" stacked @input="filter"></b-checkbox-group>
           </b-form-group>
         </b-row>
       </b-col>
       <b-col lg="1"></b-col>
       <b-col lg="8">
-        <b-row align-h="end" class="pb-2" style="padding-right: 30px">
+        <b-row class="pb-2" style="padding-left: 30px">
           <small class="text-black-50">Product count: {{ count }}</small>
         </b-row>
         <b-card-group deck>
-          <ProductIndexCard v-for="product in filteredProducts" :key="product.id" :product="product" :brandData="brandData" />
+          <ProductIndexCard v-for="product in products" :key="product.id" :product="product" :brandData="brandData" />
         </b-card-group>
         <Observer @intersect="intersected" />
       </b-col>
@@ -62,8 +62,10 @@ export default {
       brandData: {},
       brandList: [],
       brandFilter: [],
+      searchTerm: '',
       loading: false,
       processing: false,
+      addingPages: false,
       // pagination
       page: 1,
       count: null,
@@ -78,28 +80,26 @@ export default {
     brands() {
       return this.brandList.map(id => this.brandData[id]).sort((a,b) => a.name_en - b.name_en);
     },
-    filteredProducts() {
-      if (this.products.length > 0) {
-        if (this.brandFilter.length > 0) {
-          return this.products.filter(p => {
-            return this.brandFilter.includes(p.brand_id);
-          })
-        } else {
-          return this.products;
-        }
-      }
-    },
     brandOptions() {
       return this.brands.map(brand => ({ text: brand.name_en, value: brand.id }))
     }
   },
   mounted() {
+    this.loading = true;
     this.fetchProducts();
   },
   methods: {
     fetchProducts() {
-      this.loading = true;
-      this.$http.get('/products')
+      if (this.processing) return;
+      this.processing = true;
+      this.$http.get('/products', {
+          params: {
+            loading: this.loading,
+            q: this.searchTerm,
+            brand_filter: this.brandFilter,
+            page: this.page
+          }
+        })
         .then(response => {
           console.log(response.data)
 
@@ -107,19 +107,31 @@ export default {
             { products: response.data.products },
             { products: [ new schema.Entity('products') ] }
           );
-          if (productData.entities.hasOwnProperty('products')) {
-            this.productData = productData.entities.products;
-          }
-          this.productList = productData.result.products;
 
-          const brandData = normalize(
+          if (this.addingPages) {
+            // add to existing data
+            if (productData.entities.hasOwnProperty('products')) {
+              this.productData = Object.assign(this.productData, productData.entities.products);
+            }
+            this.productList = [...this.productList, ...productData.result.products];
+          } else {
+            // seed fresh data
+            if (productData.entities.hasOwnProperty('products')) {
+              this.productData = productData.entities.products;
+            }
+            this.productList = productData.result.products;
+          }
+
+          if (this.loading) {
+            const brandData = normalize(
             { brands: response.data.brands },
             { brands: [ new schema.Entity('brands') ] }
-          );
-          if (brandData.entities.hasOwnProperty('brands')) {
-            this.brandData = brandData.entities.brands;
+            );
+            if (brandData.entities.hasOwnProperty('brands')) {
+              this.brandData = brandData.entities.brands;
+            }
+            this.brandList = brandData.result.brands;
           }
-          this.brandList = brandData.result.brands;
 
           this.count = response.data.pagy.count;
           this.last = response.data.pagy.last;
@@ -127,72 +139,34 @@ export default {
         .catch(error => {
           console.log(error)
         })
-        .finally(() => this.loading = false);
+        .finally(() => {
+          this.loading = false;
+          this.processing = false;
+          this.addingPages = false;
+        });
     },
     search(term) {
-      if (this.processing) return;
-      this.processing = true;
-      this.$http.get('/products/search', {
-          params: { q: term }
-        })
-        .then(response => {
-          console.log(response)
-
-          const productData = normalize(
-            { products: response.data.products },
-            { products: [ new schema.Entity('products') ] }
-          );
-          if (productData.entities.hasOwnProperty('products')) {
-            this.productData = productData.entities.products;
-          }
-          this.productList = productData.result.products;
-
-          this.count = response.data.pagy.count;
-          this.last = response.data.pagy.last;
-        })
-        .catch(error => {
-          console.log(error)
-        })
-        .finally(() => this.processing = false);
+      this.page = 1;
+      this.searchTerm = term;
+      this.fetchProducts();
+    },
+    filter(term) {
+      this.page = 1;
+      this.fetchProducts();
     },
     intersected() {
-      console.log('intersection')
+      console.log('fetching next page')
       this.page++;
-      console.log(this.page)
       if (this.page <= this.last) {
-        this.$http.get('/products', {
-          params: {
-            page: this.page
-          }
-        })
-        .then(response => {
-          console.log(response)
-          const productData = normalize(
-            { products: response.data.products },
-            { products: [ new schema.Entity('products') ] }
-          );
-          if (productData.entities.hasOwnProperty('products')) {
-            this.productData = Object.assign(this.productData, productData.entities.products);
-          }
-          this.productList = [...this.productList, ...productData.result.products];
-        })
-        .catch(error => {
-          console.log(error)
-        });
+        this.addingPages = true;
+        this.fetchProducts();
       }
-    },
-    // resetSearch() {
-    //   this.searchTerm = '';
-    // }
+    }
   }
 }
 </script>
 
 <style scoped>
-#search-bar {
-  width: 350px;
-  background-color: #ffffff;
-}
 .sidebar-label {
   padding-left: 10px;
   padding-top: 5px;
