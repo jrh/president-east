@@ -5,7 +5,7 @@ module Api
 
     def index
       @brands = Brand.all.order(:name_en)
-      @pagy, @products = pagy(Product.active.order(:item_no), items: 10)
+      @pagy, @products = pagy(Product.active.order(:item_no), items: 20)
       @products = @products.map do |p|
         if !p.image_data.nil?
           p.attributes.merge!(image_url: p.image_url(:thumb))

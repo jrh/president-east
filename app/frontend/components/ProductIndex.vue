@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="pb-5">
     <b-row align-h="center" class="mt-5 mb-2">
     </b-row>
     <b-row align-h="center">
@@ -26,6 +26,7 @@
         <b-card-group deck>
           <ProductIndexCard v-for="product in filteredProducts" :key="product.id" :product="product" :brandData="brandData" />
         </b-card-group>
+        <Observer @intersect="intersected" />
       </b-col>
     </b-row>
   </div>
@@ -34,18 +35,20 @@
 <script>
 import { normalize, schema } from 'normalizr';
 import ProductIndexCard from './ProductIndexCard';
+import Observer from './shared/Observer';
 import SearchBar from './shared/SearchBar';
 
 export default {
   name: 'ProductIndex',
-  components: { ProductIndexCard, SearchBar },
+  components: { ProductIndexCard, Observer, SearchBar },
   data() {
     return {
       productData: {},
       productList: [],
       brandData: {},
       brandList: [],
-      brandFilter: []
+      brandFilter: [],
+      page: 1
     }
   },
   computed: {
@@ -130,9 +133,32 @@ export default {
         })
         .finally(() => this.processing = false);
     },
-    resetSearch() {
-      this.searchTerm = '';
-    }
+    intersected() {
+      console.log('intersection')
+      this.page++;
+      this.$http.get('/products', {
+          params: {
+            page: this.page
+          }
+        })
+        .then(response => {
+          console.log(response)
+          const productData = normalize(
+            { products: response.data.products },
+            { products: [ new schema.Entity('products') ] }
+          );
+          if (productData.entities.hasOwnProperty('products')) {
+            this.productData = Object.assign(this.productData, productData.entities.products);
+          }
+          this.productList = [...this.productList, ...productData.result.products];
+        })
+        .catch(error => {
+          console.log(error)
+        });
+    },
+    // resetSearch() {
+    //   this.searchTerm = '';
+    // }
   }
 }
 </script>
