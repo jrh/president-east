@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 module Api
   class ProductsController < ApiController
+    include Pagy::Backend
 
     def index
       @brands = Brand.all.order(:name_en)
-      @products = Product.active.order(:item_no).map do |p|
+      @pagy, @products = pagy(Product.active.order(:item_no), items: 10)
+      @products = @products.map do |p|
         if !p.image_data.nil?
           p.attributes.merge!(image_url: p.image_url(:thumb))
         else
@@ -12,6 +14,7 @@ module Api
         end
       end
       render status: :ok, json: {
+        pagy: pagy_metadata(@pagy),
         brands: @brands,
         products: @products
       }
