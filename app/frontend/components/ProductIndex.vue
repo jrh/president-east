@@ -1,14 +1,25 @@
 <template>
   <div class="pb-5">
-    <b-row align-h="center" class="mt-5 mb-2">
+    <b-row align-v="center" class="text-info mt-5 mb-2">
+      <b-col lg="8" offset-lg="3">
+        <b-row align-h="center">
+          <div v-if="loading" class="mt-5">
+            <b-spinner type="border" small class="mt-5"></b-spinner>
+            <span class="pl-2">Loading...</span>
+          </div>
+        </b-row>
+      </b-col>
     </b-row>
     <b-row align-h="center">
       <b-col lg="2">
+        <b-row class="mb-4">
+          <p style="font-size: 14px">PRODUCT CATALOG:</p>
+        </b-row>
         <b-row class="mb-2">
           <p class="font-lato sidebar-label">Search:</p>
         </b-row>
         <b-row class="px-1 mb-5">
-          <b-form-group style="width: 100%">
+          <b-form-group class="pl-2">
             <SearchBar placeholder="Enter product name" @search-triggered="search" />
           </b-form-group>
         </b-row>
@@ -48,6 +59,8 @@ export default {
       brandData: {},
       brandList: [],
       brandFilter: [],
+      loading: false,
+      processing: false,
       // pagination
       page: 1,
       count: null,
@@ -182,7 +195,7 @@ export default {
   padding-left: 10px;
   padding-top: 5px;
   padding-bottom: 5px;
-  font-size: 15px;
+  font-size: 14px;
   background-color: #f2f2f2;
   width: 100%;
   border-radius: 5px;

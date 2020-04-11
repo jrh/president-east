@@ -21,7 +21,7 @@
           <span>{{ product.box_quantity }}</span>
         </b-row>
         <b-row v-if="product.storage_temp !== 'Room'" class="text-secondary">
-          <span class="text-danger">{{ product.storage_temp }}</span>
+          <span class="text-info" style="font-size: 12px">{{ product.storage_temp }}</span>
         </b-row>
       </b-container>
       <b-btn size="sm" variant="outline-warning" class="mt-auto">Add to Cart</b-btn>
