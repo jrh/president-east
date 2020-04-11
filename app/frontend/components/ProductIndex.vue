@@ -19,7 +19,7 @@
           <p class="font-lato sidebar-label">Search:</p>
         </b-row>
         <b-row class="px-1 mb-5">
-          <b-form-group class="pl-2">
+          <b-form-group class="pl-2" style="width: 92%">
             <SearchBar placeholder="Enter product name" @search-triggered="search" />
           </b-form-group>
         </b-row>
@@ -34,6 +34,9 @@
       </b-col>
       <b-col lg="1"></b-col>
       <b-col lg="8">
+        <b-row align-h="end" class="pb-2" style="padding-right: 30px">
+          <small class="text-black-50">Product count: {{ count }}</small>
+        </b-row>
         <b-card-group deck>
           <ProductIndexCard v-for="product in filteredProducts" :key="product.id" :product="product" :brandData="brandData" />
         </b-card-group>
@@ -144,9 +147,8 @@ export default {
           }
           this.productList = productData.result.products;
 
-          // this.page = response.data.pagy.page;
-          // this.next = response.data.pagy.next;
-          // this.prev = response.data.pagy.prev;
+          this.count = response.data.pagy.count;
+          this.last = response.data.pagy.last;
         })
         .catch(error => {
           console.log(error)
