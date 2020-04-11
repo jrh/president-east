@@ -48,7 +48,11 @@ export default {
       brandData: {},
       brandList: [],
       brandFilter: [],
-      page: 1
+      // pagination
+      page: 1,
+      count: null,
+      last: null
+
     }
   },
   computed: {
@@ -100,6 +104,9 @@ export default {
             this.brandData = brandData.entities.brands;
           }
           this.brandList = brandData.result.brands;
+
+          this.count = response.data.pagy.count;
+          this.last = response.data.pagy.last;
         })
         .catch(error => {
           console.log(error)
@@ -136,7 +143,9 @@ export default {
     intersected() {
       console.log('intersection')
       this.page++;
-      this.$http.get('/products', {
+      console.log(this.page)
+      if (this.page <= this.last) {
+        this.$http.get('/products', {
           params: {
             page: this.page
           }
@@ -155,6 +164,7 @@ export default {
         .catch(error => {
           console.log(error)
         });
+      }
     },
     // resetSearch() {
     //   this.searchTerm = '';
