@@ -12,17 +12,17 @@
           </b-alert>
         </b-row>
         <b-row class="mt-5">
-          <h4 class="lead">{{ user.first_name + ' ' + user.last_name }}</h4>
+          <h4 v-if="ready" class="lead">{{ user.first_name + ' ' + user.last_name }}</h4>
         </b-row>
         <b-row class="mt-3 text-muted" style="font-size: 14px">
           <div class="pl-2">
             <p>
               <font-awesome-icon :icon="['far', 'envelope']" size="lg" fixed-width />
-              <span class="pl-1">{{ user.email }}</span>
+              <span v-if="ready" class="pl-1">{{ user.email }}</span>
             </p>
             <p v-if="user.company">
               <font-awesome-icon :icon="['fas', 'user-friends']" size="lg" fixed-width />
-              <span class="pl-2">{{ user.company }}</span>
+              <span v-if="ready" class="pl-2">{{ user.company }}</span>
             </p>
           </div>
         </b-row>
@@ -69,7 +69,7 @@
         <b-row>
           <b-col>
             <ValidationProvider rules="required|email" name="Email" v-slot="{ errors }">
-              <b-form-group :invalid-feedback="errors[0]">
+              <b-form-group label-size="sm" :invalid-feedback="errors[0]">
                 <template #label>
                   <span>Email</span><span class="asterisk">*</span>
                 </template>
@@ -190,6 +190,7 @@ export default {
       errorShow: false,
       errorMessage: '',
       processing: false,
+      ready: false,
     }
   },
   mounted() {
@@ -201,10 +202,11 @@ export default {
         .then(response => {
           console.log(response)
           this.user = response.data;
+          this.ready = true;
         })
         .catch(error => {
           console.log(error)
-        })
+        });
     },
     openEditModal() {
       this.userForm.first_name = this.user.first_name;

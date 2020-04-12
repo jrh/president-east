@@ -13,14 +13,14 @@
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav class="ml-5">
           <b-nav-item to="/products" class="bordered-nav-item">Product Catalog</b-nav-item>
-          <b-nav-item-dropdown v-if="isLoggedIn && isAdmin" text="Admin Menu" class="ml-3 bordered-nav-item">
+        </b-navbar-nav>
+
+        <b-navbar-nav class="ml-auto d-flex align-items-center">
+          <b-nav-item-dropdown v-if="isLoggedIn && isAdmin" text="Admin Menu" class="mr-3 bordered-nav-item admin-nav-item">
             <b-dropdown-item to="/admin/products">Manage Products</b-dropdown-item>
             <b-dropdown-item to="/admin/brands">Manage Brands</b-dropdown-item>
             <b-dropdown-item to="/admin/users">User Accounts</b-dropdown-item>
           </b-nav-item-dropdown>
-        </b-navbar-nav>
-
-        <b-navbar-nav class="ml-auto">
           <b-nav-item-dropdown v-if="isLoggedIn" right no-caret>
             <template #button-content>
               <b-avatar></b-avatar>
@@ -69,6 +69,10 @@ a.router-link-active {
   padding: 0 1em;
   border: 1px solid #d9d9d9;
   border-radius: 5px;
+  height: 40px;
+}
+.admin-nav-item {
+  border: 1px solid #ffb3b3 !important;
 }
 .nav-item:hover {
   background-color: #f2f2f2;
