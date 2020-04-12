@@ -22,8 +22,8 @@ class ImageUploader < Shrine
     magick = ImageProcessing::MiniMagick.source(original)
 
     {
-      normalized: magick.resize_to_limit!(1600, 1600),
-      medium: magick.resize_to_limit!(500, 500),
+      # normalized: magick.resize_to_limit!(1600, 1600),
+      # medium: magick.resize_to_limit!(500, 500),
       small: magick.resize_to_limit!(300, 300),
       thumb: magick.resize_to_limit!(100, 100)
     }

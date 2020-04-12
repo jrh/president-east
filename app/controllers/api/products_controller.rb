@@ -38,14 +38,11 @@ module Api
       @brands = Brand.all.order(:name_en)
       product = Product.find(params[:id])
       if product.image_data.present?
-        @product = product.attributes.merge!(image_url: product.image_url(:medium))
+        @product = product.attributes.merge!(image_url: product.image_url(:small))
       else
         @product = product.attributes.merge!(image_url: nil)
       end
-      render status: :ok, json: {
-        brands: @brands,
-        product: @product
-      }
+      render status: :ok, json: { brands: @brands, product: @product }
     end
 
     private
