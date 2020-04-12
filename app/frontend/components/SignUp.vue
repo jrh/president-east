@@ -112,8 +112,7 @@ export default {
           this.$store.commit('loginUser');
           this.$store.commit('setCurrentUser', response.data);
           this.$router.push('/');
-          // TODO: alert that user was created
-          // TODO: redirect to other page
+          this.$store.dispatch('displayFlash', { variant: 'success', message: 'Account registered with success.  You are now logged in' });
         })
         .catch(error => {
           console.log(error)

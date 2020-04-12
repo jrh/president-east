@@ -5,6 +5,7 @@
         v-model="$store.state.flash.show"
         :variant="$store.state.flash.variant"
         dismissible
+        style="font-size: 13px"
         @dismissed="$store.dispatch('clearFlash')"
       >
         {{ $store.state.flash.message }}

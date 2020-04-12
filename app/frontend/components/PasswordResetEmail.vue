@@ -65,7 +65,8 @@ export default {
         })
         .then(response => {
           console.log(response)
-          this.$router.push({ name: 'Home', params: { password_reset: true }});
+          this.$router.push('/');
+          this.$store.dispatch('displayFlash', { variant: 'success', message: 'You will receive a password reset email shortly if the email that you have just entered matches that of your account' });
         })
         .catch(error => {
           console.log(error)

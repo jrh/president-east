@@ -19,7 +19,7 @@
           <ValidationProvider rules="required" name="Password" v-slot="{ valid, errors }" vid="password">
             <b-form-group :invalid-feedback="errors[0]">
               <template #label>
-                <span>Password</span><span class="asterisk">*</span>
+                <span>New Password</span><span class="asterisk">*</span>
               </template>
               <b-input
                 v-model="form.password"
@@ -86,6 +86,7 @@ export default {
           this.$store.commit('loginUser');
           this.$store.commit('setCurrentUser', response.data);
           this.$router.push('/');
+          this.$store.dispatch('displayFlash', { variant: 'success', message: 'Password reset successful' });
         })
         .catch(error => {
           console.log(error)
