@@ -309,7 +309,6 @@ export default {
           this.clearProductForm();
 
           this.imageUrl = '';
-          // clear form
         })
         .catch(error => console.log(error))
         .finally(() => this.processing = false);
@@ -320,6 +319,8 @@ export default {
       this.statusModalShow = true;
     },
     updateProduct() {
+      if (this.processing) return;
+      this.processing = true;
       this.$http.put(`/admin/products/${this.selectedProduct.id}`, {
         product: this.statusForm
       })
@@ -331,6 +332,7 @@ export default {
         this.selectedProduct = null;
       })
       .catch(error => console.log(error))
+      .finally(() => this.processing = false);
     },
     goToProduct(item) {
       this.$router.push(`/products/${item.id}`);

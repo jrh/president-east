@@ -14,12 +14,17 @@ module Api
         if @brand.save
           render status: :created, json: @brand
         else
-          render status: 422, json: { errors: @brand.errors.full_messages }
+          render status: :unprocessable_entity, json: { errors: @brand.errors.full_messages }
         end
       end
 
       def update
-
+        @brand = Brand.find(params[:id])
+        if @brand.update(brand_params)
+          render status: :created, json: @brand
+        else
+          render status: :unprocessable_entity, json: { errors: @brand.errors.full_messages }
+        end
       end
 
       private
@@ -27,7 +32,6 @@ module Api
         def brand_params
           params.require(:brand).permit(:name_en, :name_zh)
         end
-
     end
   end
 end

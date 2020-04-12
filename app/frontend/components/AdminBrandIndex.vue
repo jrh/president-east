@@ -16,7 +16,10 @@
       >
         <!-- Table data -->
         <template v-slot:cell(actions)="data">
-          <font-awesome-icon :icon="['far', 'edit']" fixed-width />
+          <Button size="sm" @click="openEditModal(data.item)">
+            <font-awesome-icon :icon="['far', 'edit']" fixed-width />
+            <span class="pl-1">Edit</span>
+          </Button>
         </template>
       </b-table>
     </b-row>
@@ -42,6 +45,35 @@
         <b-row align-h="around" class="mt-3">
           <Button @click="newModalShow = false; clearForm()">Cancel</Button>
           <Button variant="green" :disabled="invalid" class="float-right" @click="createBrand">Save</Button>
+        </b-row>
+      </ValidationObserver>
+      <template #modal-footer><span></span></template>
+    </b-modal>
+
+    <!-- Edit brand modal -->
+    <b-modal v-model="editModalShow" title="Edit brand" centered no-close-on-backdrop no-close-on-esc>
+      <template #modal-title>
+        <span v-if="selectedBrand">Edit brand: {{ selectedBrand.name_en }}</span>
+      </template>
+      <ValidationObserver v-slot="{ invalid }">
+        <b-row align-h="center">
+          <ValidationProvider rules="required" name="Name (English)" v-slot="{ errors }">
+            <b-form-group label-size="sm" :invalid-feedback="errors[0]" style="width: 300px">
+              <template #label>
+                <span>Name (English)</span><span class="asterisk">*</span>
+              </template>
+              <b-input v-model="brandForm.name_en" size="sm" :state="errors[0] ? false : null" />
+            </b-form-group>
+          </ValidationProvider>
+        </b-row>
+        <b-row align-h="center">
+          <b-form-group label="Name (Chinese)" label-size="sm" style="width: 300px">
+            <b-input v-model="brandForm.name_zh" size="sm" />
+          </b-form-group>
+        </b-row>
+        <b-row align-h="around" class="mt-3">
+          <Button @click="editModalShow = false; clearForm()">Cancel</Button>
+          <Button variant="green" :disabled="invalid" class="float-right" @click="updateBrand">Save</Button>
         </b-row>
       </ValidationObserver>
       <template #modal-footer><span></span></template>
@@ -78,6 +110,8 @@ export default {
         name_en: '',
         name_zh: ''
       },
+      editModalShow: false,
+      selectedBrand: null,
       brandFields: [
         { key: 'name_en', label: 'Name (en)', thClass: 'font-lato-th' },
         { key: 'name_zh', label: 'Name (ch)', thClass: 'font-lato-th' },
@@ -187,6 +221,37 @@ export default {
           this.brandList.push(response.data.id);
           this.newModalShow = false;
           this.clearForm();
+        })
+        .catch(error => {
+          console.log(error)
+          this.alertVariant = 'danger';
+          if (error.response.data.errors) {
+            this.alertMessage = error.response.data.errors[0];
+          } else {
+            this.alertMessage = 'Error: Something went wrong'
+          }
+          this.alertShow = true;
+        })
+        .finally(() => this.processing = false);
+    },
+    openEditModal(item) {
+      this.selectedBrand = item;
+      this.brandForm.name_en = this.selectedBrand.name_en;
+      this.brandForm.name_zh = this.selectedBrand.name_zh;
+      this.editModalShow = true;
+    },
+    updateBrand() {
+      if (this.processing) return;
+      this.processing = true;
+      this.$http.put(`/admin/brands/${this.selectedBrand.id}`, {
+          brand: this.brandForm
+        })
+        .then(response => {
+          console.log(response)
+          this.$set(this.brandData, response.data.id, response.data);
+          this.editModalShow = false;
+          this.clearForm();
+          this.selectedBrand = null;
         })
         .catch(error => {
           console.log(error)
