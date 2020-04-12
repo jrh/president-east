@@ -15,6 +15,10 @@
           <font-awesome-icon :icon="['far', 'edit']" fixed-width />
           <span class="pl-2">Change Status</span>
         </Button>
+        <!-- For Dev purposes -->
+        <Button :to="`/products/${productId + 1}`">
+          Next ->
+        </Button>
       </b-alert>
     </b-container>
     <b-container class="mt-5">
@@ -114,6 +118,9 @@
           </b-form-group>
         </b-form>
       </b-row>
+      <b-row align="center" class="px-3">
+        <small class="text-info font-italic">Note: Inactive products will not appear in the public product catalog</small>
+      </b-row>
       <template #modal-footer>
         <b-row align-h="center">
           <Button variant="green" @click="updateStatus">Save</Button>
@@ -179,6 +186,14 @@ export default {
     brandOptions() {
       return this.brands.map(brand => ({ text: brand.name_en, value: brand.id }))
     }
+  },
+  beforeRouteUpdate(to, from, next) {
+    console.log(to)
+    if (this.productId != Number(to.params.id)) {
+      this.productId =  Number(to.params.id)
+      this.fetchProduct();
+    }
+    next();
   },
   mounted() {
     this.fetchProduct();

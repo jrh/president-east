@@ -126,6 +126,9 @@
           </b-form-group>
         </b-form>
       </b-row>
+      <b-row align="center" class="px-3">
+        <small class="text-info font-italic">Note: Inactive products will not appear in the public product catalog</small>
+      </b-row>
       <template #modal-footer>
         <b-row align-h="center">
           <Button variant="green" @click="updateProduct">Save</Button>
