@@ -7,6 +7,7 @@ module Api
       if @user.save
         session[:user_id] = @user.id
         render status: :created, json: @user
+        DevMailer.report_success('User account created', ["#{@user.first_name} #{@user.last_name}", @user.email, @user.company]).deliver_later
       else
         render status: :unprocessable_entity, json: { errors: @user.errors.full_messages }
       end

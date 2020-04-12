@@ -1,0 +1,11 @@
+<p>Success Report:</p>
+
+<p><%= @success_msg %></p>
+
+<% if @details.any? %>
+  <ul>
+    <% @details.each_with_index do |detail, index| %>
+      <li><%= index %>: <%= detail %></li>
+    <% end %>
+  </ul>
+<% end %>
