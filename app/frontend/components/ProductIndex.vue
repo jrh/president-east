@@ -107,6 +107,7 @@ export default {
   },
   methods: {
     fetchProducts() {
+      console.log(`Product fetch: page ${this.page}`)
       if (this.processing) return;
       this.processing = true;
       this.$http.get('/products', {
@@ -139,6 +140,7 @@ export default {
             this.productList = productData.result.products;
           }
 
+          // If initial page load, load brands
           if (this.loading) {
             const brandData = normalize(
             { brands: response.data.brands },
@@ -172,9 +174,9 @@ export default {
       this.fetchProducts();
     },
     intersected() {
-      console.log('fetching next page')
-      this.page++;
-      if (this.page <= this.last) {
+      if (this.page + 1 <= this.last) {
+        console.log('fetching next page')
+        this.page++;
         this.addingPage = true;
         this.fetchProducts();
       }
