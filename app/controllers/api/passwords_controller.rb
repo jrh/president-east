@@ -9,10 +9,10 @@ module Api
 
     # Create token, send email
     def create
-      if params.dig(:user, :email).blank?
+      if params.dig(:password, :email).blank?
         return render status: :unprocessable_entity, json: { error: 'Email not present' }
       end
-      @user = User.find_by(email: params.dig(:user, :email))
+      @user = User.find_by(email: params.dig(:password, :email))
       # NB: Even if a user is not found we should return a successful response anyway so an attacker
       # will not be able to check whether certain email addresses are registered in the system
       if @user
@@ -33,8 +33,10 @@ module Api
       if Time.now > @user.reset_password_sent_at + 48.hours
         render status: :unauthorized, json: { error: 'A new password was not set within 48 hours. Please try again.' }
       else
-        @user.update(user_params)
-        @user.clear_password_token!
+        ActiveRecord::Base.transaction do
+          @user.update(user_params)
+          @user.clear_password_token!
+        end
         session[:user_id] = @user.id
         render status: :ok, json: @user
       end
@@ -43,7 +45,7 @@ module Api
     private
 
       def user_params
-        params.require(:user).permit(:email, :password, :password_confimation)
+        params.require(:password).permit(:email, :password, :password_confirmation)
       end
   end
 end

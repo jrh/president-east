@@ -79,7 +79,7 @@ export default {
       if (this.processing) return;
       this.processing = true;
       this.$http.patch(`/passwords/${this.token}`, {
-          user: this.form
+          password: this.form
         })
         .then(response => {
           console.log(response)

@@ -8,7 +8,7 @@
         <small class="font-italic text-info">Submit your email in order to receive an email with password reset instructions</small>
       </b-col>
     </b-row>
-    <b-row>
+    <b-row align-h="center">
       <b-col lg="4" sm="8">
         <b-alert v-model="alertError" variant="danger">{{ alertMessage }}</b-alert>
       </b-col>
@@ -16,7 +16,7 @@
     <b-row align-h="center" class="mt-3">
       <b-col lg="4" sm="8">
         <ValidationObserver v-slot="{ handleSubmit }">
-          <ValidationProvider mode="lazy" rules="required|email" name="Email" v-slot="{ valid, errors }">
+          <ValidationProvider mode="lazy" rules="required|email" name="Email" v-slot="{ errors }">
             <b-form-group :invalid-feedback="errors[0]">
               <template #label>
                 <span>Email</span><span class="asterisk">*</span>
@@ -25,7 +25,7 @@
                 v-model="email"
                 type="email"
                 autofocus
-                :state="errors[0] ? false : (valid ? true : null)"
+                :state="errors[0] ? false : null"
                 @keyup.enter="handleSubmit(sendEmail)"
               />
             </b-form-group>
@@ -57,9 +57,9 @@ export default {
   methods: {
     sendEmail() {
       if (this.processing) return;
-      this.processsing = true;
+      this.processing = true;
       this.$http.post('/passwords', {
-          user: {
+          password: {
             email: this.email
           }
         })
