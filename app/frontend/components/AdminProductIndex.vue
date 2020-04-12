@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="isAdmin">
     <b-row align-h="between" class="pt-2 px-4 mt-5 mb-2">
       <div></div>
       <span style="font-size: 20px">Manage Products</span>
@@ -36,6 +36,7 @@
         </Button>
       </template>
     </b-table>
+    <Observer @intersect="intersected" />
 
     <!-- New modal -->
     <b-modal v-model="newModalShow" title="Add new product" centered static no-close-on-backdrop no-close-on-esc>
@@ -146,10 +147,11 @@ import Uppy from '@uppy/core';
 import FileInput from '@uppy/file-input';
 import AwsS3 from '@uppy/aws-s3';
 import Button from './shared/Button';
+import Observer from './shared/Observer';
 
 export default {
   name: 'AdminProductIndex',
-  components: { Button, ValidationObserver, ValidationProvider },
+  components: { Button, Observer, ValidationObserver, ValidationProvider },
   data() {
     return {
       productData: {},
@@ -167,7 +169,7 @@ export default {
         { key: 'actions', sortable: false, label: 'Actions', thClass: 'text-center font-lato-th', tdClass: 'text-center clickable' }
       ],
       newModalShow: false,
-      imageUrl: '',
+      imageUrl: '',  // ?
       productForm: {
         id: null,
         item_no: null,
@@ -186,7 +188,12 @@ export default {
       storageOptions: ['Room', 'Cooler', 'Frozen'],
       uploadingImage: false,
       loading: false,
-      processing: false
+      processing: false,
+      addingPage: false,
+      // pagination
+      page: 1,
+      count: null,
+      last: null
     }
   },
   computed: {
@@ -202,6 +209,7 @@ export default {
     }
   },
   mounted() {
+    this.loading = true;
     this.fetchProducts();
 
     const uppy = Uppy({
@@ -258,8 +266,15 @@ export default {
   },
   methods: {
     fetchProducts() {
-      this.loading = true;
-      this.$http.get('/admin/products')
+      console.log(`Product fetch: page ${this.page}`);
+      if (this.processing) return;
+      this.processing = true;
+      this.$http.get('/admin/products', {
+          params: {
+            loading: this.loading,
+            page: this.page
+          }
+        })
         .then(response => {
           console.log(response.data)
 
@@ -267,24 +282,44 @@ export default {
             { products: response.data.products },
             { products: [ new schema.Entity('products') ] }
           );
-          if (productData.entities.hasOwnProperty('products')) {
-            this.productData = productData.entities.products;
-          }
-          this.productList = productData.result.products;
 
-          const brandData = normalize(
-            { brands: response.data.brands },
-            { brands: [ new schema.Entity('brands') ] }
-          );
-          if (brandData.entities.hasOwnProperty('brands')) {
-            this.brandData = brandData.entities.brands;
+          if (this.addingPage) {
+            // add to existing data
+            if (productData.entities.hasOwnProperty('products')) {
+              this.productData = Object.assign(this.productData, productData.entities.products);
+            }
+            this.productList = [...this.productList, ...productData.result.products];
+          } else {
+            // seed fresh data
+            if (productData.entities.hasOwnProperty('products')) {
+              this.productData = productData.entities.products;
+            }
+            this.productList = productData.result.products;
           }
-          this.brandList = brandData.result.brands;
+
+          // If initial page load, load brands
+          if (this.loading) {
+            const brandData = normalize(
+              { brands: response.data.brands },
+              { brands: [ new schema.Entity('brands') ] }
+            );
+            if (brandData.entities.hasOwnProperty('brands')) {
+              this.brandData = brandData.entities.brands;
+            }
+            this.brandList = brandData.result.brands;
+          }
+
+          this.count = response.data.pagy.count;
+          this.last = response.data.pagy.last;
         })
         .catch(error => {
           console.log(error)
         })
-        .finally(() => this.loading = false);
+        .finally(() => {
+          this.loading = false;
+          this.processing = false;
+          this.addingPage = false;
+        });
     },
     close() {
       this.newModalShow = false;
@@ -346,7 +381,15 @@ export default {
       this.productForm.box_quantity = null
       this.productForm.storage_temp = 'Room'
       this.productForm.image = null
-    }
+    },
+    intersected() {
+      if (this.page + 1 <= this.last) {
+        console.log('Adding next page')
+        this.page++;
+        this.addingPage = true;
+        this.fetchProducts();
+      }
+    },
   }
 }
 </script>

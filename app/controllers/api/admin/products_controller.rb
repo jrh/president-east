@@ -2,21 +2,22 @@
 module Api
   module Admin
     class ProductsController < ApiController
+      include Pagy::Backend
       before_action :authenticate_user
 
       def index
-        @brands = Brand.all.order(:name_en)
-        @products = Product.order(:item_no).map do |p|
+
+        @pagy, @products = pagy(Product.order(:item_no), items: 20)
+        @products = @products.map do |p|
           if !p.image_data.nil?
             p.attributes.merge!(image_url: p.image_url(:thumb))
           else
             p.attributes.merge!(image_url: nil)
           end
         end
-        render status: :ok, json: {
-          brands: @brands,
-          products: @products
-        }
+
+        @brands = ActiveModel::Type::Boolean.new.cast(params[:loading]) ? Brand.all.order(:name_en) : []
+        render status: :ok, json: { pagy: pagy_metadata(@pagy), brands: @brands, products: @products }
       end
 
       def create

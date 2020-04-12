@@ -107,7 +107,7 @@ export default {
   },
   methods: {
     fetchProducts() {
-      console.log(`Product fetch: page ${this.page}`)
+      console.log(`Product fetch: page ${this.page}`);
       if (this.processing) return;
       this.processing = true;
       this.$http.get('/products', {
@@ -175,7 +175,7 @@ export default {
     },
     intersected() {
       if (this.page + 1 <= this.last) {
-        console.log('fetching next page')
+        console.log('Adding next page')
         this.page++;
         this.addingPage = true;
         this.fetchProducts();
