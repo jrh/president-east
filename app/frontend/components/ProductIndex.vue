@@ -34,7 +34,7 @@
       </b-col>
       <b-col lg="1"></b-col>
       <b-col lg="8">
-        <b-row class="pb-2" style="padding-left: 30px">
+        <b-row v-if="!loading" class="pb-2" style="padding-left: 30px">
           <small class="text-black-50">Product count: {{ count }}</small>
         </b-row>
         <b-card-group deck>
@@ -46,6 +46,9 @@
             @product-clicked="showProductDetail"
           />
         </b-card-group>
+        <b-row v-if="products.length == 0 && !loading" align-h="center">
+          <p class="text-danger" style="font-size: 14px">No results were found.  Please try a different search term</p>
+        </b-row>
         <Observer @intersect="intersected" />
       </b-col>
     </b-row>
