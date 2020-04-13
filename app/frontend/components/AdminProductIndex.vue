@@ -39,7 +39,19 @@
     <Observer @intersect="intersected" />
 
     <!-- New modal -->
-    <b-modal v-model="newModalShow" title="Add new product" centered static no-close-on-backdrop no-close-on-esc>
+    <b-modal
+      v-model="newModalShow"
+      title="Add new product"
+      centered
+      static
+      no-close-on-backdrop
+      no-close-on-esc
+      @hide="clearValidationError"
+    >
+      <b-alert v-model="validationErrorShow" variant="danger" style="font-size: 13px">
+        <font-awesome-icon :icon="['far', 'exclamation-circle']" fixed-width />
+        <span class="pl-2">{{ validationErrorMessage }}</span>
+      </b-alert>
       <b-form-row>
         <b-col>
           <b-form-group label-size="sm">
@@ -70,7 +82,10 @@
       </b-form-row>
       <b-form-row>
         <b-col>
-          <b-form-group label="Brand" label-size="sm">
+          <b-form-group label-size="sm">
+            <template #label>
+              <span>Brand</span><span class="asterisk">*</span>
+            </template>
             <b-select v-model="productForm.brand_id" :options="brandOptions" size="sm">
               <template #first>
                 <b-select-option :value="null" disabled>- Choose a brand -</b-select-option>
@@ -97,7 +112,7 @@
       </b-form-row>
       <template #modal-footer>
         <Button @click="close">Cancel</Button>
-        <Button variant="green" :disabled="uploadingImage || !productForm.item_no || !productForm.name_en" class="float-right" @click="createProduct">Create</Button>
+        <Button variant="green" :disabled="!productForm.item_no || !productForm.name_en || !productForm.brand_id" class="float-right" @click="createProduct">Create</Button>
       </template>
     </b-modal>
 
@@ -236,6 +251,11 @@
       </ValidationObserver>
       <template #modal-footer><span></span></template>
     </b-modal>
+
+    <!-- Alert -->
+    <ToastAlert :show="alertShow" :variant="alertVariant" @close="alertShow = false">
+      {{ alertMessage }}
+    </ToastAlert>
   </div>
 </template>
 
@@ -248,10 +268,11 @@ import AwsS3 from '@uppy/aws-s3';
 import ProductDetail from './ProductDetail';
 import Button from './shared/Button';
 import Observer from './shared/Observer';
+import ToastAlert from './shared/ToastAlert';
 
 export default {
   name: 'AdminProductIndex',
-  components: { ProductDetail, Button, Observer, ValidationObserver, ValidationProvider },
+  components: { ProductDetail, Button, Observer, ToastAlert, ValidationObserver, ValidationProvider },
   data() {
     return {
       productData: {},
@@ -290,7 +311,11 @@ export default {
         image: null
       },
       storageOptions: ['Room', 'Cooler', 'Frozen'],
-      uploadingImage: false,
+      alertShow: false,
+      alertVariant: null,
+      alertMessage: '',
+      validationErrorShow: false,
+      validationErrorMessage: '',
       loading: false,
       processing: false,
       addingPage: false,
@@ -454,7 +479,17 @@ export default {
           this.newModalShow = false;
           this.clearProductForm();
         })
-        .catch(error => console.log(error))
+        .catch(error => {
+          console.log(error)
+          if (error.response.data.errors) {
+            this.validationErrorMessage = error.response.data.errors.join(', ')
+            this.validationErrorShow = true;
+          } else {
+            this.alertVariant = 'danger';
+            this.alertMessage = 'Error: Something went wrong';
+            this.alertShow = true;
+          }
+        })
         .finally(() => this.processing = false);
     },
     openStatusModal(item) {
@@ -535,6 +570,10 @@ export default {
       this.productForm.brand_id = null;
       this.productForm.box_quantity = null;
       this.productForm.storage_temp = 'Room';
+    },
+    clearValidationError() {
+      this.validationErrorShow = false;
+      this.validationErrorMessage = false;
     },
     updatePhoto() {
       this.$http.put(`/admin/products/${this.selectedProduct.id}`, {

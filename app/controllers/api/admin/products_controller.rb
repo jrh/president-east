@@ -23,16 +23,16 @@ module Api
       def create
         @product = Product.new(product_params)
         authorize([:admin, @product])
-        if @product.save
-          # check for image_url with binding.pry...
-          # if product.image_data.present?
-          #   @product = product.attributes.merge!(image_url: product.image_url(:thumb))
-          # else
-          #   @product = product.attributes.merge!(image_url: nil)
-          # end
-          render status: :created, json: @product
-        else
-          render status: :unprocessable_entity, json: { errors: @product.errors.full_messages }
+        begin
+          if @product.save
+            render status: :created, json: @product
+          else
+            render status: :unprocessable_entity, json: { errors: @product.errors.full_messages }
+          end
+        rescue ActiveRecord::RecordNotUnique => e
+          if e.message =~ /unique.*constraint.*index_products_on_item_no/
+            render status: :unprocessable_entity, json: { errors: ['That item number is already in use'] }
+          end
         end
       end
 
