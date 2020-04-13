@@ -1,7 +1,9 @@
 <template>
   <div class="pb-5">
-    <b-row align-h="between" class="pt-2 px-4 mt-5 mb-2">
-      <div></div>
+    <b-row align-h="between" align-v="end" class="pt-2 px-4 mt-5 mb-2">
+      <div>
+        <small v-if="!loading && count" class="text-muted">Product count: {{ count }}</small>
+      </div>
       <span style="font-size: 20px">Manage Products</span>
       <Button variant="green" @click="newModalShow = true">Add Product</Button>
     </b-row>

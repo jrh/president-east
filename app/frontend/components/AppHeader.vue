@@ -23,7 +23,7 @@
           </b-nav-item-dropdown>
           <b-nav-item-dropdown v-if="isLoggedIn" right no-caret>
             <template #button-content>
-              <b-avatar></b-avatar>
+              <b-avatar :text="`${currentUser.first_name.charAt(0)}${currentUser.last_name.charAt(0)}`"></b-avatar>
             </template>
             <b-dropdown-item :to="`/users/${currentUser.id}/profile`">My Profile</b-dropdown-item>
             <b-dropdown-divider />
