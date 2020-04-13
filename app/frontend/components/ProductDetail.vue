@@ -2,7 +2,8 @@
   <b-container>
     <b-row align-h="center">
       <b-col lg="6" class="text-center">
-        <div id="previewAnchor">
+        <div v-if="previewAttached" id="previewAnchor"></div>
+        <div v-else>
           <div v-if="product.image_url" class="d-flex justify-content-center align-items-center mx-auto">
             <img :src="product.image_url" style="max-height: 300px; max-width: 300px" />
           </div>
@@ -54,7 +55,8 @@ export default {
   name: 'ProductDetail',
   props: {
     product: Object,
-    brandData: Object
+    brandData: Object,
+    previewAttached: Boolean
   },
   computed: {
     ...mapGetters(['isAdmin']),

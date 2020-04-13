@@ -1,5 +1,5 @@
 <template>
-  <div v-if="isAdmin">
+  <div class="pb-5">
     <b-row align-h="between" class="pt-2 px-4 mt-5 mb-2">
       <div></div>
       <span style="font-size: 20px">Manage Products</span>
@@ -12,7 +12,7 @@
       bordered
       hover
       style="font-size: 14px"
-      @row-clicked="goToProduct"
+      @row-clicked="showProductDetail"
     >
       <template v-slot:head(photo)>
         <font-awesome-icon :icon="['far', 'image']" fixed-width />
@@ -49,17 +49,7 @@
             <b-input v-model="productForm.item_no" type="number" size="sm" autofocus />
           </b-form-group>
         </b-col>
-        <b-col>
-          <b-row align-h="center" class="pb-3">
-            <img v-if="productForm.image_url" :src="productForm.image_url" ref="imagePreview" style="height: 60px" />
-            <img v-else ref="imagePreview" style="height: 60px" />
-            <b-spinner v-if="uploadingImage" small type="grow"></b-spinner>
-          </b-row>
-          <b-row align-h="center">
-            <div id="uppy-target"></div>
-          </b-row>
-          <input type="hidden" v-model="productForm.image" />
-        </b-col>
+        <b-col></b-col>
       </b-form-row>
       <b-form-row>
         <b-col>
@@ -132,26 +122,136 @@
       </b-row>
       <template #modal-footer>
         <b-row align-h="center">
-          <Button variant="green" @click="updateProduct">Save</Button>
+          <Button variant="green" @click="updateStatus">Save</Button>
         </b-row>
       </template>
+    </b-modal>
+
+    <!--Product detail modal -->
+    <b-modal
+      v-model="productDetailModalShow"
+      size="lg"
+      static
+      centered
+      hide-footer
+      style="z-index: 1000"
+      @hide="previewAttached = false"
+    >
+      <b-container>
+        <b-alert show variant="warning">
+          <span class="mr-5" style="font-size: 14px">Control Panel:</span>
+          <Button size="sm" class="mr-3" id="uppy-select-files">
+            <font-awesome-icon :icon="['far', 'image']" fixed-width />
+            <span class="pl-2">Upload Photo</span>
+          </Button>
+          <Button size="sm" @click="openEditModal">
+            <font-awesome-icon :icon="['far', 'edit']" fixed-width />
+            <span class="pl-2">Edit Product Info</span>
+          </Button>
+          <!-- <Button size="sm" class="float-right" @click="openStatusModal">
+            <font-awesome-icon :icon="['far', 'edit']" fixed-width />
+            <span class="pl-2">Change Status</span>
+          </Button> -->
+        </b-alert>
+      </b-container>
+       <b-container class="mt-5">
+        <b-row align-h="between" align-v="end" class="pb-1">
+          <span class="text-info" style="font-size: 12px">What the customer sees in product catalog:</span>
+          <div class="pr-1" style="font-size: 18px">
+            <span class="pr-2">Status: </span>
+            <span v-if="selectedProduct" :class="{'text-success': selectedProduct.status == 'active', 'text-warning': selectedProduct.status == 'out_of_stock', 'text-danger': selectedProduct.status == 'inactive'}">
+              {{ selectedProduct.status | titleize }}
+            </span>
+          </div>
+        </b-row>
+      </b-container>
+      <ProductDetail v-if="selectedProduct" :product="selectedProduct" :brandData="brandData" :previewAttached="previewAttached" class="p-3" style="border: 1px dotted #0f0f0f" />
+    </b-modal>
+
+    <!-- Edit modal -->
+    <b-modal v-model="editModalShow" title="Edit product details" centered>
+      <ValidationObserver v-slot="{ invalid }">
+        <b-row>
+          <b-col>
+            <ValidationProvider rules="required" name="Item No." v-slot="{ errors }">
+              <b-form-group label-size="sm">
+                <template #label>
+                  <span>Item No.</span><span class="asterisk">*</span>
+                </template>
+                <b-input v-model="productForm.item_no" type="number" size="sm" :state="errors[0] ? false : null" />
+              </b-form-group>
+            </ValidationProvider>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col>
+            <ValidationProvider rules="required" name="Name (English)" v-slot="{ errors }">
+              <b-form-group label-size="sm" :invalid-feedback="errors[0]">
+                <template #label>
+                  <span>Name (English)</span><span class="asterisk">*</span>
+                </template>
+                <b-input v-model="productForm.name_en" size="sm" autofocus :state="errors[0] ? false : null" />
+              </b-form-group>
+            </ValidationProvider>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col>
+            <b-form-group label="Name (Chinese)" label-size="sm">
+              <b-input v-model="productForm.name_zh" size="sm" />
+            </b-form-group>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col>
+            <b-form-group label="Brand" label-size="sm">
+              <b-select
+                v-model="productForm.brand_id"
+                :options="brandOptions"
+                size="sm">
+              </b-select>
+            </b-form-group>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col>
+            <b-form-group label="Box Quantity" label-size="sm">
+              <b-input v-model="productForm.box_quantity" size="sm" />
+            </b-form-group>
+          </b-col>
+          <b-col>
+            <b-form-group label="Storage Temp" label-size="sm">
+              <b-select
+                v-model="productForm.storage_temp"
+                :options="storageOptions"
+                size="sm">
+              </b-select>
+            </b-form-group>
+          </b-col>
+        </b-row>
+        <b-row align-h="around" class="mt-3">
+          <Button @click="editModalShow = false; clearProductForm()">Cancel</Button>
+          <Button variant="green" :disabled="invalid" class="float-right" @click="updateProduct">Save</Button>
+        </b-row>
+      </ValidationObserver>
+      <template #modal-footer><span></span></template>
     </b-modal>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
 import { normalize, schema } from 'normalizr';
 import { ValidationObserver, ValidationProvider } from 'vee-validate';
 import Uppy from '@uppy/core';
-import FileInput from '@uppy/file-input';
+import Dashboard from '@uppy/dashboard';
 import AwsS3 from '@uppy/aws-s3';
+import ProductDetail from './ProductDetail';
 import Button from './shared/Button';
 import Observer from './shared/Observer';
 
 export default {
   name: 'AdminProductIndex',
-  components: { Button, Observer, ValidationObserver, ValidationProvider },
+  components: { ProductDetail, Button, Observer, ValidationObserver, ValidationProvider },
   data() {
     return {
       productData: {},
@@ -169,22 +269,26 @@ export default {
         { key: 'actions', sortable: false, label: 'Actions', thClass: 'text-center font-lato-th', tdClass: 'text-center clickable' }
       ],
       newModalShow: false,
-      imageUrl: '',  // ?
       productForm: {
-        id: null,
         item_no: null,
         name_en: null,
         name_zh: null,
         brand_id: null,
         box_quantity: null,
-        storage_temp: 'Room',
-        image: null
+        storage_temp: 'Room'
       },
+      editModalShow: false,
+      selectedProduct: {},
+      productDetailModalShow: false,
       statusModalShow: false,
       statusForm: {
         status: null
       },
       selectedProduct: null,
+      previewAttached: false,
+      photoForm: {
+        image: null
+      },
       storageOptions: ['Room', 'Cooler', 'Frozen'],
       uploadingImage: false,
       loading: false,
@@ -197,7 +301,6 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['isAdmin']),
     products() {
       return this.productList.map(id => this.productData[id]).sort((a,b) => a.item_no - b.item_no);
     },
@@ -215,6 +318,7 @@ export default {
     const uppy = Uppy({
       debug: true,
       autoProceed: true,
+      allowMultipleUploads: false,
       restrictions: {
         maxFileSize: 10000000,
         maxNumberOfFiles: 1,
@@ -222,12 +326,15 @@ export default {
         allowedFileTypes: ['image/*', '.jpg', '.jpeg', '.JPG', '.JPEG', '.png', '.PNG']
       },
     })
-    .use(FileInput, {
-      target: '#uppy-target',
-      pretty: true,
+    .use(Dashboard, {
+      target: 'body',
+      trigger: '#uppy-select-files',
+      thumbnailWidth: 400,
+      closeAfterFinish: true,
+      proudlyDisplayPoweredByUppy: false,
       locale: {
         strings: {
-          chooseFiles: 'Choose image file'
+          dropPaste: 'Drop photo file here, or %{browse}'
         }
       }
     })
@@ -236,7 +343,17 @@ export default {
     })
 
     uppy.on('upload', (data) => {
-      this.uploadingImage = true;
+      this.previewAttached = true;
+    })
+
+    uppy.on('thumbnail:generated', (file, preview) => {
+      let elem = document.createElement("img");
+      elem.src = preview;
+      elem.style.maxHeight = '300px';
+      elem.style.maxWidth = '300px';
+      let anchor = document.getElementById("previewAnchor");
+      // anchor.firstChild.remove();
+      anchor.appendChild(elem);
     })
 
     uppy.on('upload-success', (file, response) => {
@@ -250,18 +367,14 @@ export default {
           mime_type: file.type,
         }
       })
-      console.log(file)
-      console.log(response)
-      // set hidden field value to the uploaded file data so that it's submitted with the form as the attachment
-      this.productForm.image = uploadedFileData;
+      this.photoForm.image = uploadedFileData;
+      this.updatePhoto();
+    })
 
-      // show image preview
-      this.$refs.imagePreview.src = URL.createObjectURL(file.data);
-
-      // use cached version of AWS image URL for form submital
-      this.imageUrl = response.uploadURL;
-
-      this.uploadingImage = false;
+    uppy.on('complete', (result) => {
+      uppy.reset();
+      console.log('successful files:', result.successful)
+      console.log('failed files:', result.failed)
     })
   },
   methods: {
@@ -336,14 +449,10 @@ export default {
         })
         .then(response => {
           console.log(response);
-          let createdProduct = response.data;
-          createdProduct['image_url'] = this.imageUrl;
           this.$set(this.productData, response.data.id, response.data);
           this.productList.push(response.data.id);
           this.newModalShow = false;
           this.clearProductForm();
-
-          this.imageUrl = '';
         })
         .catch(error => console.log(error))
         .finally(() => this.processing = false);
@@ -353,7 +462,16 @@ export default {
       this.statusForm.status = item.status;
       this.statusModalShow = true;
     },
-    updateProduct() {
+    openEditModal() {
+      this.productForm.item_no = this.selectedProduct.item_no;
+      this.productForm.name_en = this.selectedProduct.name_en;
+      this.productForm.name_zh = this.selectedProduct.name_zh;
+      this.productForm.brand_id = this.selectedProduct.brand_id;
+      this.productForm.box_quantity = this.selectedProduct.box_quantity;
+      this.productForm.storage_temp = this.selectedProduct.storage_temp;
+      this.editModalShow = true;
+    },
+    updateStatus() {
       if (this.processing) return;
       this.processing = true;
       this.$http.put(`/admin/products/${this.selectedProduct.id}`, {
@@ -369,18 +487,66 @@ export default {
       .catch(error => console.log(error))
       .finally(() => this.processing = false);
     },
-    goToProduct(item) {
-      this.$router.push(`/products/${item.id}`);
+    showProductDetail(item) {
+      if (this.processing) return;
+      this.processing = true;
+      this.$http.get(`/products/${item.id}`)
+        .then(response => {
+          console.log(response)
+          this.selectedProduct = response.data.product;
+          this.productDetailModalShow = true;
+        })
+        .catch(error => {
+          console.log(error)
+        })
+        .finally(() => this.processing = false);
+    },
+    updateProduct(product) {
+      if (this.processing) return;
+      this.processing = true;
+      this.$http.put(`/admin/products/${this.selectedProduct.id}`, {
+        product: this.productForm
+      })
+      .then(response => {
+        console.log(response);
+        this.selectedProduct = response.data;
+        this.$set(this.productData, response.data.id, response.data);
+        this.clearProductForm();
+      })
+      .catch(error => {
+        console.log(error)
+        this.alertVariant = 'danger';
+        if (error.response.data.errors) {
+          this.alertMessage = error.response.data.errors[0];
+        } else {
+          this.alertMessage = 'Error: Something went wrong'
+        }
+        this.alertShow = true;
+      })
+      .finally(() => {
+        this.processing = false;
+        this.editModalShow = false;
+      });
     },
     clearProductForm() {
-      this.productForm.id = null
-      this.productForm.item_no = null
-      this.productForm.name_en = null
-      this.productForm.name_zh = null
-      this.productForm.brand_id = null
-      this.productForm.box_quantity = null
-      this.productForm.storage_temp = 'Room'
-      this.productForm.image = null
+      this.productForm.item_no = null;
+      this.productForm.name_en = null;
+      this.productForm.name_zh = null;
+      this.productForm.brand_id = null;
+      this.productForm.box_quantity = null;
+      this.productForm.storage_temp = 'Room';
+    },
+    updatePhoto() {
+      this.$http.put(`/admin/products/${this.selectedProduct.id}`, {
+        product: this.photoForm
+      })
+      .then(response => {
+        console.log(response);
+        this.selectedProduct = response.data;
+        this.$set(this.productData, response.data.id, Object.assign(response.data, { image_url: "placeholder" }));
+        this.photoForm.image = null;
+      })
+      .catch(error => console.log(error));
     },
     intersected() {
       if (this.page + 1 <= this.last) {

@@ -41,7 +41,7 @@ module Api
         authorize([:admin, @product])
         if @product.update(product_params)
           if @product.image_data.present?
-            @product = @product.attributes.merge!(image_url: @product.image_url(:medium))
+            @product = @product.attributes.merge!(image_url: @product.image_url(:small))
           else
             @product = @product.attributes.merge!(image_url: nil)
           end
