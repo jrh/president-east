@@ -5,12 +5,14 @@ module Api
       before_action :authenticate_user
 
       def index
+        authorize([:admin, User])
         @users = User.all
         render status: :ok, json: @users
       end
 
       def update
         @user = User.find(params[:id])
+        authorize([:admin, @user])
         if @user.update(user_params)
           render status: :ok, json: @user
         else

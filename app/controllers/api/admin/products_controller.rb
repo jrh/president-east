@@ -6,7 +6,7 @@ module Api
       before_action :authenticate_user
 
       def index
-
+        authorize([:admin, Product])
         @pagy, @products = pagy(Product.order(:item_no), items: 20)
         @products = @products.map do |p|
           if !p.image_data.nil?
@@ -22,6 +22,7 @@ module Api
 
       def create
         @product = Product.new(product_params)
+        authorize([:admin, @product])
         if @product.save
           # check for image_url with binding.pry...
           # if product.image_data.present?
@@ -37,6 +38,7 @@ module Api
 
       def update
         @product = Product.find(params[:id])
+        authorize([:admin, @product])
         if @product.update(product_params)
           if @product.image_data.present?
             @product = @product.attributes.merge!(image_url: @product.image_url(:medium))

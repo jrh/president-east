@@ -5,12 +5,14 @@ module Api
       before_action :authenticate_user
 
       def index
+        authorize([:admin, Brand])
         @brands = Brand.all.order(:name_en)
         render status: :ok, json: @brands
       end
 
       def create
         @brand = Brand.new(brand_params)
+        authorize([:admin, @brand])
         if @brand.save
           render status: :created, json: @brand
         else
@@ -20,6 +22,7 @@ module Api
 
       def update
         @brand = Brand.find(params[:id])
+        authorize([:admin, @brand])
         if @brand.update(brand_params)
           render status: :created, json: @brand
         else

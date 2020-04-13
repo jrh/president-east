@@ -30,7 +30,7 @@ instance.interceptors.response.use(response => {
     store.dispatch('forcedLogout', authMessage);
   } else if (error.response.status == 403) {
     if (error.response.data.message) {
-      // TODO: redirect??
+      router.push('/');
       store.dispatch('displayFlash', { variant: 'danger', message: error.response.data.message });
     }
   }
