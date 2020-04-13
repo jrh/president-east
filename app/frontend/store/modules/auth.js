@@ -26,6 +26,13 @@ const getters = {
     } else {
       return false;
     }
+  },
+  isSuperAdmin(state) {
+    if (state.currentUser && state.currentUser.role == 'super_admin') {
+      return true;
+    } else {
+      return false;
+    }
   }
 };
 

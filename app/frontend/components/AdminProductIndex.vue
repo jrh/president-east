@@ -170,10 +170,7 @@
             <font-awesome-icon :icon="['far', 'edit']" fixed-width />
             <span class="pl-2">Edit Product Info</span>
           </Button>
-          <!-- <Button size="sm" class="float-right" @click="openStatusModal">
-            <font-awesome-icon :icon="['far', 'edit']" fixed-width />
-            <span class="pl-2">Change Status</span>
-          </Button> -->
+          <span v-if="selectedProduct && isSuperAdmin" class="float-right" style="font-size: 14px">ID: {{ selectedProduct.id }}</span>
         </b-alert>
       </b-container>
        <b-container class="mt-5">
@@ -271,6 +268,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import { normalize, schema } from 'normalizr';
 import { ValidationObserver, ValidationProvider } from 'vee-validate';
 import Uppy from '@uppy/core';
@@ -337,6 +335,7 @@ export default {
     }
   },
   computed: {
+    ...mapGetters(['isSuperAdmin']),
     products() {
       return this.productList.map(id => this.productData[id]).sort((a,b) => a.item_no - b.item_no);
     },
@@ -388,7 +387,6 @@ export default {
       elem.style.maxHeight = '300px';
       elem.style.maxWidth = '300px';
       let anchor = document.getElementById("previewAnchor");
-      // anchor.firstChild.remove();
       anchor.appendChild(elem);
     })
 
