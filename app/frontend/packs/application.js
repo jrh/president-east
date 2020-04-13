@@ -6,7 +6,6 @@ import App from '../App.vue';
 import store from '../store';
 import router from '../routes.js';
 import '../filters/titleize.js';
-// import Cookies from 'js-cookie';  // remove?
 
 // Axios config
 import axios from 'axios';
