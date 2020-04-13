@@ -39,15 +39,21 @@ module Api
       def update
         @product = Product.find(params[:id])
         authorize([:admin, @product])
-        if @product.update(product_params)
-          if @product.image_data.present?
-            @product = @product.attributes.merge!(image_url: @product.image_url(:small))
+        begin
+          if @product.update(product_params)
+            if @product.image_data.present?
+              @product = @product.attributes.merge!(image_url: @product.image_url(:small))
+            else
+              @product = @product.attributes.merge!(image_url: nil)
+            end
+            render status: :ok, json: @product
           else
-            @product = @product.attributes.merge!(image_url: nil)
+            render status: :unprocessable_entity, json: { errors: @product.errors.full_messages }
           end
-          render status: :ok, json: @product
-        else
-          render status: :unprocessable_entity, json: { errors: @product.errors.full_messages }
+        rescue ActiveRecord::RecordNotUnique => e
+          if e.message =~ /unique.*constraint.*index_products_on_item_no/
+            render status: :unprocessable_entity, json: { errors: ['That item number is already in use'] }
+          end
         end
       end
 

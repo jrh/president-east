@@ -45,77 +45,82 @@
       v-model="newModalShow"
       title="Add new product"
       centered
-      static
       no-close-on-backdrop
       no-close-on-esc
-      @hide="clearValidationError"
+      @hide="clearValidationError(); clearProductForm()"
     >
       <b-alert v-model="validationErrorShow" variant="danger" style="font-size: 13px">
         <font-awesome-icon :icon="['far', 'exclamation-circle']" fixed-width />
         <span class="pl-2">{{ validationErrorMessage }}</span>
       </b-alert>
-      <b-form-row>
-        <b-col>
-          <b-form-group label-size="sm">
-            <template #label>
-              <span>Item No.</span><span class="asterisk">*</span>
-            </template>
-            <b-input v-model="productForm.item_no" type="number" size="sm" autofocus />
-          </b-form-group>
-        </b-col>
-        <b-col></b-col>
-      </b-form-row>
-      <b-form-row>
-        <b-col>
-          <b-form-group label-size="sm">
-            <template #label>
-              <span>Name (English)</span><span class="asterisk">*</span>
-            </template>
-            <b-input v-model="productForm.name_en" size="sm" />
-          </b-form-group>
-        </b-col>
-      </b-form-row>
-      <b-form-row>
-        <b-col>
-          <b-form-group label="Name (Chinese)" label-size="sm">
-            <b-input v-model="productForm.name_zh" size="sm" />
-          </b-form-group>
-        </b-col>
-      </b-form-row>
-      <b-form-row>
-        <b-col>
-          <b-form-group label-size="sm">
-            <template #label>
-              <span>Brand</span><span class="asterisk">*</span>
-            </template>
-            <b-select v-model="productForm.brand_id" :options="brandOptions" size="sm">
-              <template #first>
-                <b-select-option :value="null" disabled>- Choose a brand -</b-select-option>
-              </template>
-            </b-select>
-          </b-form-group>
-        </b-col>
-      </b-form-row>
-      <b-form-row>
-        <b-col>
-          <b-form-group label="Box Quantity" label-size="sm">
-            <b-input v-model="productForm.box_quantity" size="sm" />
-          </b-form-group>
-        </b-col>
-        <b-col>
-          <b-form-group label="Storage Temp" label-size="sm">
-            <b-select
-              v-model="productForm.storage_temp"
-              :options="storageOptions"
-              size="sm">
-            </b-select>
-          </b-form-group>
-        </b-col>
-      </b-form-row>
-      <template #modal-footer>
-        <Button @click="close">Cancel</Button>
-        <Button variant="green" :disabled="!productForm.item_no || !productForm.name_en || !productForm.brand_id" class="float-right" @click="createProduct">Create</Button>
-      </template>
+      <ValidationObserver v-slot="{ handleSubmit }">
+        <b-row>
+          <b-col>
+            <ValidationProvider mode="lazy" rules="required" name="Item No." v-slot="{ errors }">
+              <b-form-group label-size="sm" :invalid-feedback="errors[0]">
+                <template #label>
+                  <span>Item No.</span><span class="asterisk">*</span>
+                </template>
+                <b-input v-model="productForm.item_no" type="number" size="sm" autofocus :state="errors[0] ? false : null" />
+              </b-form-group>
+            </ValidationProvider>
+          </b-col>
+          <b-col></b-col>
+        </b-row>
+        <b-row>
+          <b-col>
+            <ValidationProvider mode="lazy" rules="required" name="Name (English)" v-slot="{ errors }">
+              <b-form-group label-size="sm" :invalid-feedback="errors[0]">
+                <template #label>
+                  <span>Name (English)</span><span class="asterisk">*</span>
+                </template>
+                <b-input v-model="productForm.name_en" size="sm" :state="errors[0] ? false : null" />
+              </b-form-group>
+            </ValidationProvider>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col>
+            <b-form-group label="Name (Chinese)" label-size="sm">
+              <b-input v-model="productForm.name_zh" size="sm" />
+            </b-form-group>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col>
+            <ValidationProvider mode="lazy" rules="required" name="Brand" v-slot="{ errors }">
+              <b-form-group label-size="sm" :invalid-feedback="errors[0]">
+                <template #label>
+                  <span>Brand</span><span class="asterisk">*</span>
+                </template>
+                <b-select v-model="productForm.brand_id" :options="brandOptions" size="sm" :state="errors[0] ? false : null">
+                  <template #first>
+                    <b-select-option :value="null" disabled>- Choose a brand -</b-select-option>
+                  </template>
+                </b-select>
+              </b-form-group>
+            </ValidationProvider>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col>
+            <b-form-group label="Box Quantity" label-size="sm">
+              <b-input v-model="productForm.box_quantity" size="sm" />
+            </b-form-group>
+          </b-col>
+          <b-col>
+            <b-form-group label="Storage Temp" label-size="sm">
+              <b-select v-model="productForm.storage_temp" :options="storageOptions" size="sm">
+              </b-select>
+            </b-form-group>
+          </b-col>
+        </b-row>
+        <b-row align-h="around" class="mt-3">
+          <Button @click="newModalShow = false">Cancel</Button>
+          <Button variant="green" class="float-right" @click="handleSubmit(createProduct)">Create</Button>
+        </b-row>
+      </ValidationObserver>
+      <template #modal-footer><span></span></template>
     </b-modal>
 
     <!-- Status modal -->
@@ -186,12 +191,16 @@
     </b-modal>
 
     <!-- Edit modal -->
-    <b-modal v-model="editModalShow" title="Edit product details" centered>
+    <b-modal v-model="editModalShow" title="Edit product details" centered @hide="clearValidationError(); clearProductForm()">
+      <b-alert v-model="validationErrorShow" variant="danger" style="font-size: 13px">
+        <font-awesome-icon :icon="['far', 'exclamation-circle']" fixed-width />
+        <span class="pl-2">{{ validationErrorMessage }}</span>
+      </b-alert>
       <ValidationObserver v-slot="{ invalid }">
         <b-row>
           <b-col>
             <ValidationProvider rules="required" name="Item No." v-slot="{ errors }">
-              <b-form-group label-size="sm">
+              <b-form-group label-size="sm" :invalid-feedback="errors[0]">
                 <template #label>
                   <span>Item No.</span><span class="asterisk">*</span>
                 </template>
@@ -247,7 +256,7 @@
           </b-col>
         </b-row>
         <b-row align-h="around" class="mt-3">
-          <Button @click="editModalShow = false; clearProductForm()">Cancel</Button>
+          <Button @click="editModalShow = false">Cancel</Button>
           <Button variant="green" :disabled="invalid" class="float-right" @click="updateProduct">Save</Button>
         </b-row>
       </ValidationObserver>
@@ -461,13 +470,6 @@ export default {
           this.addingPage = false;
         });
     },
-    close() {
-      this.newModalShow = false;
-      this.clearProductForm();
-      setTimeout(() => {
-        this.$refs.imagePreview.src = '';
-      }, 300)
-    },
     createProduct() {
       if (this.processing) return;
       this.processing = true;
@@ -548,22 +550,22 @@ export default {
         console.log(response);
         this.selectedProduct = response.data;
         this.$set(this.productData, response.data.id, response.data);
+        this.editModalShow = false;
         this.clearProductForm();
       })
       .catch(error => {
         console.log(error)
         this.alertVariant = 'danger';
         if (error.response.data.errors) {
-          this.alertMessage = error.response.data.errors[0];
+          this.validationErrorMessage = error.response.data.errors.join(', ')
+          this.validationErrorShow = true;
         } else {
-          this.alertMessage = 'Error: Something went wrong'
+          this.alertVariant = 'danger';
+          this.alertMessage = 'Error: Something went wrong';
+          this.alertShow = true;
         }
-        this.alertShow = true;
       })
-      .finally(() => {
-        this.processing = false;
-        this.editModalShow = false;
-      });
+      .finally(() => this.processing = false);
     },
     clearProductForm() {
       this.productForm.item_no = null;
