@@ -568,7 +568,4 @@ export default {
 .v-input--radio-group {
   margin-top: 0;
 }
-#file-input {
-  border: 1px dashed #aaa;
-}
 </style>

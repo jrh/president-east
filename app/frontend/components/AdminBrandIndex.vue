@@ -91,7 +91,6 @@ import { mapGetters } from 'vuex';
 import { normalize, schema } from 'normalizr';
 import { ValidationObserver, ValidationProvider } from 'vee-validate';
 // import Uppy from '@uppy/core';
-// import FileInput from '@uppy/file-input';
 // import AwsS3 from '@uppy/aws-s3';
 import Button from './shared/Button';
 import ToastAlert from './shared/ToastAlert';
@@ -280,8 +279,5 @@ export default {
 }
 .v-input--radio-group {
   margin-top: 0;
-}
-#file-input {
-  border: 1px dashed #aaa;
 }
 </style>

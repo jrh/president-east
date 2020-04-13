@@ -926,14 +926,6 @@
     preact-css-transition-group "^1.3.0"
     resize-observer-polyfill "^1.5.0"
 
-"@uppy/file-input@^1.4.7":
-  version "1.4.7"
-  resolved "https://registry.yarnpkg.com/@uppy/file-input/-/file-input-1.4.7.tgz#40a6556b0c7539828040b9b7cab3e199357bfc10"
-  integrity sha512-hUViZg/YEWE/wyDA1ktadhgS/ruxAYk7g8V4kIcWdwtXtxHzjKpefwB0fdv0Til+Ta0OIwKX7Qxq0wq8ILmTgQ==
-  dependencies:
-    "@uppy/utils" "^2.4.0"
-    preact "8.2.9"
-
 "@uppy/informer@^1.5.1":
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/@uppy/informer/-/informer-1.5.1.tgz#154bb441167c7686c15b0af1a96378f2272e3810"
