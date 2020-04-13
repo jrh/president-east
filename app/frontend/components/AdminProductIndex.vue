@@ -356,7 +356,7 @@ export default {
     .use(Dashboard, {
       target: 'body',
       trigger: '#uppy-select-files',
-      thumbnailWidth: 400,
+      thumbnailWidth: 300,
       closeAfterFinish: true,
       proudlyDisplayPoweredByUppy: false,
       locale: {

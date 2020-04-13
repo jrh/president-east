@@ -6,7 +6,7 @@
         <font-awesome-icon v-else :icon="['far', 'image']" size="3x" fixed-width style="color: #e6e6e6" />
       </div>
     </b-row>
-    <b-card-body class="font-lato d-flex flex-column" style="height: 185px" @click="$emit('product-clicked', product.id)">
+    <b-card-body class="font-lato d-flex flex-column" style="height: 130px" @click="$emit('product-clicked', product.id)">
       <b-container fluid>
         <b-row class="mb-1">
           <span style="font-size: 14px; color: #008000">{{ product.name_en }}</span>
@@ -24,7 +24,7 @@
           <span class="text-info" style="font-size: 12px">{{ product.storage_temp }}</span>
         </b-row>
       </b-container>
-      <b-btn size="sm" variant="outline-warning" class="mt-auto">Add to Cart</b-btn>
+      <!-- <b-btn size="sm" variant="outline-warning" class="mt-auto">Add to Cart</b-btn> -->
     </b-card-body>
   </b-card>
 </template>

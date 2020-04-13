@@ -40,9 +40,9 @@
             </b-tbody>
           </b-table-simple>
         </b-row>
-        <b-row v-if="product.status == 'active'" class="mt-2">
+        <!-- <b-row v-if="product.status == 'active'" class="mt-2">
           <b-btn :disabled="isAdmin" size="lg" variant="warning">Add to Cart</b-btn>
-        </b-row>
+        </b-row> -->
       </b-col>
     </b-row>
   </b-container>
