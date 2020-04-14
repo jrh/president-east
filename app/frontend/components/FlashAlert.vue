@@ -8,6 +8,9 @@
         style="font-size: 13px"
         @dismissed="$store.dispatch('clearFlash')"
       >
+        <template #dismiss>
+          <font-awesome-icon :icon="['far', 'times']" size="sm" class="pb-1" />
+        </template>
         {{ $store.state.flash.message }}
       </b-alert>
     </b-col>

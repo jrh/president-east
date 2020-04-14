@@ -119,7 +119,8 @@ import {
   faEnvelope,
   faExclamationCircle as farExclamationCircle,
   faImage as farImage,
-  faKey
+  faKey,
+  faTimes
 } from '@fortawesome/pro-regular-svg-icons';
 
 library.add(
@@ -131,6 +132,7 @@ library.add(
   fasImage,
   faKey,
   faSearch,
+  faTimes,
   faUserFriends
 );
 Vue.component('font-awesome-icon', FontAwesomeIcon);
