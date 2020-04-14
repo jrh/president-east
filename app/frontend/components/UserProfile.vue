@@ -5,12 +5,6 @@
         <b-row class="mt-5">
           <p style="font-size: 24px">My Profile</p>
         </b-row>
-        <b-row>
-          <b-alert v-model="errorShow" variant="danger" style="font-size: 13px">
-            <font-awesome-icon :icon="['far', 'exclamation-circle']" fixed-width />
-            <span class="pl-2">{{ errorMessage }}</span>
-          </b-alert>
-        </b-row>
         <b-row class="mt-5">
           <h4 v-if="ready" class="lead">{{ user.first_name + ' ' + user.last_name }}</h4>
         </b-row>
@@ -40,7 +34,11 @@
     </b-row>
 
     <!-- Profile modal -->
-    <b-modal v-model="editModalShow" title="Edit profile" centered>
+    <b-modal v-model="editModalShow" title="Edit profile" centered @hide="clearValidationError">
+      <b-alert v-model="validationErrorShow" variant="danger" style="font-size: 13px">
+        <font-awesome-icon :icon="['far', 'exclamation-circle']" fixed-width />
+        <span class="pl-2">{{ validationErrorMessage }}</span>
+      </b-alert>
       <ValidationObserver v-slot="{ invalid }">
         <b-row>
           <b-col>
@@ -94,7 +92,11 @@
     </b-modal>
 
     <!-- Password modal -->
-    <b-modal v-model="passwordModalShow" title="Edit profile" centered @hide="clearPasswordForm">
+    <b-modal v-model="passwordModalShow" title="Edit profile" centered @hide="clearPasswordForm(); clearValidationError()">
+      <b-alert v-model="validationErrorShow" variant="danger" style="font-size: 13px">
+        <font-awesome-icon :icon="['far', 'exclamation-circle']" fixed-width />
+        <span class="pl-2">{{ validationErrorMessage }}</span>
+      </b-alert>
       <ValidationObserver v-slot="{ handleSubmit }">
         <b-row>
           <b-col>
@@ -187,8 +189,8 @@ export default {
       alertShow: false,
       alertVariant: null,
       alertMessage: '',
-      errorShow: false,
-      errorMessage: '',
+      validationErrorShow: false,
+      validationErrorMessage: '',
       processing: false,
       ready: false,
     }
@@ -218,7 +220,7 @@ export default {
     updateUser() {
       if (this.processing) return;
       this.processing = true;
-      this.clearError();
+      this.clearValidationError();
       this.$http.put(`/users/${this.userId}`, {
           user: this.userForm
         })
@@ -228,27 +230,24 @@ export default {
           this.alertVariant = 'success';
           this.alertMessage = 'Profile updated successfully';
           this.alertShow = true;
+          this.editModalShow = false;
         })
         .catch(error => {
           console.log(error)
           if (error.response.data.errors) {
-            this.errorMessage = error.response.data.errors.join(', ')
-            this.errorShow = true;
+            this.validationErrorMessage = error.response.data.errors.join(', ')
+            this.validationErrorShow = true;
           } else {
             this.alertVariant = 'danger';
             this.alertMessage = 'Error: Something went wrong';
             this.alertShow = true;
           }
         })
-        .finally(() => {
-          this.processing = false;
-          this.editModalShow = false;
-        });
+        .finally(() => this.processing = false);
     },
     updatePassword() {
       if (this.processing) return;
       this.processing = true;
-      this.clearError();
       this.$http.patch(`/users/${this.userId}/change_password`, {
           current_password: this.currentPassword,
           user: this.passwordForm
@@ -259,31 +258,29 @@ export default {
           this.alertVariant = 'success';
           this.alertMessage = 'Password changed successfully';
           this.alertShow = true;
+          this.passwordModalShow = false;
         })
         .catch(error => {
           console.log(error)
           if (error.response.data.errors) {
-            this.errorMessage = error.response.data.errors.join(', ')
-            this.errorShow = true;
+            this.validationErrorMessage = error.response.data.errors.join(', ')
+            this.validationErrorShow = true;
           } else {
             this.alertVariant = 'danger';
             this.alertMessage = 'Error: Something went wrong';
             this.alertShow = true;
           }
         })
-        .finally(() => {
-          this.processing = false;
-          this.passwordModalShow = false;
-        });
+        .finally(() => this.processing = false);
     },
     clearPasswordForm() {
       this.passwordForm.password = null;
       this.passwordForm.password_confirmation = null;
       this.currentPassword = null;
     },
-    clearError() {
-      this.errorShow = false;
-      this.errorMessage = '';
+    clearValidationError() {
+      this.validationErrorShow = false;
+      this.validationErrorMessage = '';
     }
   }
 }
