@@ -1,5 +1,6 @@
 <template>
   <b-card footer-bg-variant="light" class="product-card-style">
+    <span v-if="product.storage_temp !== 'Room'" class="position-absolute text-info" style="font-size: 11px; top: 4px; right: 6px">{{ product.storage_temp }}</span>
     <b-row align-h="center" align-v="center" style="height: 100px">
       <div class="thumbnail" @click="$emit('product-clicked', product.id)">
         <img v-if="product.image_url" :src="product.image_url" class="thumbnail-image" />
@@ -19,9 +20,6 @@
         </b-row>
         <b-row class="text-secondary mb-1" style="font-size: 12px">
           <span>{{ product.box_quantity }}</span>
-        </b-row>
-        <b-row v-if="product.storage_temp !== 'Room'" class="text-secondary">
-          <span class="text-info" style="font-size: 12px">{{ product.storage_temp }}</span>
         </b-row>
       </b-container>
       <!-- <b-btn size="sm" variant="outline-warning" class="mt-auto">Add to Cart</b-btn> -->
