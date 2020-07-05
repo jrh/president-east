@@ -308,7 +308,6 @@ export default {
         storage_temp: 'Room'
       },
       editModalShow: false,
-      selectedProduct: {},
       productDetailModalShow: false,
       statusModalShow: false,
       statusForm: {
